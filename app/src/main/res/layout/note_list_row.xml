@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:paddingBottom="@dimen/dimen_10"
+    android:paddingLeft="@dimen/activity_margin"
+    android:paddingRight="@dimen/activity_margin"
+    android:background="#1C1919"
+    android:paddingTop="@dimen/dimen_10">
+
+    <TextView
+        android:id="@+id/dot"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dot_height"
+        android:layout_marginEnd="@dimen/dot_margin_right"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:includeFontPadding="false"
+        android:textColor="@color/colorAccent"
+        android:lineSpacingExtra="0dp"
+        android:textSize="@dimen/dot_text_size" />
+
+    <TextView
+        android:id="@+id/note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/dot"
+        android:textColor="@color/note_list_text"
+        android:textSize="@dimen/note_list_text" />
+
+    <LinearLayout
+        android:id="@+id/investmentfinance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/note"
+        android:layout_toEndOf="@+id/dot"
+        android:weightSum="1">
+        <TextView
+            android:id="@+id/investmentAmount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_weight="0.5"
+            android:textColor="@color/note_investment_amount"
+            android:textSize="@dimen/note_investment_amount"/>
+
+        <TextView
+            android:id="@+id/investmentInterest"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/note_investment_interest_percent"
+            android:textSize="@dimen/note_investment_interest"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/investmentfinance"
+        android:layout_toEndOf="@+id/dot"
+        android:weightSum="1">
+        <TextView
+            android:id="@+id/investmentMedium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:textColor="@color/note_investment_medium"
+            android:textSize="@dimen/investment_medium"/>
+        <TextView
+            android:id="@+id/investmentCategory"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:textColor="@color/note_investment_category"
+            android:textSize="@dimen/investment_category"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/medium"
+        android:layout_toEndOf="@+id/dot"
+        android:weightSum="1">
+        <TextView
+            android:id="@+id/investedDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:textColor="@color/investment_datepicker"
+            android:textSize="@dimen/investment_category"/>
+        <TextView
+            android:id="@+id/investedNumberOfMonths"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:textColor="@color/investment_amount_of_month"
+            android:textSize="@dimen/investment_category"/>
+    </LinearLayout>
+</RelativeLayout>

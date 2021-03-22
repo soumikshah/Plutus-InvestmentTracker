@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_margin"
+    android:paddingRight="@dimen/activity_margin"
+    android:paddingTop="@dimen/activity_margin"
+    android:paddingBottom="25dp"
+    android:background="#1C1919">
+
+    <TextView android:id="@+id/dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_10"
+        android:fontFamily="sans-serif-medium"
+        android:lineSpacingExtra="8sp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/lbl_new_note_title"
+        android:textColor="@color/colorAccent"
+        android:paddingBottom="10dp"
+        android:textSize="@dimen/lbl_new_note_title"
+        android:textStyle="normal" />
+
+    <EditText
+        android:id="@+id/note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_design"
+        android:gravity="center"
+        android:hint="@string/hint_enter_note"
+        android:inputType="textCapSentences|textMultiLine"
+        android:lines="2"
+        android:layout_margin="5dp"
+        android:textColorHint="@color/note_list_text"
+        android:textColor="@color/note_list_text"
+        android:textSize="@dimen/input_new_note" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:weightSum="1">
+
+        <EditText
+            android:id="@+id/investmentAmount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_design"
+            android:gravity="center_horizontal"
+            android:layout_margin="3dp"
+            android:layout_weight="0.7"
+            android:hint="@string/hint_enter_amount"
+            android:inputType="number|numberDecimal"
+            android:textColorHint="@color/note_investment_amount"
+            android:textColor="@color/note_investment_amount"
+            android:textSize="@dimen/investment_amount" />
+        <EditText
+            android:id="@+id/investmentInterest"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_design"
+            android:gravity="center_horizontal"
+            android:layout_margin="3dp"
+            android:layout_weight="0.3"
+            android:hint="@string/hint_enter_interest_percent"
+            android:inputType="number|numberDecimal"
+            android:textColorHint="@color/note_investment_interest_percent"
+            android:textColor="@color/note_investment_interest_percent"
+            android:textSize="@dimen/investment_interest" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/investmentCategories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+        <EditText
+            android:id="@+id/investmentMedium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:background="@drawable/edittext_design"
+            android:gravity="center_horizontal"
+            android:hint="@string/hint_enter_investment_medium"
+            android:inputType="textCapSentences|text"
+            android:layout_margin="3dp"
+            android:paddingBottom="5dp"
+            android:textColorHint="@color/note_investment_medium"
+            android:textColor="@color/note_investment_medium"
+            android:textSize="@dimen/investment_medium" />
+
+        <EditText
+            android:id="@+id/investmentCategory"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:background="@drawable/edittext_design"
+            android:gravity="center_horizontal"
+            android:hint="@string/hint_enter_investment_category"
+            android:inputType="textCapSentences|text"
+            android:layout_margin="3dp"
+            android:paddingBottom="5dp"
+            android:textColorHint="@color/note_investment_category"
+            android:textColor="@color/note_investment_category"
+            android:textSize="@dimen/investment_category" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/timeFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+        <TextView
+            android:id="@+id/investedDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:background="@drawable/edittext_design"
+            android:gravity="center_horizontal"
+            android:hint="@string/hint_enter_investment_date"
+            android:layout_margin="3dp"
+            android:paddingBottom="5dp"
+            android:focusable="false"
+            android:textColorHint="@color/investment_datepicker"
+            android:textColor="@color/investment_datepicker"
+            android:textSize="@dimen/investment_category" />
+
+        <EditText
+            android:id="@+id/investedNumberOfMonths"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:background="@drawable/edittext_design"
+            android:gravity="center_horizontal"
+            android:hint="@string/hint_enter_investment_month"
+            android:inputType="number"
+            android:layout_margin="3dp"
+            android:paddingBottom="5dp"
+            android:textColorHint="@color/investment_amount_of_month"
+            android:textColor="@color/investment_amount_of_month"
+            android:textSize="@dimen/investment_category" />
+    </LinearLayout>
+
+</LinearLayout>
