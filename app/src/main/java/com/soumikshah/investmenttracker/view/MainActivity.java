@@ -17,11 +17,16 @@ import android.widget.Toolbar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 import com.soumikshah.investmenttracker.R;
 import com.soumikshah.investmenttracker.database.DatabaseHelper;
 import com.soumikshah.investmenttracker.database.model.Investment;
@@ -36,30 +41,34 @@ import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
-    private InvestmentAdapter mAdapter;
-    private List<Investment> InvestmentsList = new ArrayList<>();
+
     private CoordinatorLayout coordinatorLayout;
-    private RecyclerView recyclerView;
-    private TextView noInvestmentView;
-    DatePickerDialog datePickerDialog;
-    private DatabaseHelper db;
+
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
+    private MainFragment mainFragment;
     long investmentDateInLong = 0;
+    DatePickerDialog datePickerDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setActionBar(toolbar);
+        if(getActionBar() !=null){
+            getActionBar().setDisplayHomeAsUpEnabled(false);
+        }
+
+        viewPager = findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        tabLayout = findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
         coordinatorLayout = findViewById(R.id.coordinator_layout);
-        recyclerView = findViewById(R.id.recycler_view);
-        noInvestmentView = findViewById(R.id.empty_investment_view);
-
-        db = new DatabaseHelper(this);
-
-        InvestmentsList.addAll(db.getAllInvestments());
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        mainFragment = new MainFragment();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,124 +76,51 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mAdapter = new InvestmentAdapter(this, InvestmentsList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
-        recyclerView.setAdapter(mAdapter);
-
-        toggleEmptyInvestments();
-
-        /**
-         * On long press on RecyclerView item, open alert dialog
-         * with options to choose
-         * Edit and Delete
-         * */
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this,
-                recyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, final int position) {
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-                showActionsDialog(position);
-            }
-        }));
     }
 
-    private void createInvestment(String investmentName,
-                                  float investmentAmount,
-                                  float investmentPercent,
-                                  String investmentMedium,
-                                  String investmentCategory,
-                                  long investmentDate,
-                                  int investmentMonth) {
-        long id = db.insertInvestment(investmentName,investmentAmount,
-                investmentPercent,investmentMedium,investmentCategory,
-                investmentDate,investmentMonth);
+    private void setupViewPager(ViewPager viewPager){
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new MainFragment(), "Mainpage");
+        adapter.addFragment(new GraphFragment(), "Graph");
+        viewPager.setAdapter(adapter);
+    }
 
-        // get the newly inserted note from db
-        Investment n = db.getInvestment(id);
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        if (n != null) {
-            // adding new note to array list at 0 position
-            InvestmentsList.add(0, n);
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
 
-            // refreshing the list
-            mAdapter.notifyDataSetChanged();
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
 
-            toggleEmptyInvestments();
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
         }
     }
-
-    private void updateInvestment(String investment, float investmentAmount,
-                                  float investmentPercent, String investmentMedium,
-                                  String investmentCategory,
-                                  long investmentDate,
-                                  int investmentMonth, int position) {
-        Investment n = InvestmentsList.get(position);
-        n.setInvestmentName(investment);
-        n.setInvestmentAmount(investmentAmount);
-        n.setInvestmentPercent(investmentPercent);
-        n.setInvestmentMedium(investmentMedium);
-        n.setInvestmentCategory(investmentCategory);
-        n.setInvestmentDate(investmentDate);
-        n.setInvestmentMonth(investmentMonth);
-
-        // updating note in db
-        db.updateInvestment(n);
-
-        // refreshing the list
-        InvestmentsList.set(position, n);
-        mAdapter.notifyItemChanged(position);
-
-        toggleEmptyInvestments();
-    }
-
-    private void deleteInvestment(int position) {
-        // deleting the note from db
-        db.deleteInvestment(InvestmentsList.get(position));
-
-        // removing the note from the list
-        InvestmentsList.remove(position);
-        mAdapter.notifyItemRemoved(position);
-
-        toggleEmptyInvestments();
-    }
-
-    /**
-     * Opens dialog with Edit - Delete options
-     * Edit - 0
-     * Delete - 0
-     */
-    private void showActionsDialog(final int position) {
-        CharSequence colors[] = new CharSequence[]{"Edit", "Delete"};
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Choose option");
-        builder.setItems(colors, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (which == 0) {
-                    showInvestmentDialog(true, InvestmentsList.get(position), position);
-                } else {
-                    deleteInvestment(position);
-                }
-            }
-        });
-        builder.show();
-    }
-
     /**
      * Shows alert dialog with EditText options to enter / edit
      * a note.
      * when shouldUpdate=true, it automatically displays old note and changes the
      * button text to UPDATE
      */
-    private void showInvestmentDialog(final boolean shouldUpdate, final Investment investment, final int position) {
-        LayoutInflater layoutInflaterAndroid = LayoutInflater.from(getApplicationContext());
+    void showInvestmentDialog(final boolean shouldUpdate, final Investment investment, final int position) {
+        LayoutInflater layoutInflaterAndroid = LayoutInflater.from(MainActivity.this);
         View view = layoutInflaterAndroid.inflate(R.layout.investment_dialog, null);
 
         AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(MainActivity.this);
@@ -290,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 float interestToBeReceived;
                 if(inputInvestmentPercent.getText().toString().matches("")){
-                     interestToBeReceived = 0;
+                    interestToBeReceived = 0;
                 }else{
                     interestToBeReceived = Float.parseFloat(inputInvestmentPercent.getText().toString());
                 }
@@ -298,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
                 // check if user updating note
                 if (shouldUpdate && investment != null) {
                     // update note by it's id
-                    updateInvestment(inputInvestmentName.getText().toString(),
+                    mainFragment.updateInvestment(inputInvestmentName.getText().toString(),
                             Float.parseFloat(inputInvestmentAmount.getText().toString()),
                             interestToBeReceived,
                             inputInvestmentMedium.getText().toString(),
@@ -308,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
                             position);
                 } else {
                     // create new note
-                    createInvestment(inputInvestmentName.getText().toString(),
+                    mainFragment.createInvestment(inputInvestmentName.getText().toString(),
                             Float.parseFloat(inputInvestmentAmount.getText().toString()),
                             interestToBeReceived,
                             inputInvestmentMedium.getText().toString(),
@@ -319,16 +255,5 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Toggling list and empty notes view
-     */
-    private void toggleEmptyInvestments() {
-        // you can check notesList.size() > 0
 
-        if (db.getInvestmentCount() > 0) {
-            noInvestmentView.setVisibility(View.GONE);
-        } else {
-            noInvestmentView.setVisibility(View.VISIBLE);
-        }
-    }
 }
