@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.soumikshah.investmenttracker.database.model.Note;
+import com.soumikshah.investmenttracker.database.model.Investment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +23,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(Note.CREATE_TABLE);
+        sqLiteDatabase.execSQL(Investment.CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+Note.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ Investment.TABLE_NAME);
 
         onCreate(sqLiteDatabase);
     }
@@ -44,71 +44,71 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(Note.COLUMN_INVESTMENT,investment);
-        values.put(Note.COLUMN_INVESTMENT_AMOUNT, investmentAmount);
-        values.put(Note.COLUMN_INTEREST_PERCENT, investmentPercent);
-        values.put(Note.COLUMN_INVESTMENT_MEDIUM, investmentMedium);
-        values.put(Note.COLUMN_INVESTMENT_CATEGORY, investmentCategory);
-        values.put(Note.COLUMN_INVESTMENT_DATE, investmentDate);
-        values.put(Note.COLUMN_INVESTMENT_MONTH,investmentMonth);
+        values.put(Investment.COLUMN_INVESTMENT,investment);
+        values.put(Investment.COLUMN_INVESTMENT_AMOUNT, investmentAmount);
+        values.put(Investment.COLUMN_INTEREST_PERCENT, investmentPercent);
+        values.put(Investment.COLUMN_INVESTMENT_MEDIUM, investmentMedium);
+        values.put(Investment.COLUMN_INVESTMENT_CATEGORY, investmentCategory);
+        values.put(Investment.COLUMN_INVESTMENT_DATE, investmentDate);
+        values.put(Investment.COLUMN_INVESTMENT_MONTH,investmentMonth);
 
-        long id = db.insert(Note.TABLE_NAME,null,values);
+        long id = db.insert(Investment.TABLE_NAME,null,values);
         db.close();
         return id;
     }
 
-    public Note getInvestment(long id){
+    public Investment getInvestment(long id){
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor =
-                db.query(Note.TABLE_NAME, new String[]{Note.COLUMN_ID,Note.COLUMN_INVESTMENT,
-                                Note.COLUMN_INVESTMENT_AMOUNT,Note.COLUMN_INTEREST_PERCENT,
-                                Note.COLUMN_INVESTMENT_MEDIUM, Note.COLUMN_INVESTMENT_CATEGORY,
-                                Note.COLUMN_INVESTMENT_DATE, Note.COLUMN_INVESTMENT_MONTH,
-                                Note.COLUMN_TIMESTAMP},
-                Note.COLUMN_ID+"=?",new String[]{String.valueOf(id)},null,null,null,null);
+                db.query(Investment.TABLE_NAME, new String[]{Investment.COLUMN_ID, Investment.COLUMN_INVESTMENT,
+                                Investment.COLUMN_INVESTMENT_AMOUNT, Investment.COLUMN_INTEREST_PERCENT,
+                                Investment.COLUMN_INVESTMENT_MEDIUM, Investment.COLUMN_INVESTMENT_CATEGORY,
+                                Investment.COLUMN_INVESTMENT_DATE, Investment.COLUMN_INVESTMENT_MONTH,
+                                Investment.COLUMN_TIMESTAMP},
+                Investment.COLUMN_ID+"=?",new String[]{String.valueOf(id)},null,null,null,null);
 
         if(cursor != null){
             cursor.moveToFirst();
         }
 
-        Note note = new Note(
-                cursor.getInt(cursor.getColumnIndex(Note.COLUMN_ID)),
-                cursor.getString(cursor.getColumnIndex(Note.COLUMN_INVESTMENT)),
-                cursor.getFloat(cursor.getColumnIndex(Note.COLUMN_INVESTMENT_AMOUNT)),
-                cursor.getFloat(cursor.getColumnIndex(Note.COLUMN_INTEREST_PERCENT)),
-                cursor.getString(cursor.getColumnIndex(Note.COLUMN_INVESTMENT_MEDIUM)),
-                cursor.getString(cursor.getColumnIndex(Note.COLUMN_INVESTMENT_CATEGORY)),
-                cursor.getLong(cursor.getColumnIndex(Note.COLUMN_INVESTMENT_DATE)),
-                cursor.getInt(cursor.getColumnIndex(Note.COLUMN_INVESTMENT_MONTH)),
-                cursor.getString(cursor.getColumnIndex(Note.COLUMN_TIMESTAMP))
+        Investment investment = new Investment(
+                cursor.getInt(cursor.getColumnIndex(Investment.COLUMN_ID)),
+                cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT)),
+                cursor.getFloat(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_AMOUNT)),
+                cursor.getFloat(cursor.getColumnIndex(Investment.COLUMN_INTEREST_PERCENT)),
+                cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_MEDIUM)),
+                cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_CATEGORY)),
+                cursor.getLong(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_DATE)),
+                cursor.getInt(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_MONTH)),
+                cursor.getString(cursor.getColumnIndex(Investment.COLUMN_TIMESTAMP))
         );
         cursor.close();
-        return note;
+        return investment;
     }
 
-    public List<Note> getAllInvestments() {
-        List<Note> investments = new ArrayList<>();
+    public List<Investment> getAllInvestments() {
+        List<Investment> investments = new ArrayList<>();
 
-        String selectQuery = "SELECT * FROM "+Note.TABLE_NAME + " ORDER BY "+ Note.COLUMN_TIMESTAMP + " DESC";
+        String selectQuery = "SELECT * FROM "+ Investment.TABLE_NAME + " ORDER BY "+ Investment.COLUMN_TIMESTAMP + " DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if(cursor.moveToFirst()){
             do{
-                Note note = new Note();
-                note.setId(cursor.getInt(cursor.getColumnIndex(Note.COLUMN_ID)));
-                note.setInvestmentName(cursor.getString(cursor.getColumnIndex(Note.COLUMN_INVESTMENT)));
-                note.setInvestmentAmount(cursor.getFloat(cursor.getColumnIndex(Note.COLUMN_INVESTMENT_AMOUNT)));
-                note.setInvestmentPercent(cursor.getFloat(cursor.getColumnIndex(Note.COLUMN_INTEREST_PERCENT)));
-                note.setInvestmentMedium(cursor.getString(cursor.getColumnIndex(Note.COLUMN_INVESTMENT_MEDIUM)));
-                note.setInvestmentCategory(cursor.getString(cursor.getColumnIndex(Note.COLUMN_INVESTMENT_CATEGORY)));
-                note.setInvestmentDate(cursor.getLong(cursor.getColumnIndex(Note.COLUMN_INVESTMENT_DATE)));
-                note.setInvestmentMonth(cursor.getInt(cursor.getColumnIndex(Note.COLUMN_INVESTMENT_MONTH)));
-                note.setTimestamp(cursor.getString(cursor.getColumnIndex(Note.COLUMN_TIMESTAMP)));
+                Investment investment = new Investment();
+                investment.setId(cursor.getInt(cursor.getColumnIndex(Investment.COLUMN_ID)));
+                investment.setInvestmentName(cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT)));
+                investment.setInvestmentAmount(cursor.getFloat(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_AMOUNT)));
+                investment.setInvestmentPercent(cursor.getFloat(cursor.getColumnIndex(Investment.COLUMN_INTEREST_PERCENT)));
+                investment.setInvestmentMedium(cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_MEDIUM)));
+                investment.setInvestmentCategory(cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_CATEGORY)));
+                investment.setInvestmentDate(cursor.getLong(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_DATE)));
+                investment.setInvestmentMonth(cursor.getInt(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_MONTH)));
+                investment.setTimestamp(cursor.getString(cursor.getColumnIndex(Investment.COLUMN_TIMESTAMP)));
 
-                investments.add(note);
+                investments.add(investment);
             }while(cursor.moveToNext());
         }
         cursor.close();
@@ -117,8 +117,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return investments;
     }
 
-    public int getNotesCount() {
-        String countQuery = "SELECT  * FROM " + Note.TABLE_NAME;
+    public int getInvestmentCount() {
+        String countQuery = "SELECT  * FROM " + Investment.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 
@@ -128,26 +128,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
-    public int updateNote(Note note) {
+    public int updateInvestment(Investment investment) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(Note.COLUMN_INVESTMENT, note.getInvestmentName());
-        values.put(Note.COLUMN_INVESTMENT_AMOUNT,note.getInvestmentAmount());
-        values.put(Note.COLUMN_INTEREST_PERCENT,note.getInvestmentPercent());
-        values.put(Note.COLUMN_INVESTMENT_MEDIUM,note.getInvestmentMedium());
-        values.put(Note.COLUMN_INVESTMENT_CATEGORY,note.getInvestmentCategory());
-        values.put(Note.COLUMN_INVESTMENT_DATE,note.getInvestmentDate());
-        values.put(Note.COLUMN_INVESTMENT_MONTH,note.getInvestmentMonth());
+        values.put(Investment.COLUMN_INVESTMENT, investment.getInvestmentName());
+        values.put(Investment.COLUMN_INVESTMENT_AMOUNT, investment.getInvestmentAmount());
+        values.put(Investment.COLUMN_INTEREST_PERCENT, investment.getInvestmentPercent());
+        values.put(Investment.COLUMN_INVESTMENT_MEDIUM, investment.getInvestmentMedium());
+        values.put(Investment.COLUMN_INVESTMENT_CATEGORY, investment.getInvestmentCategory());
+        values.put(Investment.COLUMN_INVESTMENT_DATE, investment.getInvestmentDate());
+        values.put(Investment.COLUMN_INVESTMENT_MONTH, investment.getInvestmentMonth());
 
-        return db.update(Note.TABLE_NAME, values, Note.COLUMN_ID + " = ?",
-                new String[]{String.valueOf(note.getId())});
+        return db.update(Investment.TABLE_NAME, values, Investment.COLUMN_ID + " = ?",
+                new String[]{String.valueOf(investment.getId())});
     }
 
-    public void deleteNote(Note note) {
+    public void deleteInvestment(Investment investment) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(Note.TABLE_NAME, Note.COLUMN_ID + " = ?",
-                new String[]{String.valueOf(note.getId())});
+        db.delete(Investment.TABLE_NAME, Investment.COLUMN_ID + " = ?",
+                new String[]{String.valueOf(investment.getId())});
         db.close();
     }
 }

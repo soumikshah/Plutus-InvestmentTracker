@@ -3,14 +3,14 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="msg_no_notes">#999</color>
-    <color name="hint_enter_note">#89c3c3c3</color>
+    <color name="msg_no_investment">#999</color>
+    <color name="hint_enter_investment">#89c3c3c3</color>
     <color name="timestamp">#858585</color>
-    <color name="note_list_text">#8D63D8</color>
-    <color name="note_investment_amount">#4CAF50</color>
-    <color name="note_investment_interest_percent">#FF5722</color>
-    <color name="note_investment_medium">#E1B739</color>
-    <color name="note_investment_category">#D5C962</color>
+    <color name="investment_list_text">#8D63D8</color>
+    <color name="investment_amount">#4CAF50</color>
+    <color name="investment_interest_percent">#FF5722</color>
+    <color name="investment_medium">#E1B739</color>
+    <color name="investment_category">#D5C962</color>
     <color name="investment_datepicker">#B5CF3F</color>
     <color name="investment_amount_of_month">#8EAC06</color>
 </resources>

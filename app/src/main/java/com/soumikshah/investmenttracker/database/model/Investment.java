@@ -1,6 +1,6 @@
 package com.soumikshah.investmenttracker.database.model;
 
-public class Note {
+public class Investment {
     public static final String TABLE_NAME = "investment";
 
     public static final String COLUMN_ID = "id";
@@ -36,18 +36,18 @@ public class Note {
                     + COLUMN_INVESTMENT_MONTH+ " INTEGER,"
                     + COLUMN_TIMESTAMP+ " DATETIME DEFAULT CURRENT_TIMESTAMP"
                     + ")";
-    public Note(){
+    public Investment(){
     }
 
-    public Note(int id,
-                String investmentName,
-                float investmentAmount,
-                float investmentPercent,
-                String investmentCategory,
-                String investmentMedium,
-                Long investmentDate,
-                Integer investmentNumberOfMonths,
-                String timestamp){
+    public Investment(int id,
+                      String investmentName,
+                      float investmentAmount,
+                      float investmentPercent,
+                      String investmentCategory,
+                      String investmentMedium,
+                      Long investmentDate,
+                      Integer investmentNumberOfMonths,
+                      String timestamp){
 
         this.id = id;
         this.investmentName = investmentName;

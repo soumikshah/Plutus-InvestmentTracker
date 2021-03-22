@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.soumikshah.investmenttracker.R;
-import com.soumikshah.investmenttracker.database.model.Note;
+import com.soumikshah.investmenttracker.database.model.Investment;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,12 +19,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder> {
+public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.MyViewHolder> {
     private Context context;
-    private List<Note> notesList;
+    private List<Investment> InvestmentsList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView note;
+        public TextView investmentName;
         public TextView investmentAmount;
         public TextView interestToBePaid;
         public TextView dot;
@@ -36,7 +36,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
 
         public MyViewHolder(View view) {
             super(view);
-            note = view.findViewById(R.id.note);
+            investmentName = view.findViewById(R.id.investment);
             investmentAmount = view.findViewById(R.id.investmentAmount);
             interestToBePaid = view.findViewById(R.id.investmentInterest);
             investmentMedium = view.findViewById(R.id.investmentMedium);
@@ -48,35 +48,35 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
         }
     }
 
-    public NotesAdapter(Context context, List<Note> notesList) {
+    public InvestmentAdapter(Context context, List<Investment> InvestmentsList) {
         this.context = context;
-        this.notesList = notesList;
+        this.InvestmentsList = InvestmentsList;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.note_list_row, parent, false);
+                .inflate(R.layout.investment_list_row, parent, false);
 
         return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Note note = notesList.get(position);
+        Investment investment = InvestmentsList.get(position);
 
-        holder.note.setText(note.getInvestmentName());
-        holder.investmentAmount.setText(String.format("Rs.%s", String.valueOf(note.getInvestmentAmount())));
-        holder.interestToBePaid.setText(String.format("%s%%", String.valueOf(note.getInvestmentPercent())));
-        holder.investmentMedium.setText(String.format("Invested on: %s", note.getInvestmentMedium()));
-        holder.investmentCategory.setText(String.format("Investment Type: %s", note.getInvestmentCategory()));
+        holder.investmentName.setText(investment.getInvestmentName());
+        holder.investmentAmount.setText(String.format("Rs.%s", String.valueOf(investment.getInvestmentAmount())));
+        holder.interestToBePaid.setText(String.format("%s%%", String.valueOf(investment.getInvestmentPercent())));
+        holder.investmentMedium.setText(String.format("Invested on: %s", investment.getInvestmentMedium()));
+        holder.investmentCategory.setText(String.format("Investment Type: %s", investment.getInvestmentCategory()));
         SimpleDateFormat sim = new SimpleDateFormat("dd/MM/YYYY",Locale.ENGLISH);
-        holder.investmentDate.setText(String.format("Invested on: %s", sim.format(note.getInvestmentDate())));
-        holder.investmentMonth.setText(String.format(Locale.ENGLISH,"For %d months", note.getInvestmentMonth()));
+        holder.investmentDate.setText(String.format("Invested on: %s", sim.format(investment.getInvestmentDate())));
+        holder.investmentMonth.setText(String.format(Locale.ENGLISH,"For %d months", investment.getInvestmentMonth()));
         // Displaying dot from HTML character code
         holder.dot.setText(Html.fromHtml("&#8226;"));
-        if(note.getInvestmentPercent()==0.0){
+        if(investment.getInvestmentPercent()==0.0){
             holder.interestToBePaid.setVisibility(View.INVISIBLE);
         }
         // Formatting and displaying timestamp
@@ -85,7 +85,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
 
     @Override
     public int getItemCount() {
-        return notesList.size();
+        return InvestmentsList.size();
     }
 
     /**

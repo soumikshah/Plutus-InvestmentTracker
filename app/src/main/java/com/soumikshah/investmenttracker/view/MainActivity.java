@@ -4,9 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,28 +24,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.soumikshah.investmenttracker.R;
 import com.soumikshah.investmenttracker.database.DatabaseHelper;
-import com.soumikshah.investmenttracker.database.model.Note;
+import com.soumikshah.investmenttracker.database.model.Investment;
 import com.soumikshah.investmenttracker.utils.MyDividerItemDecoration;
 import com.soumikshah.investmenttracker.utils.RecyclerTouchListener;
-import com.soumikshah.investmenttracker.view.NotesAdapter;
 
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
-    private NotesAdapter mAdapter;
-    private List<Note> notesList = new ArrayList<>();
+    private InvestmentAdapter mAdapter;
+    private List<Investment> InvestmentsList = new ArrayList<>();
     private CoordinatorLayout coordinatorLayout;
     private RecyclerView recyclerView;
-    private TextView noNotesView;
+    private TextView noInvestmentView;
     DatePickerDialog datePickerDialog;
     private DatabaseHelper db;
     long investmentDateInLong = 0;
@@ -60,28 +53,28 @@ public class MainActivity extends AppCompatActivity {
 
         coordinatorLayout = findViewById(R.id.coordinator_layout);
         recyclerView = findViewById(R.id.recycler_view);
-        noNotesView = findViewById(R.id.empty_notes_view);
+        noInvestmentView = findViewById(R.id.empty_investment_view);
 
         db = new DatabaseHelper(this);
 
-        notesList.addAll(db.getAllInvestments());
+        InvestmentsList.addAll(db.getAllInvestments());
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showNoteDialog(false, null, -1);
+                showInvestmentDialog(false, null, -1);
             }
         });
 
-        mAdapter = new NotesAdapter(this, notesList);
+        mAdapter = new InvestmentAdapter(this, InvestmentsList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new MyDividerItemDecoration(this, LinearLayoutManager.VERTICAL, 16));
         recyclerView.setAdapter(mAdapter);
 
-        toggleEmptyNotes();
+        toggleEmptyInvestments();
 
         /**
          * On long press on RecyclerView item, open alert dialog
@@ -101,46 +94,37 @@ public class MainActivity extends AppCompatActivity {
         }));
     }
 
-    /**
-     * Inserting new note in db
-     * and refreshing the list
-     */
-    private void createNote(String investmentName,
-                            float investmentAmount,
-                            float investmentPercent,
-                            String investmentMedium,
-                            String investmentCategory,
-                            long investmentDate,
-                            int investmentMonth) {
+    private void createInvestment(String investmentName,
+                                  float investmentAmount,
+                                  float investmentPercent,
+                                  String investmentMedium,
+                                  String investmentCategory,
+                                  long investmentDate,
+                                  int investmentMonth) {
         long id = db.insertInvestment(investmentName,investmentAmount,
                 investmentPercent,investmentMedium,investmentCategory,
                 investmentDate,investmentMonth);
 
         // get the newly inserted note from db
-        Note n = db.getInvestment(id);
+        Investment n = db.getInvestment(id);
 
         if (n != null) {
             // adding new note to array list at 0 position
-            notesList.add(0, n);
+            InvestmentsList.add(0, n);
 
             // refreshing the list
             mAdapter.notifyDataSetChanged();
 
-            toggleEmptyNotes();
+            toggleEmptyInvestments();
         }
     }
 
-    /**
-     * Updating note in db and updating
-     * item in the list by its position
-     */
-    private void updateNote(String investment, float investmentAmount,
-                            float investmentPercent, String investmentMedium,
-                            String investmentCategory,
-                            long investmentDate,
-                            int investmentMonth, int position) {
-        Note n = notesList.get(position);
-        // updating note text
+    private void updateInvestment(String investment, float investmentAmount,
+                                  float investmentPercent, String investmentMedium,
+                                  String investmentCategory,
+                                  long investmentDate,
+                                  int investmentMonth, int position) {
+        Investment n = InvestmentsList.get(position);
         n.setInvestmentName(investment);
         n.setInvestmentAmount(investmentAmount);
         n.setInvestmentPercent(investmentPercent);
@@ -150,28 +134,24 @@ public class MainActivity extends AppCompatActivity {
         n.setInvestmentMonth(investmentMonth);
 
         // updating note in db
-        db.updateNote(n);
+        db.updateInvestment(n);
 
         // refreshing the list
-        notesList.set(position, n);
+        InvestmentsList.set(position, n);
         mAdapter.notifyItemChanged(position);
 
-        toggleEmptyNotes();
+        toggleEmptyInvestments();
     }
 
-    /**
-     * Deleting note from SQLite and removing the
-     * item from the list by its position
-     */
-    private void deleteNote(int position) {
+    private void deleteInvestment(int position) {
         // deleting the note from db
-        db.deleteNote(notesList.get(position));
+        db.deleteInvestment(InvestmentsList.get(position));
 
         // removing the note from the list
-        notesList.remove(position);
+        InvestmentsList.remove(position);
         mAdapter.notifyItemRemoved(position);
 
-        toggleEmptyNotes();
+        toggleEmptyInvestments();
     }
 
     /**
@@ -188,9 +168,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0) {
-                    showNoteDialog(true, notesList.get(position), position);
+                    showInvestmentDialog(true, InvestmentsList.get(position), position);
                 } else {
-                    deleteNote(position);
+                    deleteInvestment(position);
                 }
             }
         });
@@ -203,14 +183,14 @@ public class MainActivity extends AppCompatActivity {
      * when shouldUpdate=true, it automatically displays old note and changes the
      * button text to UPDATE
      */
-    private void showNoteDialog(final boolean shouldUpdate, final Note note, final int position) {
+    private void showInvestmentDialog(final boolean shouldUpdate, final Investment investment, final int position) {
         LayoutInflater layoutInflaterAndroid = LayoutInflater.from(getApplicationContext());
-        View view = layoutInflaterAndroid.inflate(R.layout.note_dialog, null);
+        View view = layoutInflaterAndroid.inflate(R.layout.investment_dialog, null);
 
         AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(MainActivity.this);
         alertDialogBuilderUserInput.setView(view);
 
-        final EditText inputNote = view.findViewById(R.id.note);
+        final EditText inputInvestmentName = view.findViewById(R.id.investment);
         final EditText inputInvestmentAmount = view.findViewById(R.id.investmentAmount);
         final EditText inputInvestmentPercent = view.findViewById(R.id.investmentInterest);
         final EditText inputInvestmentMedium = view.findViewById(R.id.investmentMedium);
@@ -220,22 +200,22 @@ public class MainActivity extends AppCompatActivity {
 
 
         TextView dialogTitle = view.findViewById(R.id.dialog_title);
-        dialogTitle.setText(!shouldUpdate ? getString(R.string.lbl_new_note_title) : getString(R.string.lbl_edit_note_title));
+        dialogTitle.setText(!shouldUpdate ? getString(R.string.new_investment_title) : getString(R.string.edit_investment_title));
 
-        GradientDrawable gradientDrawable = (GradientDrawable) inputNote.getBackground();
-        gradientDrawable.setStroke(2,getResources().getColor(R.color.note_list_text));
+        GradientDrawable gradientDrawable = (GradientDrawable) inputInvestmentName.getBackground();
+        gradientDrawable.setStroke(2,getResources().getColor(R.color.investment_list_text));
 
         GradientDrawable gradientDrawable1 = (GradientDrawable)inputInvestmentAmount.getBackground();
-        gradientDrawable1.setStroke(2, getResources().getColor(R.color.note_investment_amount));
+        gradientDrawable1.setStroke(2, getResources().getColor(R.color.investment_amount));
 
         GradientDrawable gradientDrawable2 = (GradientDrawable) inputInvestmentPercent.getBackground();
-        gradientDrawable2.setStroke(2, getResources().getColor(R.color.note_investment_interest_percent));
+        gradientDrawable2.setStroke(2, getResources().getColor(R.color.investment_interest_percent));
 
         GradientDrawable gradientDrawable3 = (GradientDrawable) inputInvestmentMedium.getBackground();
-        gradientDrawable3.setStroke(2,getResources().getColor(R.color.note_investment_medium));
+        gradientDrawable3.setStroke(2,getResources().getColor(R.color.investment_medium));
 
         GradientDrawable gradientDrawable4 = (GradientDrawable) inputInvestmentCategory.getBackground();
-        gradientDrawable4.setStroke(2,getResources().getColor(R.color.note_investment_category));
+        gradientDrawable4.setStroke(2,getResources().getColor(R.color.investment_category));
 
         GradientDrawable gradientDrawable5 = (GradientDrawable) inputInvestmentNumberOfMonths.getBackground();
         gradientDrawable5.setStroke(2,getResources().getColor(R.color.investment_amount_of_month));
@@ -268,15 +248,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (shouldUpdate && note != null) {
-            inputNote.setText(note.getInvestmentName());
-            inputInvestmentAmount.setText(String.valueOf(note.getInvestmentAmount()));
-            inputInvestmentPercent.setText(String.valueOf(note.getInvestmentPercent()));
-            inputInvestmentMedium.setText(String.valueOf(note.getInvestmentMedium()));
-            inputInvestmentCategory.setText(String.valueOf(note.getInvestmentCategory()));
+        if (shouldUpdate && investment != null) {
+            inputInvestmentName.setText(investment.getInvestmentName());
+            inputInvestmentAmount.setText(String.valueOf(investment.getInvestmentAmount()));
+            inputInvestmentPercent.setText(String.valueOf(investment.getInvestmentPercent()));
+            inputInvestmentMedium.setText(String.valueOf(investment.getInvestmentMedium()));
+            inputInvestmentCategory.setText(String.valueOf(investment.getInvestmentCategory()));
             SimpleDateFormat sim = new SimpleDateFormat("dd/MM/YYYY",Locale.ENGLISH);
-            inputInvestmentDate.setText(sim.format(note.getInvestmentDate()));
-            inputInvestmentNumberOfMonths.setText(String.valueOf(note.getInvestmentMonth()));
+            inputInvestmentDate.setText(sim.format(investment.getInvestmentDate()));
+            inputInvestmentNumberOfMonths.setText(String.valueOf(investment.getInvestmentMonth()));
         }
         alertDialogBuilderUserInput
                 .setCancelable(false)
@@ -299,7 +279,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Show toast message when no text is entered
-                if (TextUtils.isEmpty(inputNote.getText().toString())) {
+                if (TextUtils.isEmpty(inputInvestmentName.getText().toString())) {
                     Toast.makeText(MainActivity.this, "Enter investment name!", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (TextUtils.isEmpty(inputInvestmentAmount.getText().toString())){
@@ -316,9 +296,9 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 // check if user updating note
-                if (shouldUpdate && note != null) {
+                if (shouldUpdate && investment != null) {
                     // update note by it's id
-                    updateNote(inputNote.getText().toString(),
+                    updateInvestment(inputInvestmentName.getText().toString(),
                             Float.parseFloat(inputInvestmentAmount.getText().toString()),
                             interestToBeReceived,
                             inputInvestmentMedium.getText().toString(),
@@ -328,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
                             position);
                 } else {
                     // create new note
-                    createNote(inputNote.getText().toString(),
+                    createInvestment(inputInvestmentName.getText().toString(),
                             Float.parseFloat(inputInvestmentAmount.getText().toString()),
                             interestToBeReceived,
                             inputInvestmentMedium.getText().toString(),
@@ -342,13 +322,13 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Toggling list and empty notes view
      */
-    private void toggleEmptyNotes() {
+    private void toggleEmptyInvestments() {
         // you can check notesList.size() > 0
 
-        if (db.getNotesCount() > 0) {
-            noNotesView.setVisibility(View.GONE);
+        if (db.getInvestmentCount() > 0) {
+            noInvestmentView.setVisibility(View.GONE);
         } else {
-            noNotesView.setVisibility(View.VISIBLE);
+            noInvestmentView.setVisibility(View.VISIBLE);
         }
     }
 }

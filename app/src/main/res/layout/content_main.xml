@@ -14,14 +14,14 @@
         android:layout_height="match_parent" />
 
     <TextView
-        android:id="@+id/empty_notes_view"
+        android:id="@+id/empty_investment_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/margin_top_no_notes"
+        android:layout_marginTop="@dimen/margin_top_no_investment"
         android:fontFamily="sans-serif-light"
-        android:text="@string/msg_no_notes"
-        android:textColor="@color/msg_no_notes"
-        android:textSize="@dimen/msg_no_notes" />
+        android:text="@string/msg_no_investment"
+        android:textColor="@color/msg_no_investment"
+        android:textSize="@dimen/msg_no_investment" />
 
 </RelativeLayout>

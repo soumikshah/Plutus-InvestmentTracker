@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Investment Tracker</string>
     <string name="action_settings">Settings</string>
-    <string name="activity_title_home">Notes</string>
-    <string name="msg_no_notes">No investment record found!</string>
-    <string name="lbl_new_note_title">New Investment</string>
-    <string name="lbl_edit_note_title">Edit Investment</string>
-    <string name="hint_enter_note">Investment name</string>
-    <string name="hint_enter_amount">How much? (Rs.)</string>
+    <string name="activity_title_home">Investment Tracker</string>
+    <string name="msg_no_investment">No investment record found!</string>
+    <string name="new_investment_title">New Investment</string>
+    <string name="edit_investment_title">Edit Investment</string>
+    <string name="hint_enter_investment_name">Investment name</string>
+    <string name="hint_enter_investment_amount">How much? (Rs.)</string>
     <string name="hint_enter_interest_percent">Interest %?</string>
     <string name="hint_enter_investment_medium">Where?</string>
     <string name="hint_enter_investment_category">Category?</string>
