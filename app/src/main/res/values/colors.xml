@@ -13,4 +13,8 @@
     <color name="investment_category">#D5C962</color>
     <color name="investment_datepicker">#B5CF3F</color>
     <color name="investment_amount_of_month">#8EAC06</color>
+
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
 </resources>
