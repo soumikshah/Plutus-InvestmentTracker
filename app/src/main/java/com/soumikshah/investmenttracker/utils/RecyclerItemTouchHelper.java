@@ -1,4 +1,4 @@
-package com.soumikshah.investmenttracker.view;
+package com.soumikshah.investmenttracker.utils;
 
 import android.graphics.Canvas;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.soumikshah.investmenttracker.view.InvestmentAdapter;
 
 import static androidx.recyclerview.widget.RecyclerView.*;
 

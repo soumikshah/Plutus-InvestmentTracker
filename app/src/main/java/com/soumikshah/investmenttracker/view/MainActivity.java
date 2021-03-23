@@ -20,6 +20,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private MainFragment mainFragment;
     long investmentDateInLong = 0;
     DatePickerDialog datePickerDialog;
-
+    float interestToBeReceived;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         if(getActionBar() !=null){
             getActionBar().setDisplayHomeAsUpEnabled(false);
         }
-
+        mainFragment = new MainFragment();
         viewPager = findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
@@ -72,19 +73,18 @@ public class MainActivity extends AppCompatActivity {
 
         coordinatorLayout = findViewById(R.id.coordinator_layout);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        mainFragment = new MainFragment();
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showInvestmentDialog(false, null, -1);
             }
         });
-
     }
 
     private void setupViewPager(ViewPager viewPager){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new MainFragment(), "Mainpage");
+        adapter.addFragment(mainFragment, "Mainpage");
         adapter.addFragment(new GraphFragment(), "Graph");
         viewPager.setAdapter(adapter);
     }
@@ -228,18 +228,26 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     alertDialog.dismiss();
                 }
-                float interestToBeReceived;
+
                 if(inputInvestmentPercent.getText().toString().matches("")){
                     interestToBeReceived = 0;
                 }else{
                     interestToBeReceived = Float.parseFloat(inputInvestmentPercent.getText().toString());
                 }
 
-                // check if user updating note
+                if(inputInvestmentMedium.getText().toString().isEmpty()){
+                    inputInvestmentMedium.setText(R.string.not_mentioned);
+                }
+                if(inputInvestmentCategory.getText().toString().isEmpty()){
+                    inputInvestmentCategory.setText("");
+                }
+                if(inputInvestmentNumberOfMonths.getText().toString().isEmpty()){
+                    inputInvestmentNumberOfMonths.setText("0");
+                }
+
                 if (shouldUpdate && investment != null) {
-                    // update note by it's id
                     mainFragment.updateInvestment(inputInvestmentName.getText().toString(),
-                            Float.parseFloat(inputInvestmentAmount.getText().toString()),
+                            Integer.parseInt(inputInvestmentAmount.getText().toString()),
                             interestToBeReceived,
                             inputInvestmentMedium.getText().toString(),
                             inputInvestmentCategory.getText().toString(),
@@ -247,9 +255,8 @@ public class MainActivity extends AppCompatActivity {
                             Integer.parseInt(inputInvestmentNumberOfMonths.getText().toString()),
                             position);
                 } else {
-                    // create new note
                     mainFragment.createInvestment(inputInvestmentName.getText().toString(),
-                            Float.parseFloat(inputInvestmentAmount.getText().toString()),
+                            Integer.parseInt(inputInvestmentAmount.getText().toString()),
                             interestToBeReceived,
                             inputInvestmentMedium.getText().toString(),
                             inputInvestmentCategory.getText().toString(),

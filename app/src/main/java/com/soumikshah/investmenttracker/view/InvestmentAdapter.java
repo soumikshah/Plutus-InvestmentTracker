@@ -24,30 +24,19 @@ public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.My
     private Context context;
     private List<Investment> InvestmentsList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView investmentName;
         public TextView investmentAmount;
-        public TextView interestToBePaid;
-        public TextView dot;
-        public TextView timestamp;
         public TextView investmentMedium;
-        public TextView investmentCategory;
-        public TextView investmentDate;
-        public TextView investmentMonth;
         public RelativeLayout viewBackground, viewForeground;
 
         public MyViewHolder(View view) {
             super(view);
             investmentName = view.findViewById(R.id.investment);
             investmentAmount = view.findViewById(R.id.investmentAmount);
-            interestToBePaid = view.findViewById(R.id.investmentInterest);
             investmentMedium = view.findViewById(R.id.investmentMedium);
-            investmentCategory = view.findViewById(R.id.investmentCategory);
-            investmentDate = view.findViewById(R.id.investedDate);
-            investmentMonth = view.findViewById(R.id.investedNumberOfMonths);
             viewBackground = view.findViewById(R.id.view_background);
             viewForeground = view.findViewById(R.id.view_foreground);
-            dot = view.findViewById(R.id.dot);
             //timestamp = view.findViewById(R.id.timestamp);
         }
     }
@@ -72,17 +61,11 @@ public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.My
 
         holder.investmentName.setText(investment.getInvestmentName());
         holder.investmentAmount.setText(String.format("Rs.%s", String.valueOf(investment.getInvestmentAmount())));
-        holder.interestToBePaid.setText(String.format("%s%%", String.valueOf(investment.getInvestmentPercent())));
-        holder.investmentMedium.setText(String.format("Invested on: %s", investment.getInvestmentMedium()));
-        holder.investmentCategory.setText(String.format("Investment Type: %s", investment.getInvestmentCategory()));
-        SimpleDateFormat sim = new SimpleDateFormat("dd/MM/YYYY",Locale.ENGLISH);
+        holder.investmentMedium.setText(String.format("Invested in: %s", investment.getInvestmentMedium()));
+        /*SimpleDateFormat sim = new SimpleDateFormat("dd/MM/YYYY",Locale.ENGLISH);
         holder.investmentDate.setText(String.format("Invested on: %s", sim.format(investment.getInvestmentDate())));
         holder.investmentMonth.setText(String.format(Locale.ENGLISH,"For %d months", investment.getInvestmentMonth()));
-        // Displaying dot from HTML character code
-        holder.dot.setText(Html.fromHtml("&#8226;"));
-        if(investment.getInvestmentPercent()==0.0){
-            holder.interestToBePaid.setVisibility(View.INVISIBLE);
-        }
+        */
         // Formatting and displaying timestamp
         //holder.timestamp.setText(formatDate(note.getTimestamp()));
     }

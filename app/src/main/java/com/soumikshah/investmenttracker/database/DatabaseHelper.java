@@ -34,7 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public long insertInvestment(String investment,
-                                 float investmentAmount,
+                                 int investmentAmount,
                                  float investmentPercent,
                                  String investmentMedium,
                                  String investmentCategory,
@@ -75,7 +75,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Investment investment = new Investment(
                 cursor.getInt(cursor.getColumnIndex(Investment.COLUMN_ID)),
                 cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT)),
-                cursor.getFloat(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_AMOUNT)),
+                cursor.getInt(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_AMOUNT)),
                 cursor.getFloat(cursor.getColumnIndex(Investment.COLUMN_INTEREST_PERCENT)),
                 cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_MEDIUM)),
                 cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_CATEGORY)),
@@ -100,7 +100,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Investment investment = new Investment();
                 investment.setId(cursor.getInt(cursor.getColumnIndex(Investment.COLUMN_ID)));
                 investment.setInvestmentName(cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT)));
-                investment.setInvestmentAmount(cursor.getFloat(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_AMOUNT)));
+                investment.setInvestmentAmount(cursor.getInt(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_AMOUNT)));
                 investment.setInvestmentPercent(cursor.getFloat(cursor.getColumnIndex(Investment.COLUMN_INTEREST_PERCENT)));
                 investment.setInvestmentMedium(cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_MEDIUM)));
                 investment.setInvestmentCategory(cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_CATEGORY)));

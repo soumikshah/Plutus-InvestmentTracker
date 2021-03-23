@@ -7,14 +7,14 @@
     <dimen name="lbl_new_investment_title">20sp</dimen>
     <dimen name="dimen_10">10dp</dimen>
     <dimen name="input_new_investment">20sp</dimen>
-    <dimen name="investment_amount">16sp</dimen>
+    <dimen name="investment_amount">20sp</dimen>
     <dimen name="investment_interest">16sp</dimen>
-    <dimen name="investment_medium">14sp</dimen>
+    <dimen name="investment_medium">17sp</dimen>
     <dimen name="investment_category">14sp</dimen>
     <dimen name="dot_height">30dp</dimen>
     <dimen name="dot_text_size">40sp</dimen>
     <dimen name="timestamp">14sp</dimen>
-    <dimen name="investment_list_text">18sp</dimen>
+    <dimen name="investment_list_text">22sp</dimen>
 
     <!--Tab layout-->
     <dimen name="activity_horizontal_margin">16dp</dimen>

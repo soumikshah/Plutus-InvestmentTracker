@@ -9,8 +9,11 @@ import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.View;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.soumikshah.investmenttracker.R;
 
 public class MyDividerItemDecoration extends RecyclerView.ItemDecoration{
     private static final int[] ATTRS = new int[]{
@@ -29,7 +32,7 @@ public class MyDividerItemDecoration extends RecyclerView.ItemDecoration{
         this.context = context;
         this.margin = margin;
         final TypedArray a = context.obtainStyledAttributes(ATTRS);
-        mDivider = a.getDrawable(0);
+        mDivider = ContextCompat.getDrawable(context, R.drawable.line_divider);
         a.recycle();
         setOrientation(orientation);
     }

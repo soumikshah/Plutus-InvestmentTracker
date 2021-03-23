@@ -1,20 +1,13 @@
 package com.soumikshah.investmenttracker.view;
 
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,20 +23,18 @@ import com.soumikshah.investmenttracker.R;
 import com.soumikshah.investmenttracker.database.DatabaseHelper;
 import com.soumikshah.investmenttracker.database.model.Investment;
 import com.soumikshah.investmenttracker.utils.MyDividerItemDecoration;
+import com.soumikshah.investmenttracker.utils.RecyclerItemTouchHelper;
 import com.soumikshah.investmenttracker.utils.RecyclerTouchListener;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 public class MainFragment extends Fragment {
     private RecyclerView recyclerView;
     private TextView noInvestmentView;
     private InvestmentAdapter mAdapter;
     private List<Investment> InvestmentsList = new ArrayList<>();
-
+    private boolean restoreClickedOnSnackBar = false;
     private DatabaseHelper db;
 
 
@@ -57,11 +48,11 @@ public class MainFragment extends Fragment {
         noInvestmentView = view.findViewById(R.id.empty_investment_view);
         db = new DatabaseHelper(getActivity());
         InvestmentsList.addAll(db.getAllInvestments());
-        mAdapter = new InvestmentAdapter(getContext(), InvestmentsList);
+        mAdapter = new InvestmentAdapter(((MainActivity)getContext()), InvestmentsList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new MyDividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL, 16));
+        recyclerView.addItemDecoration(new MyDividerItemDecoration(((MainActivity)getContext()), LinearLayoutManager.VERTICAL, 16));
         recyclerView.setAdapter(mAdapter);
         toggleEmptyInvestments();
 
@@ -85,6 +76,7 @@ public class MainFragment extends Fragment {
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, new RecyclerItemTouchHelper.RecyclerItemTouchHelperListener() {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+
                 if (viewHolder instanceof InvestmentAdapter.MyViewHolder) {
                     // get the removed item name to display it in snack bar
                     String name = InvestmentsList.get(viewHolder.getAdapterPosition()).getInvestmentName();
@@ -95,17 +87,27 @@ public class MainFragment extends Fragment {
 
                     // remove the item from recycler view
                     mAdapter.removeItem(viewHolder.getAdapterPosition());
-
-                    // showing snack bar with Undo option
+                   // showing snack bar with Undo option
                     Snackbar snackbar = Snackbar
                             .make(((MainActivity)getActivity()).getCoordinatorLayout(), name + " removed from cart!", Snackbar.LENGTH_LONG);
-                    snackbar.setAction("UNDO", new View.OnClickListener() {
+                    snackbar.addCallback(new Snackbar.Callback(){
+                        @Override
+                        public void onDismissed(Snackbar snackbar, int event) {
+                            //Deleting the entry from DB
+                            if(!restoreClickedOnSnackBar){
+                                db.deleteInvestment(deletedItem);
+                            }
+                        }
+                    });
+                    snackbar.setAction(R.string.undo, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
                             // undo is selected, restore the deleted item
+
+                            restoreClickedOnSnackBar = true;
                             mAdapter.restoreItem(deletedItem, deletedIndex);
                         }
+
                     });
                     snackbar.setActionTextColor(Color.YELLOW);
                     snackbar.show();
@@ -118,7 +120,7 @@ public class MainFragment extends Fragment {
     }
 
     void createInvestment(String investmentName,
-                          float investmentAmount,
+                          int investmentAmount,
                           float investmentPercent,
                           String investmentMedium,
                           String investmentCategory,
@@ -134,15 +136,13 @@ public class MainFragment extends Fragment {
         if (n != null) {
             // adding new note to array list at 0 position
             InvestmentsList.add(0, n);
-
             // refreshing the list
             mAdapter.notifyDataSetChanged();
-
             toggleEmptyInvestments();
         }
     }
 
-    void updateInvestment(String investment, float investmentAmount,
+    void updateInvestment(String investment, int investmentAmount,
                           float investmentPercent, String investmentMedium,
                           String investmentCategory,
                           long investmentDate,
@@ -201,10 +201,9 @@ public class MainFragment extends Fragment {
     }
 
     /**
-     * Toggling list and empty notes view
+     * Toggling list and empty investment view
      */
     private void toggleEmptyInvestments() {
-        // you can check notesList.size() > 0
 
         if (db.getInvestmentCount() > 0) {
             noInvestmentView.setVisibility(View.GONE);
