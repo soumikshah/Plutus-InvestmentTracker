@@ -2,6 +2,8 @@ package com.soumikshah.investmenttracker.view;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -19,9 +21,11 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.soumikshah.investmenttracker.R;
 import com.soumikshah.investmenttracker.database.DatabaseHelper;
 import com.soumikshah.investmenttracker.database.model.Investment;
@@ -44,11 +48,6 @@ public class MainFragment extends Fragment {
 
 
     public MainFragment(){}
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Nullable
     @Override
@@ -83,6 +82,37 @@ public class MainFragment extends Fragment {
             }
         }));
 
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, new RecyclerItemTouchHelper.RecyclerItemTouchHelperListener() {
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+                if (viewHolder instanceof InvestmentAdapter.MyViewHolder) {
+                    // get the removed item name to display it in snack bar
+                    String name = InvestmentsList.get(viewHolder.getAdapterPosition()).getInvestmentName();
+
+                    // backup of removed item for undo purpose
+                    final Investment deletedItem = InvestmentsList.get(viewHolder.getAdapterPosition());
+                    final int deletedIndex = viewHolder.getAdapterPosition();
+
+                    // remove the item from recycler view
+                    mAdapter.removeItem(viewHolder.getAdapterPosition());
+
+                    // showing snack bar with Undo option
+                    Snackbar snackbar = Snackbar
+                            .make(((MainActivity)getActivity()).getCoordinatorLayout(), name + " removed from cart!", Snackbar.LENGTH_LONG);
+                    snackbar.setAction("UNDO", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                            // undo is selected, restore the deleted item
+                            mAdapter.restoreItem(deletedItem, deletedIndex);
+                        }
+                    });
+                    snackbar.setActionTextColor(Color.YELLOW);
+                    snackbar.show();
+                }
+            }
+        });
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
 
         return view;
     }
