@@ -12,6 +12,6 @@
     <string name="hint_enter_investment_category">Category?</string>
     <string name="hint_enter_investment_date">When? (dd/MM/yyyy)</string>
     <string name="hint_enter_investment_month">How long? (months)</string>
-
+    <string name="delete">Delete</string>
     <string name="graph_fragment">Graph Fragment to be designed here!!!</string>
 </resources>

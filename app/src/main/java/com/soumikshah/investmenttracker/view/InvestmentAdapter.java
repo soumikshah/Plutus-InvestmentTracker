@@ -5,6 +5,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,7 @@ public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.My
         public TextView investmentCategory;
         public TextView investmentDate;
         public TextView investmentMonth;
+        public RelativeLayout viewBackground, viewForeground;
 
         public MyViewHolder(View view) {
             super(view);
@@ -43,6 +45,8 @@ public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.My
             investmentCategory = view.findViewById(R.id.investmentCategory);
             investmentDate = view.findViewById(R.id.investedDate);
             investmentMonth = view.findViewById(R.id.investedNumberOfMonths);
+            viewBackground = view.findViewById(R.id.view_background);
+            viewForeground = view.findViewById(R.id.view_foreground);
             dot = view.findViewById(R.id.dot);
             //timestamp = view.findViewById(R.id.timestamp);
         }
@@ -86,6 +90,16 @@ public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.My
     @Override
     public int getItemCount() {
         return InvestmentsList.size();
+    }
+
+    public void removeItem(int position) {
+        InvestmentsList.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(Investment item, int position) {
+        InvestmentsList.add(position, item);
+        notifyItemInserted(position);
     }
 
     /**

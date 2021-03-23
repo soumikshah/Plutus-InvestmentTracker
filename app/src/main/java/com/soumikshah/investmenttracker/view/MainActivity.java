@@ -42,6 +42,10 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+    public CoordinatorLayout getCoordinatorLayout() {
+        return coordinatorLayout;
+    }
+
     private CoordinatorLayout coordinatorLayout;
 
     private ViewPager viewPager;
