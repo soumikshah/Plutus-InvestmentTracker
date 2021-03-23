@@ -26,7 +26,8 @@
             android:layout_toLeftOf="@id/delete_icon"
             android:text="@string/delete"
             android:textColor="#fff"
-            android:textSize="13dp" />
+            android:fontFamily="@font/robotoregular"
+            android:textSize="16dp" />
 
     </RelativeLayout>
 
@@ -54,7 +55,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.6"
                 android:layout_marginTop="3dp"
-                android:textColor="@color/investment_list_text"
+                android:textColor="@color/investment_name"
+                android:fontFamily="@font/robotobold"
                 android:textSize="@dimen/investment_list_text" />
             <TextView
                 android:id="@+id/investmentAmount"
@@ -65,6 +67,7 @@
                 android:maxLength="9"
                 android:gravity="end"
                 android:textColor="@color/investment_amount"
+                android:fontFamily="@font/robotoregular"
                 android:textSize="@dimen/investment_amount" />
         </LinearLayout>
         <LinearLayout
@@ -73,6 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/investmentfinance"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="3dp"
             android:orientation="horizontal"
             android:weightSum="1">
             <TextView
@@ -80,6 +84,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
+                android:fontFamily="@font/robotoregular"
                 android:textColor="@color/investment_medium"
                 android:textSize="@dimen/investment_medium" />
         </LinearLayout>

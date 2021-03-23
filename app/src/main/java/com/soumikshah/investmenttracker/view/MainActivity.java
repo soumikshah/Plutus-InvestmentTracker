@@ -20,19 +20,12 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.soumikshah.investmenttracker.R;
-import com.soumikshah.investmenttracker.database.DatabaseHelper;
 import com.soumikshah.investmenttracker.database.model.Investment;
-import com.soumikshah.investmenttracker.utils.MyDividerItemDecoration;
-import com.soumikshah.investmenttracker.utils.RecyclerTouchListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -143,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         dialogTitle.setText(!shouldUpdate ? getString(R.string.new_investment_title) : getString(R.string.edit_investment_title));
 
         GradientDrawable gradientDrawable = (GradientDrawable) inputInvestmentName.getBackground();
-        gradientDrawable.setStroke(2,getResources().getColor(R.color.investment_list_text));
+        gradientDrawable.setStroke(2,getResources().getColor(R.color.investment_name));
 
         GradientDrawable gradientDrawable1 = (GradientDrawable)inputInvestmentAmount.getBackground();
         gradientDrawable1.setStroke(2, getResources().getColor(R.color.investment_amount));

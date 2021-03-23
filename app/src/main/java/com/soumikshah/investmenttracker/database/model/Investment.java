@@ -43,8 +43,8 @@ public class Investment {
                       String investmentName,
                       int investmentAmount,
                       float investmentPercent,
-                      String investmentCategory,
                       String investmentMedium,
+                      String investmentCategory,
                       Long investmentDate,
                       Integer investmentNumberOfMonths,
                       String timestamp){
@@ -53,8 +53,8 @@ public class Investment {
         this.investmentName = investmentName;
         this.investmentAmount = investmentAmount;
         this.investmentPercent = investmentPercent;
-        this.investmentCategory = investmentCategory;
         this.investmentMedium = investmentMedium;
+        this.investmentCategory = investmentCategory;
         this.investmentDate = investmentDate;
         this.investmentMonth = investmentNumberOfMonths;
         this.timestamp = timestamp;
