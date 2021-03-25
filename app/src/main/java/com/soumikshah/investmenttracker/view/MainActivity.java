@@ -2,6 +2,8 @@ package com.soumikshah.investmenttracker.view;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -158,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
                                 investmentDateInLong = c.getTimeInMillis();
                             }
                         }, mYear, mMonth, mDay);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.DKGRAY));
                 datePickerDialog.show();
             }
         });
