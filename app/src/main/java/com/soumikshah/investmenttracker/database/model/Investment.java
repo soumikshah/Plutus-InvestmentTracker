@@ -15,7 +15,7 @@ public class Investment {
 
     private int id;
     private String investmentName;
-    private float investmentAmount;
+    private int investmentAmount;
     private float investmentPercent;
     private String investmentMedium;
     private String investmentCategory;
@@ -28,7 +28,7 @@ public class Investment {
                     + "("
                     + COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + COLUMN_INVESTMENT+" TEXT,"
-                    + COLUMN_INVESTMENT_AMOUNT+ " FLOAT(2),"
+                    + COLUMN_INVESTMENT_AMOUNT+ " INTEGER,"
                     + COLUMN_INTEREST_PERCENT+ " FLOAT(1),"
                     + COLUMN_INVESTMENT_MEDIUM +" TEXT,"
                     + COLUMN_INVESTMENT_CATEGORY+ " TEXT,"
@@ -41,10 +41,10 @@ public class Investment {
 
     public Investment(int id,
                       String investmentName,
-                      float investmentAmount,
+                      int investmentAmount,
                       float investmentPercent,
-                      String investmentCategory,
                       String investmentMedium,
+                      String investmentCategory,
                       Long investmentDate,
                       Integer investmentNumberOfMonths,
                       String timestamp){
@@ -53,8 +53,8 @@ public class Investment {
         this.investmentName = investmentName;
         this.investmentAmount = investmentAmount;
         this.investmentPercent = investmentPercent;
-        this.investmentCategory = investmentCategory;
         this.investmentMedium = investmentMedium;
+        this.investmentCategory = investmentCategory;
         this.investmentDate = investmentDate;
         this.investmentMonth = investmentNumberOfMonths;
         this.timestamp = timestamp;
@@ -76,11 +76,11 @@ public class Investment {
         this.investmentName = investmentName;
     }
 
-    public float getInvestmentAmount() {
+    public int getInvestmentAmount() {
         return investmentAmount;
     }
 
-    public void setInvestmentAmount(float investmentAmount) {
+    public void setInvestmentAmount(int investmentAmount) {
         this.investmentAmount = investmentAmount;
     }
 

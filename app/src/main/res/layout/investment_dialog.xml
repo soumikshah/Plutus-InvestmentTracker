@@ -32,8 +32,8 @@
         android:inputType="textCapSentences|textMultiLine"
         android:lines="2"
         android:layout_margin="5dp"
-        android:textColorHint="@color/investment_list_text"
-        android:textColor="@color/investment_list_text"
+        android:textColorHint="@color/investment_name"
+        android:textColor="@color/investment_name"
         android:textSize="@dimen/input_new_investment" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,6 +50,7 @@
             android:gravity="center_horizontal"
             android:layout_margin="3dp"
             android:layout_weight="0.7"
+            android:maxLength="9"
             android:hint="@string/hint_enter_investment_amount"
             android:inputType="number|numberDecimal"
             android:textColorHint="@color/investment_amount"

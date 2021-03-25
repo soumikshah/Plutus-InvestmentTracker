@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1C1919"
+    android:background="#4B4453"
     tools:context="com.soumikshah.investmenttracker.view.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
