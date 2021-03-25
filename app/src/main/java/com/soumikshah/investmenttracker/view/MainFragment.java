@@ -65,6 +65,7 @@ public class MainFragment extends Fragment {
                 recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, final int position) {
+             view.callOnClick();
             }
 
             @Override

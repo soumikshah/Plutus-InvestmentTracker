@@ -88,5 +88,39 @@
                 android:textColor="@color/investment_medium"
                 android:textSize="@dimen/investment_medium" />
         </LinearLayout>
+        <LinearLayout
+        android:id="@+id/otherDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/medium"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="3dp"
+        android:orientation="vertical"
+        android:weightSum="1">
+            <TextView
+            android:id="@+id/investmentCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/investment_category"
+            android:textSize="@dimen/investment_category"/>
+            <TextView
+                android:id="@+id/investedDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/investment_datepicker"
+                android:textSize="@dimen/investment_category"/>
+            <TextView
+                android:id="@+id/interestToBePaid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/investment_interest_percent"
+                android:textSize="@dimen/investment_interest"/>
+            <TextView
+                android:id="@+id/investedNumberOfMonths"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/investment_amount_of_month"
+                android:textSize="@dimen/investment_category"/>
+    </LinearLayout>
     </RelativeLayout>
 </FrameLayout>

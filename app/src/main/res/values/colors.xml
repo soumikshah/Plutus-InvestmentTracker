@@ -8,11 +8,11 @@
     <color name="timestamp">#858585</color>
     <color name="investment_name">#845ec2</color>
     <color name="investment_amount">#00896f</color>
-    <color name="investment_interest_percent">#FF5722</color>
+    <color name="investment_interest_percent">#845ec2</color>
     <color name="investment_medium">#845ec2</color>
-    <color name="investment_category">#D5C962</color>
-    <color name="investment_datepicker">#B5CF3F</color>
-    <color name="investment_amount_of_month">#8EAC06</color>
+    <color name="investment_category">#845ec2</color>
+    <color name="investment_datepicker">#845ec2</color>
+    <color name="investment_amount_of_month">#845ec2</color>
     <color name="recyclerview_divider">#B0A8B9</color>
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="windowBackground">#FFFFFF</color>

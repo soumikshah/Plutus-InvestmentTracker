@@ -8,9 +8,9 @@
     <dimen name="dimen_10">10dp</dimen>
     <dimen name="input_new_investment">20sp</dimen>
     <dimen name="investment_amount">20sp</dimen>
-    <dimen name="investment_interest">16sp</dimen>
+    <dimen name="investment_interest">17sp</dimen>
     <dimen name="investment_medium">17sp</dimen>
-    <dimen name="investment_category">14sp</dimen>
+    <dimen name="investment_category">17sp</dimen>
     <dimen name="dot_height">30dp</dimen>
     <dimen name="dot_text_size">40sp</dimen>
     <dimen name="timestamp">14sp</dimen>
