@@ -33,6 +33,11 @@ public class MainFragment extends Fragment {
     private RecyclerView recyclerView;
     private TextView noInvestmentView;
     private InvestmentAdapter mAdapter;
+
+    public List<Investment> getInvestmentsList() {
+        return InvestmentsList;
+    }
+
     private List<Investment> InvestmentsList = new ArrayList<>();
     private boolean restoreClickedOnSnackBar = false;
     private DatabaseHelper db;

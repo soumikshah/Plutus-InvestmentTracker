@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private MainFragment mainFragment;
+    MainFragment mainFragment;
     long investmentDateInLong = 0;
     DatePickerDialog datePickerDialog;
     float interestToBeReceived;
