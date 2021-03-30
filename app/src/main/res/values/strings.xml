@@ -16,4 +16,5 @@
     <string name="graph_fragment">Graph Fragment to be designed here!!!</string>
     <string name="not_mentioned">Not mentioned</string>
     <string name="undo">UNDO</string>
+    <string name="toast_message_no_detail">No more information to show. You can long press on this investment and add some more details!</string>
 </resources>
