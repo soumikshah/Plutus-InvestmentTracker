@@ -113,7 +113,6 @@ public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.My
         }
 
         final boolean isExpanded = position==mExpandedPosition;
-        Log.d("Tracker","Visibility is "+isExpanded + " : "+position);
         holder.otherDetails.setVisibility(isExpanded?View.VISIBLE:View.GONE);
         holder.itemView.setActivated(isExpanded);
 
@@ -123,7 +122,7 @@ public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.My
                 mExpandedPosition = isExpanded ? -1:position;
 
                 if(investment.getInvestmentPercent()==0.0 && investment.getInvestmentMonth() == 0 && investment.getInvestmentCategory().isEmpty() && investment.getInvestmentDate()==0){
-                    Toast.makeText(holder.itemView.getContext(),"No more information to show. You can long press on this investment and add some more details!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(holder.itemView.getContext(), R.string.toast_message_no_detail,Toast.LENGTH_LONG).show();
                 }
                notifyDataSetChanged();
             }
