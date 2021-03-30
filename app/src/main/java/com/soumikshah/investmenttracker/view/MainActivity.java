@@ -2,10 +2,13 @@ package com.soumikshah.investmenttracker.view;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
@@ -137,27 +140,6 @@ public class MainActivity extends AppCompatActivity {
         TextView dialogTitle = view.findViewById(R.id.dialog_title);
         dialogTitle.setText(!shouldUpdate ? getString(R.string.new_investment_title) : getString(R.string.edit_investment_title));
 
-        GradientDrawable gradientDrawable = (GradientDrawable) inputInvestmentName.getBackground();
-        gradientDrawable.setStroke(2,getResources().getColor(R.color.investment_name));
-
-        GradientDrawable gradientDrawable1 = (GradientDrawable)inputInvestmentAmount.getBackground();
-        gradientDrawable1.setStroke(2, getResources().getColor(R.color.investment_amount));
-
-        GradientDrawable gradientDrawable2 = (GradientDrawable) inputInvestmentPercent.getBackground();
-        gradientDrawable2.setStroke(2, getResources().getColor(R.color.investment_interest_percent));
-
-        GradientDrawable gradientDrawable3 = (GradientDrawable) inputInvestmentMedium.getBackground();
-        gradientDrawable3.setStroke(2,getResources().getColor(R.color.investment_medium));
-
-        GradientDrawable gradientDrawable4 = (GradientDrawable) inputInvestmentCategory.getBackground();
-        gradientDrawable4.setStroke(2,getResources().getColor(R.color.investment_category));
-
-        GradientDrawable gradientDrawable5 = (GradientDrawable) inputInvestmentNumberOfMonths.getBackground();
-        gradientDrawable5.setStroke(2,getResources().getColor(R.color.investment_amount_of_month));
-
-        GradientDrawable gradientDrawable6 = (GradientDrawable) inputInvestmentDate.getBackground();
-        gradientDrawable6.setStroke(2,getResources().getColor(R.color.investment_datepicker));
-
         inputInvestmentDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 int mMonth = c.get(Calendar.MONTH); // current month
                 int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
                 // date picker dialog
-                datePickerDialog = new DatePickerDialog(MainActivity.this,
+                datePickerDialog = new DatePickerDialog(MainActivity.this,R.style.DatePickerTheme,
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override
@@ -178,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
                                 investmentDateInLong = c.getTimeInMillis();
                             }
                         }, mYear, mMonth, mDay);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.DKGRAY));
                 datePickerDialog.show();
             }
         });
@@ -207,6 +190,15 @@ public class MainActivity extends AppCompatActivity {
                         });
 
         final AlertDialog alertDialog = alertDialogBuilderUserInput.create();
+        alertDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
+                if (keyEvent.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+                    alertDialog.dismiss();
+                }
+                return false;
+            }
+        });
         alertDialog.show();
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
