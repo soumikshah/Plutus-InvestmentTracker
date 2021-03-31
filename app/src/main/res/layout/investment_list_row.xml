@@ -64,7 +64,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:layout_weight="0.4"
-                android:maxLength="9"
                 android:gravity="end"
                 android:textColor="@color/investment_amount"
                 android:fontFamily="@font/robotoregular"
