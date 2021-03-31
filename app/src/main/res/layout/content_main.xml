@@ -22,7 +22,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginStart="8dp"
                 android:weightSum="1">
                 <TextView
                     android:id="@+id/total_investment_name"
@@ -30,6 +29,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
                     android:layout_marginTop="3dp"
+                    android:layout_marginStart="16dp"
                     android:textColor="@color/investment_name"
                     android:fontFamily="@font/robotobold"
                     android:textSize="24sp"
@@ -49,6 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
+                android:layout_marginStart="16dp"
                 android:textColor="@color/investment_name"
                 android:fontFamily="@font/robotobold"
                 android:textSize="18sp"/>
