@@ -6,11 +6,10 @@
     <RelativeLayout
         android:id="@+id/view_background"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bg_row_background">
+        android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/delete_icon"
+            android:id="@+id/background_image"
             android:layout_width="@dimen/ic_delete"
             android:layout_height="@dimen/ic_delete"
             android:layout_alignParentRight="true"
@@ -19,11 +18,12 @@
             android:src="@drawable/delete" />
 
         <TextView
+            android:id="@+id/background_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/padd_10"
-            android:layout_toLeftOf="@id/delete_icon"
+            android:layout_toLeftOf="@id/background_image"
             android:text="@string/delete"
             android:textColor="#fff"
             android:fontFamily="@font/robotoregular"

@@ -27,18 +27,30 @@ import com.soumikshah.investmenttracker.utils.RecyclerItemTouchHelper;
 import com.soumikshah.investmenttracker.utils.RecyclerTouchListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class MainFragment extends Fragment {
     private RecyclerView recyclerView;
     private TextView noInvestmentView;
     private InvestmentAdapter mAdapter;
+    private TextView totalAmount;
+    private TextView otherInvestment;
 
     public List<Investment> getInvestmentsList() {
         return InvestmentsList;
     }
 
     private List<Investment> InvestmentsList = new ArrayList<>();
+
+    public HashMap<String, Integer> getInvestmentTypeAndAmount() {
+        return investmentTypeAndAmount;
+    }
+
+    private HashMap<String,Integer> investmentTypeAndAmount = new HashMap<>();
     private boolean restoreClickedOnSnackBar = false;
     private DatabaseHelper db;
 
@@ -48,12 +60,17 @@ public class MainFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.mainfragment, container, false);
+        final View view = inflater.inflate(R.layout.mainfragment, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
         noInvestmentView = view.findViewById(R.id.empty_investment_view);
+        totalAmount = view.findViewById(R.id.total_amount_invested);
+        otherInvestment = view.findViewById(R.id.otherInvestment);
+
         db = new DatabaseHelper(getActivity());
         InvestmentsList.addAll(db.getAllInvestments());
         mAdapter = new InvestmentAdapter(((MainActivity)getContext()), InvestmentsList);
+        totalAmount.setText(String.format(Locale.ENGLISH,"Rs.%d", getInvestmentTotalAmount()));
+        otherInvestment.setText(getInvestmentCategoryAndAmount());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -79,11 +96,17 @@ public class MainFragment extends Fragment {
             }
         }));
 
-        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, new RecyclerItemTouchHelper.RecyclerItemTouchHelperListener() {
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
+                new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT,
+                        new RecyclerItemTouchHelper.RecyclerItemTouchHelperListener() {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
 
-                if (viewHolder instanceof InvestmentAdapter.MyViewHolder) {
+                if ((direction == ItemTouchHelper.LEFT) && (viewHolder instanceof InvestmentAdapter.MyViewHolder)) {
+
+                    ((InvestmentAdapter.MyViewHolder) viewHolder).viewBackground.setBackgroundColor(getResources().getColor(R.color.bg_row_background));
+                    ((InvestmentAdapter.MyViewHolder) viewHolder).viewBackgroundText.setText(R.string.delete);
+
                     // get the removed item name to display it in snack bar
                     String name = InvestmentsList.get(viewHolder.getAdapterPosition()).getInvestmentName();
 
@@ -93,14 +116,14 @@ public class MainFragment extends Fragment {
 
                     // remove the item from recycler view
                     mAdapter.removeItem(viewHolder.getAdapterPosition());
-                   // showing snack bar with Undo option
+                    // showing snack bar with Undo option
                     Snackbar snackbar = Snackbar
-                            .make(((MainActivity)getActivity()).getCoordinatorLayout(), name + " removed from cart!", Snackbar.LENGTH_LONG);
-                    snackbar.addCallback(new Snackbar.Callback(){
+                            .make(((MainActivity) getActivity()).getCoordinatorLayout(), name + " removed from cart!", Snackbar.LENGTH_LONG);
+                    snackbar.addCallback(new Snackbar.Callback() {
                         @Override
                         public void onDismissed(Snackbar snackbar, int event) {
                             //Deleting the entry from DB
-                            if(!restoreClickedOnSnackBar){
+                            if (!restoreClickedOnSnackBar) {
                                 db.deleteInvestment(deletedItem);
                             }
                         }
@@ -118,9 +141,21 @@ public class MainFragment extends Fragment {
                     snackbar.setActionTextColor(Color.YELLOW);
                     snackbar.show();
                 }
+                if(direction == ItemTouchHelper.RIGHT){
+                    if(getActivity()!= null){
+                        if(viewHolder instanceof InvestmentAdapter.MyViewHolder){
+                            ((InvestmentAdapter.MyViewHolder) viewHolder).viewBackgroundText.setText(R.string.edit_investment_title);
+                            ((InvestmentAdapter.MyViewHolder) viewHolder).viewBackground.setBackgroundColor(Color.GREEN);
+                        }
+                        ((MainActivity)getActivity()).showInvestmentDialog(true, InvestmentsList.get(position), position);
+                    }
+                }
             }
+
         });
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+
+
 
         return view;
     }
@@ -216,5 +251,41 @@ public class MainFragment extends Fragment {
         } else {
             noInvestmentView.setVisibility(View.VISIBLE);
         }
+    }
+
+    int getInvestmentTotalAmount(){
+        int totalAmount =0;
+        Investment investment;
+        for(int i =0; i<getInvestmentsList().size(); i++){
+            investment = getInvestmentsList().get(i);
+            if(investmentTypeAndAmount != null){
+                if(!investmentTypeAndAmount.containsKey(investment.getInvestmentCategory())){
+                    investmentTypeAndAmount.put(investment.getInvestmentCategory(),investment.getInvestmentAmount());
+                }else if(investmentTypeAndAmount.containsKey(investment.getInvestmentCategory())){
+                    investmentTypeAndAmount.put(investment.getInvestmentCategory(),
+                            investmentTypeAndAmount.get(investment.getInvestmentCategory())+investment.getInvestmentAmount());
+                    }
+            }
+
+            totalAmount+=investment.getInvestmentAmount();
+        }
+        return totalAmount;
+    }
+
+    String getInvestmentCategoryAndAmount(){
+        StringBuilder sb = new StringBuilder();
+        for(Map.Entry<String,Integer> entry : investmentTypeAndAmount.entrySet()){
+            sb.append(entry.getKey()).append(" : ").append(entry.getValue()).append("\n");
+        }
+        return sb.toString();
+    }
+
+    List<String> getInvestmentCategory(){
+        List<String> investmentCategory = new ArrayList<>();
+        for(Map.Entry<String,Integer> entry : investmentTypeAndAmount.entrySet())
+        {
+            investmentCategory.add(entry.getKey());
+        }
+        return investmentCategory;
     }
 }
