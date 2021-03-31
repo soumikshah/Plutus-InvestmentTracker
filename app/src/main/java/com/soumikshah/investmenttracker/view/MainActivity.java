@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         setActionBar(toolbar);
         if(getActionBar() !=null){
             getActionBar().setDisplayHomeAsUpEnabled(false);
+            getActionBar().hide();
         }
         mainFragment = new MainFragment();
         viewPager = findViewById(R.id.viewpager);
@@ -206,12 +207,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Show toast message when no text is entered
                 if (TextUtils.isEmpty(inputInvestmentName.getText().toString())) {
-                    Toast.makeText(MainActivity.this, "Enter investment name!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Enter Investment Name!", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (TextUtils.isEmpty(inputInvestmentAmount.getText().toString())){
-                    Toast.makeText(MainActivity.this,"Enter investment amount!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"Enter Investment Amount!", Toast.LENGTH_LONG).show();
                     return;
-                } else {
+                } else if(TextUtils.isEmpty(inputInvestmentCategory.getText().toString())){
+                    Toast.makeText(MainActivity.this,"Enter Investment Type!",Toast.LENGTH_LONG).show();
+                }else {
                     alertDialog.dismiss();
                 }
 

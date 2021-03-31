@@ -8,10 +8,58 @@
     tools:context="com.soumikshah.investmenttracker.view.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:weightSum="1"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="0.2">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="8dp"
+                android:weightSum="1">
+                <TextView
+                    android:id="@+id/total_investment_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:layout_marginTop="3dp"
+                    android:textColor="@color/investment_name"
+                    android:fontFamily="@font/robotobold"
+                    android:textSize="24sp"
+                    android:text="@string/total_amount_of_investment"/>
+                <TextView
+                    android:id="@+id/total_amount_invested"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:layout_marginTop="3dp"
+                    android:textColor="@color/investment_amount"
+                    android:fontFamily="@font/robotobold"
+                    android:textSize="24sp"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/otherInvestment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:textColor="@color/investment_name"
+                android:fontFamily="@font/robotobold"
+                android:textSize="18sp"/>
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8"/>
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/empty_investment_view"

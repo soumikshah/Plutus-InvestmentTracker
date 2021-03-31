@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -39,6 +40,8 @@ public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.My
         public TextView investmentMonth;
         public RelativeLayout viewBackground, viewForeground;
         public LinearLayout otherDetails;
+        public TextView viewBackgroundText;
+        public ImageView viewBackgroundImage;
 
 
         public MyViewHolder(View view) {
@@ -52,6 +55,8 @@ public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.My
             interestToBePaid = view.findViewById(R.id.interestToBePaid);
             viewBackground = view.findViewById(R.id.view_background);
             viewForeground = view.findViewById(R.id.view_foreground);
+            viewBackgroundText = view.findViewById(R.id.background_text);
+            viewBackgroundImage = view.findViewById(R.id.background_image);
             otherDetails = view.findViewById(R.id.otherDetails);
             //timestamp = view.findViewById(R.id.timestamp);
         }

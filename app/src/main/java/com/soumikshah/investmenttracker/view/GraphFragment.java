@@ -29,7 +29,7 @@ import java.util.Map;
 public class GraphFragment extends Fragment {
 
     PieChart pieChart;
-    List<Investment> investmentList;
+    HashMap<String,Integer> investmentList;
     public GraphFragment(){}
     DatabaseHelper db;
     @Override
@@ -42,7 +42,12 @@ public class GraphFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.graphfragment, container, false);
         pieChart = view.findViewById(R.id.pieChart_view);
-        investmentList = ((MainActivity)getActivity()).mainFragment.getInvestmentsList();
+        if(getActivity()!=null){
+            investmentList = ((MainActivity)getActivity()).mainFragment.getInvestmentTypeAndAmount();
+        }else{
+            investmentList = new HashMap<>();
+        }
+
         initPieChart();
         showPieChart();
         return view;
@@ -52,10 +57,9 @@ public class GraphFragment extends Fragment {
         Map<String, Integer> typeAmountMaps = new HashMap<>();
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
         String label = "type";
-        for(int i=0; i<investmentList.size(); i++){
-            typeAmountMaps.put(investmentList.get(i).getInvestmentName(),investmentList.get(i).getInvestmentAmount());
+        for(Map.Entry<String, Integer> mapEntry: investmentList.entrySet()){
+            typeAmountMaps.put(mapEntry.getKey(),mapEntry.getValue());
         }
-
         //initializing colors for the entries
         ArrayList<Integer> colors = new ArrayList<>();
         colors.add(Color.parseColor("#304567"));
