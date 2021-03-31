@@ -81,7 +81,7 @@ public class InvestmentAdapter extends RecyclerView.Adapter<InvestmentAdapter.My
         final Investment investment = InvestmentsList.get(position);
 
         holder.investmentName.setText(investment.getInvestmentName());
-        holder.investmentAmount.setText(String.format("Rs.%s", String.valueOf(investment.getInvestmentAmount())));
+        holder.investmentAmount.setText(String.format(Locale.ENGLISH,"Rs.%,d", investment.getInvestmentAmount()));
 
         String investmentMedium = "Invested in: <b>"+investment.getInvestmentMedium()+"</b>";
         SimpleDateFormat sim = new SimpleDateFormat("dd/MM/YYYY",Locale.ENGLISH);

@@ -69,7 +69,7 @@ public class MainFragment extends Fragment {
         db = new DatabaseHelper(getActivity());
         InvestmentsList.addAll(db.getAllInvestments());
         mAdapter = new InvestmentAdapter(((MainActivity)getContext()), InvestmentsList);
-        totalAmount.setText(String.format(Locale.ENGLISH,"Rs.%d", getInvestmentTotalAmount()));
+        totalAmount.setText(String.format(Locale.UK,"Rs.%,d", getInvestmentTotalAmount()));
         otherInvestment.setText(getInvestmentCategoryAndAmount());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -275,7 +275,8 @@ public class MainFragment extends Fragment {
     String getInvestmentCategoryAndAmount(){
         StringBuilder sb = new StringBuilder();
         for(Map.Entry<String,Integer> entry : investmentTypeAndAmount.entrySet()){
-            sb.append(entry.getKey()).append(" : ").append(entry.getValue()).append("\n");
+            String amount = String.format(Locale.ENGLISH,"Rs.%,d",entry.getValue());
+            sb.append(entry.getKey()).append(" : ").append(amount).append("\n");
         }
         return sb.toString();
     }
