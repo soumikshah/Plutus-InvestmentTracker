@@ -167,19 +167,21 @@ public class MainFragment extends Fragment {
                           String investmentCategory,
                           long investmentDate,
                           int investmentMonth) {
-        long id = db.insertInvestment(investmentName,investmentAmount,
-                investmentPercent,investmentMedium,investmentCategory,
-                investmentDate,investmentMonth);
+        if(db != null){
+            long id = db.insertInvestment(investmentName,investmentAmount,
+                    investmentPercent,investmentMedium,investmentCategory,
+                    investmentDate,investmentMonth);
 
-        // get the newly inserted note from db
-        Investment n = db.getInvestment(id);
+            // get the newly inserted note from db
+            Investment n = db.getInvestment(id);
 
-        if (n != null) {
-            // adding new note to array list at 0 position
-            InvestmentsList.add(0, n);
-            // refreshing the list
-            mAdapter.notifyDataSetChanged();
-            toggleEmptyInvestments();
+            if (n != null) {
+                // adding new note to array list at 0 position
+                InvestmentsList.add(0, n);
+                // refreshing the list
+                mAdapter.notifyDataSetChanged();
+                toggleEmptyInvestments();
+            }
         }
     }
 
