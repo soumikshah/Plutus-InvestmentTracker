@@ -1,6 +1,7 @@
 package com.soumikshah.investmenttracker.view;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,11 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +26,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.soumikshah.investmenttracker.R;
 import com.soumikshah.investmenttracker.database.DatabaseHelper;
 import com.soumikshah.investmenttracker.database.model.Investment;
+import com.soumikshah.investmenttracker.database.model.InvestmentViewModel;
 import com.soumikshah.investmenttracker.utils.MyDividerItemDecoration;
 import com.soumikshah.investmenttracker.utils.RecyclerItemTouchHelper;
 import com.soumikshah.investmenttracker.utils.RecyclerTouchListener;
@@ -33,12 +38,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static android.app.Activity.RESULT_OK;
+
 public class MainFragment extends Fragment {
     private RecyclerView recyclerView;
     private TextView noInvestmentView;
-    private InvestmentAdapter mAdapter;
+    //private InvestmentAdapter mAdapter;
     private TextView totalAmount;
     private TextView otherInvestment;
+    private InvestmentViewModel investmentViewModel;
+    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
 
     public List<Investment> getInvestmentsList() {
         return InvestmentsList;
@@ -53,7 +62,7 @@ public class MainFragment extends Fragment {
     private HashMap<String,Integer> investmentTypeAndAmount = new HashMap<>();
     private boolean restoreClickedOnSnackBar = false;
     private DatabaseHelper db;
-
+    InvestmentListAdapter adapter;
 
     public MainFragment(){}
 
@@ -68,14 +77,22 @@ public class MainFragment extends Fragment {
 
         db = new DatabaseHelper(getActivity());
         InvestmentsList.addAll(db.getAllInvestments());
-        mAdapter = new InvestmentAdapter(((MainActivity)getContext()), InvestmentsList);
+        //mAdapter = new InvestmentAdapter(((MainActivity)getContext()), InvestmentsList);
+        adapter = new InvestmentListAdapter(new InvestmentListAdapter.InvestmentDiff());
         totalAmount.setText(String.format(Locale.UK,"Rs.%,d", getInvestmentTotalAmount()));
         otherInvestment.setText(getInvestmentCategoryAndAmount());
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new MyDividerItemDecoration(((MainActivity)getContext()), LinearLayoutManager.VERTICAL, 16));
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        investmentViewModel = new ViewModelProvider(getActivity()).get(InvestmentViewModel.class);
+        investmentViewModel.getAllInvestments().observe(getViewLifecycleOwner(), new Observer<List<Investment>>() {
+            @Override
+            public void onChanged(List<Investment> investments) {
+                InvestmentsList = investments;
+                adapter.submitList(investments);
+            }
+        });
         toggleEmptyInvestments();
 
         /*
@@ -115,7 +132,7 @@ public class MainFragment extends Fragment {
                     final int deletedIndex = viewHolder.getAdapterPosition();
 
                     // remove the item from recycler view
-                    mAdapter.removeItem(viewHolder.getAdapterPosition());
+                    //adapter.removeItem(viewHolder.getAdapterPosition());
                     // showing snack bar with Undo option
                     Snackbar snackbar = Snackbar
                             .make(((MainActivity) getActivity()).getCoordinatorLayout(), name + " removed from cart!", Snackbar.LENGTH_LONG);
@@ -134,7 +151,7 @@ public class MainFragment extends Fragment {
                             // undo is selected, restore the deleted item
 
                             restoreClickedOnSnackBar = true;
-                            mAdapter.restoreItem(deletedItem, deletedIndex);
+                            //adapter.restoreItem(deletedItem, deletedIndex);
                         }
 
                     });
@@ -167,22 +184,12 @@ public class MainFragment extends Fragment {
                           String investmentCategory,
                           long investmentDate,
                           int investmentMonth) {
-        if(db != null){
-            long id = db.insertInvestment(investmentName,investmentAmount,
+            int id = investmentViewModel.getInvestmentCount()+1;
+            Log.d("Tracker",id+" : ");
+            investmentViewModel.insertInvestment(new Investment(id,investmentName,investmentAmount,
                     investmentPercent,investmentMedium,investmentCategory,
-                    investmentDate,investmentMonth);
+                    investmentDate,investmentMonth));
 
-            // get the newly inserted note from db
-            Investment n = db.getInvestment(id);
-
-            if (n != null) {
-                // adding new note to array list at 0 position
-                InvestmentsList.add(0, n);
-                // refreshing the list
-                mAdapter.notifyDataSetChanged();
-                toggleEmptyInvestments();
-            }
-        }
     }
 
     void updateInvestment(String investment, int investmentAmount,
@@ -190,6 +197,7 @@ public class MainFragment extends Fragment {
                           String investmentCategory,
                           long investmentDate,
                           int investmentMonth, int position) {
+
         Investment n = InvestmentsList.get(position);
         n.setInvestmentName(investment);
         n.setInvestmentAmount(investmentAmount);
@@ -204,7 +212,7 @@ public class MainFragment extends Fragment {
 
         // refreshing the list
         InvestmentsList.set(position, n);
-        mAdapter.notifyItemChanged(position);
+        adapter.notifyItemChanged(position);
 
         toggleEmptyInvestments();
     }
@@ -215,7 +223,7 @@ public class MainFragment extends Fragment {
 
         // removing the note from the list
         InvestmentsList.remove(position);
-        mAdapter.notifyItemRemoved(position);
+        adapter.notifyItemRemoved(position);
 
         toggleEmptyInvestments();
     }
@@ -254,6 +262,7 @@ public class MainFragment extends Fragment {
             noInvestmentView.setVisibility(View.VISIBLE);
         }
     }
+
 
     int getInvestmentTotalAmount(){
         int totalAmount =0;

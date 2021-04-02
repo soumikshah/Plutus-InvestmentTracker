@@ -24,12 +24,14 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.soumikshah.investmenttracker.R;
 import com.soumikshah.investmenttracker.database.model.Investment;
+import com.soumikshah.investmenttracker.database.model.InvestmentViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     long investmentDateInLong = 0;
     DatePickerDialog datePickerDialog;
     float interestToBeReceived;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

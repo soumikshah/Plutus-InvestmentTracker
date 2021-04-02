@@ -80,8 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_MEDIUM)),
                 cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_CATEGORY)),
                 cursor.getLong(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_DATE)),
-                cursor.getInt(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_MONTH)),
-                cursor.getString(cursor.getColumnIndex(Investment.COLUMN_TIMESTAMP))
+                cursor.getInt(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_MONTH))
         );
         cursor.close();
         return investment;

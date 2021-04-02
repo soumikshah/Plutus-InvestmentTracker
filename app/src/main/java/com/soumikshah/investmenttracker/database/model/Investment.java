@@ -1,5 +1,11 @@
 package com.soumikshah.investmenttracker.database.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "investments")
 public class Investment {
     public static final String TABLE_NAME = "investment";
 
@@ -13,14 +19,36 @@ public class Investment {
     public static final String COLUMN_INVESTMENT_DATE = "investment_date";
     public static final String COLUMN_INVESTMENT_MONTH = "investment_month";
 
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "id")
     private int id;
+
+    @NonNull
+    @ColumnInfo(name = "investment_name")
     private String investmentName;
+
+    @NonNull
+    @ColumnInfo(name = "investment_amount")
     private int investmentAmount;
+
+    @ColumnInfo(name = "investment_interest_percent")
     private float investmentPercent;
+
+    @ColumnInfo(name = "investment_medium")
     private String investmentMedium;
+
+    @NonNull
+    @ColumnInfo(name = "investment_category")
     private String investmentCategory;
+
+    @ColumnInfo(name = "investment_timestamp")
     private String timestamp;
+
+    @ColumnInfo(name = "investment_date")
     private long investmentDate;
+
+    @ColumnInfo(name = "investment_month")
     private int investmentMonth;
 
     public static final String CREATE_TABLE =
@@ -39,15 +67,14 @@ public class Investment {
     public Investment(){
     }
 
-    public Investment(int id,
-                      String investmentName,
+    public Investment(@NonNull int id,
+                      @NonNull String investmentName,
                       int investmentAmount,
                       float investmentPercent,
                       String investmentMedium,
-                      String investmentCategory,
+                      @NonNull String investmentCategory,
                       Long investmentDate,
-                      Integer investmentNumberOfMonths,
-                      String timestamp){
+                      Integer investmentNumberOfMonths){
 
         this.id = id;
         this.investmentName = investmentName;
@@ -57,7 +84,6 @@ public class Investment {
         this.investmentCategory = investmentCategory;
         this.investmentDate = investmentDate;
         this.investmentMonth = investmentNumberOfMonths;
-        this.timestamp = timestamp;
     }
 
     public int getId() {
@@ -68,11 +94,12 @@ public class Investment {
         this.id = id;
     }
 
+    @NonNull
     public String getInvestmentName() {
         return investmentName;
     }
 
-    public void setInvestmentName(String investmentName) {
+    public void setInvestmentName(@NonNull String investmentName) {
         this.investmentName = investmentName;
     }
 
@@ -108,11 +135,12 @@ public class Investment {
         this.investmentMedium = investmentMedium;
     }
 
+    @NonNull
     public String getInvestmentCategory() {
         return investmentCategory;
     }
 
-    public void setInvestmentCategory(String investmentCategory) {
+    public void setInvestmentCategory(@NonNull String investmentCategory) {
         this.investmentCategory = investmentCategory;
     }
 
