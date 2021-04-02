@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -118,7 +119,7 @@ public class GraphFragment extends Fragment implements AdapterView.OnItemSelecte
 
     private void showPieChart(){
         pieEntries = new ArrayList<>();
-        String label = "Type of investments";
+        String label = "";
         //input data and fit data into pie chart entry
         for(String type: investmentMap.keySet()){
             pieEntries.add(new PieEntry(investmentMap.get(type).floatValue(),type));
@@ -140,6 +141,12 @@ public class GraphFragment extends Fragment implements AdapterView.OnItemSelecte
         pieChart.setHighlightPerTapEnabled(true);
         pieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
         pieChart.setHoleColor(Color.parseColor("#000000"));
+        Legend legend = pieChart.getLegend();
+        legend.setWordWrapEnabled(true);
+        legend.setTextSize(16f);
+        legend.setTextColor(Color.WHITE);
+        legend.setForm(Legend.LegendForm.CIRCLE);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
     }
 
     //Setting up colors for piechart
