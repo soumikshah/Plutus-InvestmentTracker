@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -26,6 +27,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.soumikshah.investmenttracker.R;
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private CoordinatorLayout coordinatorLayout;
 
     private ViewPager viewPager;
-    private TabLayout tabLayout;
+    private BottomNavigationView bottomNavigationView;
     MainFragment mainFragment;
     long investmentDateInLong = 0;
     DatePickerDialog datePickerDialog;
@@ -64,10 +66,50 @@ public class MainActivity extends AppCompatActivity {
         }
         mainFragment = new MainFragment();
         viewPager = findViewById(R.id.viewpager);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
         setupViewPager(viewPager);
 
-        tabLayout = findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.mainPage:
+                        viewPager.setCurrentItem(0);
+                        break;
+                    case R.id.graph:
+                        viewPager.setCurrentItem(1);
+                        break;
+                    case R.id.settings:
+                        viewPager.setCurrentItem(2);
+                        break;
+                }
+                return true;
+            }
+        });
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        bottomNavigationView.getMenu().findItem(R.id.mainPage).setChecked(true);
+                        break;
+                    case 1:
+                        bottomNavigationView.getMenu().findItem(R.id.graph).setChecked(true);
+                        break;
+                    case 2:
+                        bottomNavigationView.getMenu().findItem(R.id.settings).setChecked(true);
+                        break;
+                }
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
 
         coordinatorLayout = findViewById(R.id.coordinator_layout);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -84,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(mainFragment, "Mainpage");
         adapter.addFragment(new GraphFragment(), "Graph");
+        adapter.addFragment(new SettingsFragment(),"Settings");
         viewPager.setAdapter(adapter);
     }
 
