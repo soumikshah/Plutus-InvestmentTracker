@@ -2,9 +2,13 @@ package com.soumikshah.investmenttracker.view;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,53 +21,122 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.soumikshah.investmenttracker.R;
-import com.soumikshah.investmenttracker.database.DatabaseHelper;
+import com.soumikshah.investmenttracker.database.model.Investment;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
-public class GraphFragment extends Fragment {
+public class GraphFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     PieChart pieChart;
     PieData pieData = null;
-    HashMap<String,Integer> investmentList;
+    HashMap<String,Integer> investmentMap;
+    HashMap<String,Integer> copyOfInvestmentMap = new HashMap<>();
+    List<String> investmentCategoryInAList;
+    List<Investment> investments;
+    ArrayList<PieEntry> pieEntries;
+    PieDataSet pieDataSet;
     public GraphFragment(){}
-    
+    Spinner spinner;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.graphfragment, container, false);
         pieChart = view.findViewById(R.id.pieChart_view);
+        spinner = view.findViewById(R.id.spinner);
+
         if(getActivity()!=null){
-            investmentList = ((MainActivity)getActivity()).mainFragment.getInvestmentTypeAndAmount();
-        }else{
-            investmentList = new HashMap<>();
+            investmentMap = ((MainActivity)getActivity()).mainFragment.getInvestmentTypeAndAmount();
+            investmentCategoryInAList = ((MainActivity)getActivity()).mainFragment.getInvestmentCategory();
+            investments = ((MainActivity)getActivity()).mainFragment.getInvestmentsList();
+            investmentCategoryInAList.add("All");
         }
+        Collections.sort(investmentCategoryInAList);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),R.layout.spinner_item,investmentCategoryInAList);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+        spinner.setOnItemSelectedListener(this);
 
         initPieChart();
         showPieChart();
         return view;
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String item = adapterView.getItemAtPosition(i).toString();
+        if(!item.equals("All")){
+            getCategory(item);
+        }else{
+            getAllCategories();
+        }
+        resetChart();
+        showPieChart();
+    }
+
+    void getAllCategories(){
+        if(getActivity()!=null){
+            if(investmentCategoryInAList.size()>=1 && !investmentMap.containsKey(investmentCategoryInAList.get(1))){
+                investmentMap.clear();
+                investmentMap.putAll(copyOfInvestmentMap);
+            }
+            copyOfInvestmentMap.putAll(investmentMap);
+        }
+    }
+    void getCategory(String category){
+        Collections.emptyMap();
+        investmentMap.clear();
+        for(int i =0; i<investments.size();i++){
+            if(investments.get(i).getInvestmentCategory().equals(category)){
+                investmentMap.put(investments.get(i).getInvestmentName(),investments.get(i).getInvestmentAmount());
+            }
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+
+
+    private void resetChart() {
+        pieEntries.clear();
+        if(pieData!=null){
+           pieData = null;
+        }
+        pieChart.getData().clearValues();
+        pieChart.clear();
+        pieChart.invalidate();
+    }
+
+
     private void showPieChart(){
-        ArrayList<PieEntry> pieEntries = new ArrayList<>();
+        pieEntries = new ArrayList<>();
         String label = "Type of investments";
         //input data and fit data into pie chart entry
-        for(String type: investmentList.keySet()){
-            pieEntries.add(new PieEntry(investmentList.get(type).floatValue(),type));
+        for(String type: investmentMap.keySet()){
+            pieEntries.add(new PieEntry(investmentMap.get(type).floatValue(),type));
         }
-        PieDataSet pieDataSet = new PieDataSet(pieEntries,label);
+        pieDataSet = new PieDataSet(pieEntries,label);
         pieDataSet.setValueTextSize(12f);
         pieDataSet.setColors(getListOfColor());
         pieData = new PieData(pieDataSet);
+        pieData.setDrawValues(true);
+        pieData.setValueFormatter(new PercentFormatter());
         refreshPieChart(pieData);
     }
     //Initialize piechart
     private void initPieChart(){
         pieChart.setUsePercentValues(true);
         pieChart.getDescription().setEnabled(false);
-        pieChart.setRotationEnabled(false);
-        pieChart.setRotationAngle(0);
+        pieChart.setRotationEnabled(true);
+        pieChart.setRotationAngle(180);
         pieChart.setHighlightPerTapEnabled(true);
         pieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
         pieChart.setHoleColor(Color.parseColor("#000000"));
@@ -84,8 +157,6 @@ public class GraphFragment extends Fragment {
     }
 
     void refreshPieChart(PieData pieData){
-        pieData.setDrawValues(true);
-        pieData.setValueFormatter(new PercentFormatter());
         pieChart.setData(pieData);
         pieChart.invalidate();
     }

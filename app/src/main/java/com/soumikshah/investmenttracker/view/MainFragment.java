@@ -50,6 +50,7 @@ public class MainFragment extends Fragment {
         return investmentTypeAndAmount;
     }
 
+
     private HashMap<String,Integer> investmentTypeAndAmount = new HashMap<>();
     private boolean restoreClickedOnSnackBar = false;
     private DatabaseHelper db;
