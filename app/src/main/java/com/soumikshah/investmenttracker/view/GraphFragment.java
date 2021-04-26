@@ -52,9 +52,9 @@ public class GraphFragment extends Fragment implements AdapterView.OnItemSelecte
         spinner = view.findViewById(R.id.spinner);
 
         if(getActivity()!=null){
-            investmentMap = ((MainActivity)getActivity()).mainFragment.getInvestmentTypeAndAmount();
-            investmentCategoryInAList = ((MainActivity)getActivity()).mainFragment.getInvestmentCategory();
-            investments = ((MainActivity)getActivity()).mainFragment.getInvestmentsList();
+            investmentMap = ((MainActivity)getActivity()).mainFragment.investmentHelper.getInvestmentTypeAndAmount();
+            investmentCategoryInAList = ((MainActivity)getActivity()).mainFragment.investmentHelper.getInvestmentCategory();
+            investments = ((MainActivity)getActivity()).mainFragment.investmentHelper.getInvestmentsList();
             investmentCategoryInAList.add("All");
         }
         Collections.sort(investmentCategoryInAList);

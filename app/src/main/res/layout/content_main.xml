@@ -17,19 +17,19 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
+            android:background="@drawable/box_layout"
+            android:layout_margin="25dp"
             android:layout_weight="0.2">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="10dp"
-                android:weightSum="1">
+                android:paddingTop="5dp">
                 <TextView
                     android:id="@+id/total_investment_name"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.6"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginStart="16dp"
                     android:textColor="@color/investment_name"
                     android:fontFamily="@font/robotobold"
@@ -37,10 +37,10 @@
                     android:text="@string/total_amount_of_investment"/>
                 <TextView
                     android:id="@+id/total_amount_invested"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingStart="3dp"
                     android:textColor="@color/investment_amount"
                     android:fontFamily="@font/robotobold"
                     android:textSize="24sp"/>
@@ -51,19 +51,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginBottom="10dp"
                 android:textColor="@color/investment_name"
                 android:fontFamily="@font/robotobold"
                 android:textSize="18sp"/>
         </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+
+        <com.github.mikephil.charting.charts.PieChart
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.8"/>
+            android:layout_weight="0.4"
+            android:id="@+id/pieChart_view" />
+
+
     </LinearLayout>
 
 
-    <TextView
+    <!--<TextView
         android:id="@+id/empty_investment_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,6 +76,6 @@
         android:fontFamily="sans-serif-light"
         android:text="@string/msg_no_investment"
         android:textColor="@color/msg_no_investment"
-        android:textSize="@dimen/msg_no_investment" />
+        android:textSize="@dimen/msg_no_investment" />-->
 
 </RelativeLayout>

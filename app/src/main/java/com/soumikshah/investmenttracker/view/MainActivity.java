@@ -4,10 +4,8 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -29,7 +27,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
 import com.soumikshah.investmenttracker.R;
 import com.soumikshah.investmenttracker.database.model.Investment;
 
@@ -278,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (shouldUpdate && investment != null) {
-                    mainFragment.updateInvestment(inputInvestmentName.getText().toString(),
+                    mainFragment.investmentHelper.updateInvestment(inputInvestmentName.getText().toString(),
                             Integer.parseInt(inputInvestmentAmount.getText().toString()),
                             interestToBeReceived,
                             inputInvestmentMedium.getText().toString(),
@@ -287,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
                             Integer.parseInt(inputInvestmentNumberOfMonths.getText().toString()),
                             position);
                 } else {
-                    mainFragment.createInvestment(inputInvestmentName.getText().toString(),
+                    mainFragment.investmentHelper.createInvestment(inputInvestmentName.getText().toString(),
                             Integer.parseInt(inputInvestmentAmount.getText().toString()),
                             interestToBeReceived,
                             inputInvestmentMedium.getText().toString(),
