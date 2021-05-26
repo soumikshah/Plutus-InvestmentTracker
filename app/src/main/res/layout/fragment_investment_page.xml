@@ -1,0 +1,64 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card"
+    android:layout_width="160dp"
+    android:layout_height="145dp"
+    android:layout_margin="1dp"
+    android:background="#32FFFFFF"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0F000000"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/investment_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="SBI Long Term"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"/>
+
+        <TextView
+            android:id="@+id/investmentMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/investment_name"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:paddingStart="10dp"
+            tools:text="Kuvera"/>
+
+        <TextView
+            android:id="@+id/investmentAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/investmentMedium"
+            android:paddingTop="8dp"
+            android:textColor="#000"
+            android:textSize="21sp"
+            tools:text="Rs. 3000"
+            android:paddingStart="10dp"/>
+
+        <TextView
+            android:id="@+id/view_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:text="@string/arrow"
+            android:textColor="#000"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:paddingEnd="5dp"/>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

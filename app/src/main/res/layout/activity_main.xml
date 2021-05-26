@@ -5,7 +5,7 @@
     android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4B4453"
+    android:background="#fff"
     tools:context="com.soumikshah.investmenttracker.view.MainActivity">
     <LinearLayout
         android:layout_width="match_parent"

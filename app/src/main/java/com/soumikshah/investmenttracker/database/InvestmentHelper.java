@@ -1,6 +1,7 @@
 package com.soumikshah.investmenttracker.database;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 
 import com.soumikshah.investmenttracker.R;

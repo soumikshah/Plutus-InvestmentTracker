@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     long investmentDateInLong = 0;
     DatePickerDialog datePickerDialog;
     float interestToBeReceived;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.settings:
                         viewPager.setCurrentItem(2);
                         break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + item.getItemId());
                 }
                 return true;
             }

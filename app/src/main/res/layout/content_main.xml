@@ -1,81 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.soumikshah.investmenttracker.view.MainActivity"
-    tools:showIn="@layout/activity_main">
-
-    <LinearLayout
+ <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="1"
-        android:orientation="vertical">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.soumikshah.investmenttracker.view.MainActivity"
+        tools:showIn="@layout/activity_main">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:background="@drawable/box_layout"
-            android:layout_margin="25dp"
-            android:layout_weight="0.2">
+            android:layout_height="match_parent"
+            android:weightSum="1"
+            android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="5dp">
-                <TextView
-                    android:id="@+id/total_investment_name"
-                    android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:background="@drawable/box_layout"
+                android:layout_margin="25dp"
+                android:layout_weight="0.2">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:paddingTop="5dp">
+                    <TextView
+                        android:id="@+id/total_investment_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="16dp"
+                        android:textColor="@color/investment_name"
+                        android:fontFamily="@font/robotobold"
+                        android:textSize="24sp"
+                        android:text="@string/total_amount_of_investment"/>
+                    <TextView
+                        android:id="@+id/total_amount_invested"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:paddingStart="3dp"
+                        android:textColor="@color/investment_amount"
+                        android:fontFamily="@font/robotobold"
+                        android:textSize="24sp"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/otherInvestment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginBottom="10dp"
                     android:textColor="@color/investment_name"
                     android:fontFamily="@font/robotobold"
-                    android:textSize="24sp"
-                    android:text="@string/total_amount_of_investment"/>
-                <TextView
-                    android:id="@+id/total_amount_invested"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:paddingStart="3dp"
-                    android:textColor="@color/investment_amount"
-                    android:fontFamily="@font/robotobold"
-                    android:textSize="24sp"/>
+                    android:textSize="18sp"/>
             </LinearLayout>
-            <TextView
-                android:id="@+id/otherInvestment"
+
+            <com.github.mikephil.charting.charts.PieChart
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/investment_name"
-                android:fontFamily="@font/robotobold"
-                android:textSize="18sp"/>
+                android:layout_height="0dp"
+                android:layout_weight="0.4"
+                android:id="@+id/pieChart_view" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.4"/>
         </LinearLayout>
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.4"
-            android:id="@+id/pieChart_view" />
-
-
-    </LinearLayout>
-
-
-    <!--<TextView
-        android:id="@+id/empty_investment_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/margin_top_no_investment"
-        android:fontFamily="sans-serif-light"
-        android:text="@string/msg_no_investment"
-        android:textColor="@color/msg_no_investment"
-        android:textSize="@dimen/msg_no_investment" />-->
-
-</RelativeLayout>
+        <!--<TextView
+            android:id="@+id/empty_investment_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_top_no_investment"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/msg_no_investment"
+            android:textColor="@color/msg_no_investment"
+            android:textSize="@dimen/msg_no_investment" />-->
+    </RelativeLayout>

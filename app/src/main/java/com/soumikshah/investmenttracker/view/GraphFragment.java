@@ -81,8 +81,8 @@ public class GraphFragment extends Fragment implements AdapterView.OnItemSelecte
     }
 
     void getAllCategories(){
-        if(getActivity()!=null){
-            if(investmentCategoryInAList.size()>=1 && !investmentMap.containsKey(investmentCategoryInAList.get(1))){
+        if(getActivity()!=null && investmentCategoryInAList!= null){
+            if(investmentCategoryInAList.size()>=0 && !investmentMap.containsKey(investmentCategoryInAList.get(0))){
                 investmentMap.clear();
                 investmentMap.putAll(copyOfInvestmentMap);
             }
