@@ -1,137 +1,118 @@
-package com.soumikshah.investmenttracker.database;
+package com.soumikshah.investmenttracker.database
 
-import android.content.Context;
-import android.util.Log;
-import android.view.View;
+import android.content.Context
+import com.soumikshah.investmenttracker.R
+import com.soumikshah.investmenttracker.database.model.Investment
+import java.util.*
 
-import com.soumikshah.investmenttracker.R;
-import com.soumikshah.investmenttracker.database.model.Investment;
-import com.soumikshah.investmenttracker.view.MainActivity;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-public class InvestmentHelper {
-
-    public List<Investment> getInvestmentsList() {
-        return InvestmentsList;
+class InvestmentHelper(var context: Context) {
+    fun getInvestmentsList(): ArrayList<Investment> {
+        return InvestmentsList
     }
-    private final List<Investment> InvestmentsList = new ArrayList<>();
-    private DatabaseHelper db;
-    boolean nullDb = false;
-    public HashMap<String, Integer> getInvestmentTypeAndAmount() {
-        return investmentTypeAndAmount;
-    }
-    private final HashMap<String,Integer> investmentTypeAndAmount = new HashMap<>();
-    Context context;
 
-
-    public InvestmentHelper(Context context){
-        this.context = context;
-        db = new DatabaseHelper(context);
-        InvestmentsList.addAll(db.getAllInvestments());
-    }
-    public void createInvestment(String investmentName,
-                                 int investmentAmount,
-                                 float investmentPercent,
-                                 String investmentMedium,
-                                 String investmentCategory,
-                                 long investmentDate,
-                                 int investmentMonth) {
-        if(db != null){
-            long id = db.insertInvestment(investmentName,investmentAmount,
-                    investmentPercent,investmentMedium,investmentCategory,
-                    investmentDate,investmentMonth);
+    private val InvestmentsList: ArrayList<Investment> = ArrayList()
+    private val db: DatabaseHelper?
+    private var nullDb = false
+    val investmentTypeAndAmount: HashMap<String, Int>? = HashMap()
+    fun createInvestment(investmentName: String?,
+                         investmentAmount: Int,
+                         investmentPercent: Float,
+                         investmentMedium: String?,
+                         investmentCategory: String?,
+                         investmentDate: Long,
+                         investmentMonth: Int) {
+        if (this.db != null) {
+            val id = this.db.insertInvestment(investmentName, investmentAmount,
+                    investmentPercent, investmentMedium, investmentCategory,
+                    investmentDate, investmentMonth)
 
             // get the newly inserted note from db
-            Investment n = db.getInvestment(id);
-
+            val n = db.getInvestment(id)
             if (n != null) {
                 // adding new note to array list at 0 position
-                InvestmentsList.add(0, n);
+                InvestmentsList.add(0, n)
                 // refreshing the list
-                toggleEmptyInvestments();
+                toggleEmptyInvestments()
             }
         }
     }
 
-    public void updateInvestment(String investment, int investmentAmount,
-                                 float investmentPercent, String investmentMedium,
-                                 String investmentCategory,
-                                 long investmentDate,
-                                 int investmentMonth, int position) {
-        Investment n = InvestmentsList.get(position);
-        n.setInvestmentName(investment);
-        n.setInvestmentAmount(investmentAmount);
-        n.setInvestmentPercent(investmentPercent);
-        n.setInvestmentMedium(investmentMedium);
-        n.setInvestmentCategory(investmentCategory);
-        n.setInvestmentDate(investmentDate);
-        n.setInvestmentMonth(investmentMonth);
+    fun updateInvestment(investment: String?, investmentAmount: Int,
+                         investmentPercent: Float, investmentMedium: String?,
+                         investmentCategory: String?,
+                         investmentDate: Long,
+                         investmentMonth: Int, position: Int) {
+        val n = InvestmentsList[position]
+        n.investmentName = investment
+        n.investmentAmount = investmentAmount
+        n.investmentPercent = investmentPercent
+        n.investmentMedium = investmentMedium
+        n.investmentCategory = investmentCategory
+        n.investmentDate = investmentDate
+        n.investmentMonth = investmentMonth
 
         // updating note in db
-        db.updateInvestment(n);
+        db!!.updateInvestment(n)
 
         // refreshing the list
-        InvestmentsList.set(position, n);
-        toggleEmptyInvestments();
+        InvestmentsList[position] = n
+        toggleEmptyInvestments()
     }
 
-    private void deleteInvestment(int position) {
+    private fun deleteInvestment(position: Int) {
         // deleting the note from db
-        db.deleteInvestment(InvestmentsList.get(position));
+        db!!.deleteInvestment(InvestmentsList[position])
 
         // removing the note from the list
-        InvestmentsList.remove(position);
-        toggleEmptyInvestments();
+        InvestmentsList.removeAt(position)
+        toggleEmptyInvestments()
     }
 
-    private void toggleEmptyInvestments() {
-
-        if (db.getInvestmentCount() > 0) {
-            nullDb = false;
+    private fun toggleEmptyInvestments() {
+        nullDb = if (db!!.investmentCount > 0) {
+            false
         } else {
-            nullDb = true;
+            true
         }
     }
 
-    public int getInvestmentTotalAmount(){
-        int totalAmount =0;
-        Investment investment;
-        for(int i =0; i<getInvestmentsList().size(); i++){
-            investment = getInvestmentsList().get(i);
-            if(investmentTypeAndAmount != null){
-                if(!investmentTypeAndAmount.containsKey(investment.getInvestmentCategory())){
-                    investmentTypeAndAmount.put(investment.getInvestmentCategory(),investment.getInvestmentAmount());
-                }else if(investmentTypeAndAmount.containsKey(investment.getInvestmentCategory())){
-                    investmentTypeAndAmount.put(investment.getInvestmentCategory(),
-                            investmentTypeAndAmount.get(investment.getInvestmentCategory())+investment.getInvestmentAmount());
+    val investmentTotalAmount: Int
+        get() {
+            var totalAmount = 0
+            var investment: Investment
+            for (i in getInvestmentsList().indices) {
+                investment = getInvestmentsList()[i]
+                if (investmentTypeAndAmount != null) {
+                    if (!investmentTypeAndAmount.containsKey(investment.investmentCategory)) {
+                        investmentTypeAndAmount[investment.investmentCategory] = investment.investmentAmount
+                    } else if (investmentTypeAndAmount.containsKey(investment.investmentCategory)) {
+                        investmentTypeAndAmount[investment.investmentCategory] = investmentTypeAndAmount[investment.investmentCategory]!! + investment.investmentAmount
+                    }
                 }
+                totalAmount += investment.investmentAmount
             }
-
-            totalAmount+=investment.getInvestmentAmount();
+            return totalAmount
         }
-        return totalAmount;
-    }
-
-    public String getInvestmentCategoryAndAmount(){
-        StringBuilder sb = new StringBuilder();
-        for(Map.Entry<String,Integer> entry : investmentTypeAndAmount.entrySet()){
-            String amount = String.format(context.getResources().getString(R.string.rs)+"%,d",entry.getValue());
-            sb.append(entry.getKey()).append(" : ").append(amount).append("\n");
+    val investmentCategoryAndAmount: String
+        get() {
+            val sb = StringBuilder()
+            for ((key, value) in investmentTypeAndAmount!!) {
+                val amount = String.format(context.resources.getString(R.string.rs) + "%,d", value)
+                sb.append(key).append(" : ").append(amount).append("\n")
+            }
+            return sb.toString()
         }
-        return sb.toString();
-    }
-
-    public List<String> getInvestmentCategory(){
-        List<String> investmentCategory = new ArrayList<>();
-        for(Map.Entry<String,Integer> entry : investmentTypeAndAmount.entrySet())
-        {
-            investmentCategory.add(entry.getKey());
+    val investmentCategory: ArrayList<String>
+        get() {
+            val investmentCategory: ArrayList<String> = ArrayList()
+            for ((key) in investmentTypeAndAmount!!) {
+                investmentCategory.add(key)
+            }
+            return investmentCategory
         }
-        return investmentCategory;
+
+    init {
+        db = DatabaseHelper(context)
+        InvestmentsList.addAll(db.getAllInvestments())
     }
 }

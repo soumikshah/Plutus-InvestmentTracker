@@ -1,49 +1,38 @@
-package com.soumikshah.investmenttracker.view;
+package com.soumikshah.investmenttracker.view
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import com.soumikshah.investmenttracker.database.model.Investment
+import androidx.recyclerview.widget.RecyclerView
+import android.widget.TextView
+import com.soumikshah.investmenttracker.view.InvestmentDetailAdapter
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.os.Bundle
+import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import com.soumikshah.investmenttracker.R
+import java.util.ArrayList
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+class InvestmentDetailFragment internal constructor(investmentList: ArrayList<Investment>?) : Fragment() {
+    private var recyclerView: RecyclerView? = null
+    private var investmentName: TextView? = null
+    private var investmentList: List<Investment>? = ArrayList()
+    private var mAdapter: InvestmentDetailAdapter? = null
 
-import com.soumikshah.investmenttracker.R;
-import com.soumikshah.investmenttracker.database.model.Investment;
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_investment_detail, container, false)
+        investmentName = view.findViewById(R.id.investment_category_name)
+        recyclerView = view.findViewById(R.id.recycler_view)
+        mAdapter = InvestmentDetailAdapter(activity, investmentList)
+        if (investmentList != null && investmentList!!.size > 0) investmentName!!.text = investmentList!![0].investmentCategory
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class InvestmentDetailFragment extends Fragment {
-    private RecyclerView recyclerView;
-    private TextView investmentName;
-    private List<Investment> investmentList = new ArrayList<>();
-    private InvestmentDetailAdapter mAdapter;
-    InvestmentDetailFragment(List<Investment> investmentList){
-        this.investmentList = investmentList;
+        recyclerView!!.setHasFixedSize(true)
+        val manager = GridLayoutManager(activity, 2)
+        recyclerView!!.layoutManager = manager
+        recyclerView!!.adapter = mAdapter
+        return view
     }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_investment_detail, container, false);
-        investmentName = view.findViewById(R.id.investment_category_name);
-        recyclerView = view.findViewById(R.id.recycler_view);
-        mAdapter = new InvestmentDetailAdapter(getActivity(),investmentList);
-        if(investmentList!= null && investmentList.size()>0){
-            investmentName.setText(investmentList.get(0).getInvestmentCategory());
-        }
-
-        recyclerView.setHasFixedSize(true);
-        GridLayoutManager manager = new GridLayoutManager(getActivity(),2);
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(mAdapter);
-
-        return view;
+    init {
+        this.investmentList = investmentList
     }
 }
