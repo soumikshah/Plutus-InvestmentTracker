@@ -23,7 +23,7 @@ class InvestmentDetailFragment internal constructor(investmentList: ArrayList<In
         val view = inflater.inflate(R.layout.fragment_investment_detail, container, false)
         investmentName = view.findViewById(R.id.investment_category_name)
         recyclerView = view.findViewById(R.id.recycler_view)
-        mAdapter = InvestmentDetailAdapter(activity, investmentList)
+        mAdapter = InvestmentDetailAdapter(requireContext(), investmentList!!)
         if (investmentList != null && investmentList!!.size > 0) investmentName!!.text = investmentList!![0].investmentCategory
 
         recyclerView!!.setHasFixedSize(true)

@@ -48,12 +48,8 @@ class InvestmentCategoryAdapter internal constructor(private val context: Contex
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var investmentCategory: TextView
-        var horizontalView: RecyclerView
+        var investmentCategory: TextView = itemView.findViewById(R.id.category_of_the_investment)
+        var horizontalView: RecyclerView = itemView.findViewById(R.id.horizontal_view)
 
-        init {
-            investmentCategory = itemView.findViewById(R.id.category_of_the_investment)
-            horizontalView = itemView.findViewById(R.id.horizontal_view)
-        }
     }
 }

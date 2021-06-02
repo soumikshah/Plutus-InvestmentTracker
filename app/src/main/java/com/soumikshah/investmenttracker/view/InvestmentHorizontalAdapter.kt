@@ -1,59 +1,35 @@
-package com.soumikshah.investmenttracker.view;
+package com.soumikshah.investmenttracker.view
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.soumikshah.investmenttracker.R
+import com.soumikshah.investmenttracker.database.model.Investment
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.soumikshah.investmenttracker.R;
-import com.soumikshah.investmenttracker.database.model.Investment;
-
-import java.util.List;
-
-public class InvestmentHorizontalAdapter extends RecyclerView.Adapter<InvestmentHorizontalAdapter.MyViewHolder> {
-    private Context context;
-    private List<Investment> investmentData;
-
-    InvestmentHorizontalAdapter(Context context, List<Investment> investmentData){
-        this.context = context;
-        this.investmentData = investmentData;
-    }
-
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView name;
-        public TextView placeInvestmentDone;
-        public TextView amount;
-        public MyViewHolder(@NonNull View view){
-            super(view);
-            name = view.findViewById(R.id.investmentName);
-            placeInvestmentDone = view.findViewById(R.id.investmentPlace);
-            amount = view.findViewById(R.id.amount);
-        }
+class InvestmentHorizontalAdapter internal constructor(private val context: Context, private val investmentData: List<Investment>) : RecyclerView.Adapter<InvestmentHorizontalAdapter.MyViewHolder>() {
+    class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var name: TextView = view.findViewById(R.id.investmentName)
+        var placeInvestmentDone: TextView = view.findViewById(R.id.investmentPlace)
+        var amount: TextView = view.findViewById(R.id.amount)
 
     }
 
-    @NonNull
-    @Override
-    public  MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.investment_horizontal_box,parent,false);
-
-        return new MyViewHolder(view);
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.investment_horizontal_box, parent, false)
+        return MyViewHolder(view)
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Investment invest = investmentData.get(position);
-        holder.name.setText(invest.getInvestmentName());
-        holder.placeInvestmentDone.setText(invest.getInvestmentMedium());
-        holder.amount.setText(String.format(context.getResources().getString(R.string.rs)+"%,d", invest.getInvestmentAmount()));
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val invest = investmentData[position]
+        holder.name.text = invest.investmentName
+        holder.placeInvestmentDone.text = invest.investmentMedium
+        holder.amount.text = String.format(context.resources.getString(R.string.rs) + "%,d", invest.investmentAmount)
     }
 
-    @Override
-    public int getItemCount() {
-        return investmentData.size();
+    override fun getItemCount(): Int {
+        return investmentData.size
     }
 }

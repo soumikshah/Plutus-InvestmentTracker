@@ -113,6 +113,6 @@ class InvestmentHelper(var context: Context) {
 
     init {
         db = DatabaseHelper(context)
-        InvestmentsList.addAll(db.getAllInvestments())
+        InvestmentsList.addAll(db.allInvestments)
     }
 }

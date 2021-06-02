@@ -21,6 +21,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.investment_dialog.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -108,7 +110,7 @@ class MainActivity : AppCompatActivity() {
      * when shouldUpdate=true, it automatically displays old note and changes the
      * button text to UPDATE
      */
-    fun showInvestmentDialog(shouldUpdate: Boolean, investment: Investment?, position: Int) {
+    private fun showInvestmentDialog(shouldUpdate: Boolean, investment: Investment?, position: Int) {
         val layoutInflaterAndroid = LayoutInflater.from(this@MainActivity)
         val view = layoutInflaterAndroid.inflate(R.layout.investment_dialog, null)
         val alertDialogBuilderUserInput = AlertDialog.Builder(this@MainActivity)
