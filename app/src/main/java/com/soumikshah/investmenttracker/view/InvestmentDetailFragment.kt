@@ -16,7 +16,7 @@ import java.util.ArrayList
 class InvestmentDetailFragment internal constructor(investmentList: ArrayList<Investment>?) : Fragment() {
     private var recyclerView: RecyclerView? = null
     private var investmentName: TextView? = null
-    private var investmentList: List<Investment>? = ArrayList()
+    private var investmentList: ArrayList<Investment>? = ArrayList()
     private var mAdapter: InvestmentDetailAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -24,7 +24,7 @@ class InvestmentDetailFragment internal constructor(investmentList: ArrayList<In
         investmentName = view.findViewById(R.id.investment_category_name)
         recyclerView = view.findViewById(R.id.recycler_view)
         mAdapter = InvestmentDetailAdapter(requireContext(), investmentList!!)
-        if (investmentList != null && investmentList!!.size > 0) investmentName!!.text = investmentList!![0].investmentCategory
+        if (investmentList != null && investmentList!!.isNotEmpty()) investmentName!!.text = investmentList!![0].investmentCategory
 
         recyclerView!!.setHasFixedSize(true)
         val manager = GridLayoutManager(activity, 2)

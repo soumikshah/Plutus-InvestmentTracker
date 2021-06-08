@@ -58,7 +58,6 @@ class MainFragment : Fragment() {
         if (investmentMap != null) {
             for (type in investmentMap!!.keys) {
                 if (!investmentCategories.contains(type)) {
-                    Log.d("Tracker", "Here: $type")
                     investmentCategories.add(type)
                 }
             }

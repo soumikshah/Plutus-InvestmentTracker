@@ -6,13 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
 import java.util.*
 
-class InvestmentDetailAdapter internal constructor(private val context: Context, investmentList: List<Investment>) : RecyclerView.Adapter<InvestmentDetailAdapter.MyViewHolder>() {
-    private var investmentList: List<Investment> = ArrayList()
+class InvestmentDetailAdapter internal constructor(private val context: Context, investmentList: ArrayList<Investment>) : RecyclerView.Adapter<InvestmentDetailAdapter.MyViewHolder>() {
+    private var investmentList: ArrayList<Investment> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_investment_page, parent, false)
         return MyViewHolder(view)
@@ -24,6 +25,13 @@ class InvestmentDetailAdapter internal constructor(private val context: Context,
         holder.investmentMedium.text = investment.investmentMedium
         holder.investmentAmount.text = String.format(context.resources.getString(R.string.rs) + " %,d", investment.investmentAmount)
         //todo holder.parent && moredetails will open new fragment with details about clicked investment.
+        holder.investmentParent.setOnClickListener {
+            val someFragment: Fragment = InvestmentCardActivity(context,investmentList,investment.investmentCategory)
+            val transaction = (context as MainActivity).supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.fragment, someFragment) // give your fragment container id in first parameter
+            transaction.addToBackStack(null) // if written, this transaction will be added to backstack
+            transaction.commit()
+        }
     }
 
     override fun getItemCount(): Int {

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    android:layout_height="310dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center_vertical"
+    android:layout_centerInParent="true"
+    android:background="#2C3032">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/investmentName"
+            android:textSize="20sp"
+            tools:text="Investment name: Robinhood"
+            android:layout_margin="3dp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/investmentAmount"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="Investment Amount: Rs 3,00,000"
+            android:layout_margin="3dp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/investmentMedium"
+            android:textSize="20sp"
+            tools:text="Investment Medium: Kuvera"
+            android:layout_margin="3dp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/investmentCategory"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="Investment Category: Equity"
+            android:layout_margin="3dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/investmentDate"
+            android:textSize="20sp"
+            tools:text="Investment Date: 23/05/2010"
+            android:layout_margin="3dp"
+            android:layout_marginBottom="10dp"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
