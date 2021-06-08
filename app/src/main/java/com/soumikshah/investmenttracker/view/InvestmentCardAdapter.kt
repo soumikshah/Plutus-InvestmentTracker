@@ -1,67 +1,50 @@
-package com.soumikshah.investmenttracker.view;
+package com.soumikshah.investmenttracker.view
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.content.Context
+import com.soumikshah.investmenttracker.database.model.Investment
+import androidx.recyclerview.widget.RecyclerView
+import android.view.ViewGroup
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.TextView
+import com.soumikshah.investmenttracker.R
+import java.util.*
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.soumikshah.investmenttracker.R;
-import com.soumikshah.investmenttracker.database.model.Investment;
-
-import java.util.ArrayList;
-import java.util.Locale;
-
-public class InvestmentCardAdapter extends RecyclerView.Adapter<InvestmentCardAdapter.ViewHolder> {
-    private ArrayList<Investment> investments;
-    private Context context;
-    public InvestmentCardAdapter(Context context, ArrayList<Investment> investments){
-        this.investments = investments;
-        this.context = context;
+class InvestmentCardAdapter(
+    private val context: Context,
+    private val investments: ArrayList<Investment>
+) : RecyclerView.Adapter<InvestmentCardAdapter.ViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val v = inflater.inflate(R.layout.item_investment_card, parent, false)
+        return ViewHolder(v)
     }
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v = inflater.inflate(R.layout.item_investment_card, parent, false);
-        return new ViewHolder(v);
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Investment investment = investments.get(position);
-        holder.investmentName.setText(String.format("Investment Name is : %s", investment.getInvestmentName()));
-        holder.investmentAmount.setText(String.format(Locale.ENGLISH,"Investment Amount is : %,d", investment.getInvestmentAmount()));
-        holder.investmentMedium.setText(String.format("Investment Medium is :%s", investment.getInvestmentMedium()));
-        holder.investmentCategory.setText(String.format("Investment Category is :%s", investment.getInvestmentCategory()));
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val investment = investments[position]
+        holder.investmentName!!.text =
+            String.format("Investment Name is : %s", investment.investmentName)
+        holder.investmentAmount!!.text = String.format(
+            Locale.ENGLISH,
+            "Investment Amount is : %,d",
+            investment.investmentAmount
+        )
+        holder.investmentMedium!!.text =
+            String.format("Investment Medium is :%s", investment.investmentMedium)
+        holder.investmentCategory!!.text =
+            String.format("Investment Category is :%s", investment.investmentCategory)
         //holder.investmentDate.setText(investment.getInvestmentDate());
     }
 
-    @Override
-    public int getItemCount() {
-        return investments.size();
+    override fun getItemCount(): Int {
+        return investments.size
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView investmentName;
-        private TextView investmentAmount;
-        private TextView investmentMedium;
-        private TextView investmentCategory;
-        private TextView investmentDate;
-
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            investmentName = itemView.findViewById(R.id.investmentName);
-            investmentAmount = itemView.findViewById(R.id.investmentAmount);
-            investmentCategory= itemView.findViewById(R.id.investmentCategory);
-            investmentMedium = itemView.findViewById(R.id.investmentMedium);
-            investmentDate = itemView.findViewById(R.id.investmentDate);
-        }
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val investmentName: TextView? = itemView.findViewById(R.id.investmentName)
+        val investmentAmount: TextView? = itemView.findViewById(R.id.investmentAmount)
+        val investmentMedium: TextView? = itemView.findViewById(R.id.investmentMedium)
+        val investmentCategory: TextView? = itemView.findViewById(R.id.investmentCategory)
+        private val investmentDate: TextView = itemView.findViewById(R.id.investmentDate)
     }
 }
