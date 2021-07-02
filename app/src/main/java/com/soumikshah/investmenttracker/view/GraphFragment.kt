@@ -132,13 +132,18 @@ class GraphFragment : Fragment(), OnItemSelectedListener {
         get() {
             //initializing colors for the entries
             val colors = ArrayList<Int>()
-            colors.add(Color.parseColor("#304567"))
-            colors.add(Color.parseColor("#309967"))
-            colors.add(Color.parseColor("#476567"))
-            colors.add(Color.parseColor("#890567"))
-            colors.add(Color.parseColor("#a35567"))
-            colors.add(Color.parseColor("#ff5f67"))
-            colors.add(Color.parseColor("#3ca567"))
+            colors.add(Color.parseColor("#443266"))
+            colors.add(Color.parseColor("#8C489F"))
+            colors.add(Color.parseColor("#421C52"))
+            colors.add(Color.parseColor("#C3C3E5"))
+            colors.add(Color.parseColor("#F1F0FF"))
+            colors.add(Color.parseColor("#732C7B"))
+            colors.add(Color.parseColor("#9C8AA5"))
+            colors.add(Color.parseColor("#BDAEC6"))
+            colors.add(Color.parseColor("#6600CC"))
+            colors.add(Color.parseColor("#FFCC00"))
+            colors.add(Color.parseColor("#000000"))
+            colors.add(Color.parseColor("#CC0000"))
             return colors
         }
 

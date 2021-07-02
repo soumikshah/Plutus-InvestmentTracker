@@ -1,13 +1,17 @@
 package com.soumikshah.investmenttracker.view
 
 import android.content.Context
-import com.soumikshah.investmenttracker.database.model.Investment
-import androidx.recyclerview.widget.RecyclerView
-import android.view.ViewGroup
+import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.soumikshah.investmenttracker.R
+import com.soumikshah.investmenttracker.database.model.Investment
+import java.text.SimpleDateFormat
 import java.util.*
 
 class InvestmentCardAdapter(
@@ -23,17 +27,23 @@ class InvestmentCardAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val investment = investments[position]
         holder.investmentName!!.text =
-            String.format("Investment Name is : %s", investment.investmentName)
+            String.format("Name: %s", investment.investmentName)
         holder.investmentAmount!!.text = String.format(
             Locale.ENGLISH,
-            "Investment Amount is : %,d",
+            "Amount: %,d",
             investment.investmentAmount
         )
         holder.investmentMedium!!.text =
-            String.format("Investment Medium is :%s", investment.investmentMedium)
+            String.format("Medium: %s", investment.investmentMedium)
         holder.investmentCategory!!.text =
-            String.format("Investment Category is :%s", investment.investmentCategory)
-        //holder.investmentDate.setText(investment.getInvestmentDate());
+            String.format("Category: %s", investment.investmentCategory)
+        if(investment.investmentDate.toString().isNotEmpty()){
+            val formatter = SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH)
+            holder.investmentDate.visibility = VISIBLE
+            holder.investmentDate.text = String.format("Date Invested On: %s",formatter.format(investment.investmentDate))
+        }else{
+            holder.investmentDate.visibility = GONE
+        }
     }
 
     override fun getItemCount(): Int {
@@ -45,6 +55,6 @@ class InvestmentCardAdapter(
         val investmentAmount: TextView? = itemView.findViewById(R.id.investmentAmount)
         val investmentMedium: TextView? = itemView.findViewById(R.id.investmentMedium)
         val investmentCategory: TextView? = itemView.findViewById(R.id.investmentCategory)
-        private val investmentDate: TextView = itemView.findViewById(R.id.investmentDate)
+        val investmentDate: TextView = itemView.findViewById(R.id.investmentDate)
     }
 }

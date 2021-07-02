@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.soumikshah.investmenttracker.R
 import com.yarolegovich.discretescrollview.DSVOrientation
@@ -24,6 +25,7 @@ class InvestmentCardActivity internal constructor(
     private var itemPicker: DiscreteScrollView? = null
     private var infiniteScrollAdapter: InfiniteScrollAdapter<*>? = null
     private var investmentItemName: String? = null
+    private var backButton: Button? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,6 +34,7 @@ class InvestmentCardActivity internal constructor(
         val view = inflater.inflate(R.layout.fragment_item_details, container, false)
         itemName = view.findViewById(R.id.item_name)
         itemPicker = view.findViewById(R.id.item_picker)
+        backButton = view.findViewById(R.id.backButton)
         itemPicker!!.setOrientation(DSVOrientation.HORIZONTAL)
         itemPicker!!.addOnItemChangedListener(this)
         itemName!!.text = investmentItemName
@@ -43,6 +46,7 @@ class InvestmentCardActivity internal constructor(
                 .setMinScale(0.8f)
                 .build()
         )
+        backButton!!.setOnClickListener { activity?.onBackPressed() }
         return view
     }
 

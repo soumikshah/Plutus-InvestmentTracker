@@ -26,7 +26,7 @@ class InvestmentDetailAdapter internal constructor(private val context: Context,
         holder.investmentAmount.text = String.format(context.resources.getString(R.string.rs) + " %,d", investment.investmentAmount)
         //todo holder.parent && moredetails will open new fragment with details about clicked investment.
         holder.investmentParent.setOnClickListener {
-            val someFragment: Fragment = InvestmentCardActivity(context,investmentList,investment.investmentCategory)
+            val someFragment: Fragment = InvestmentCardActivity(investmentList,investment.investmentCategory)
             val transaction = (context as MainActivity).supportFragmentManager.beginTransaction()
             transaction.replace(R.id.fragment, someFragment) // give your fragment container id in first parameter
             transaction.addToBackStack(null) // if written, this transaction will be added to backstack

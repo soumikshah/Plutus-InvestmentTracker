@@ -1,5 +1,6 @@
 package com.soumikshah.investmenttracker.view
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -75,9 +76,13 @@ class MainFragment : Fragment() {
         pieChart!!.rotationAngle = 180f
         pieChart!!.isHighlightPerTapEnabled = true
         pieChart!!.animateY(1400, Easing.EasingOption.EaseInOutQuad)
-        pieChart!!.isDrawHoleEnabled = false
-        pieChart!!.setDrawCenterText(false)
-        pieChart!!.legend.isEnabled = false
+        pieChart!!.isDrawHoleEnabled = true
+        pieChart!!.setHoleColor(android.R.color.transparent)
+        pieChart!!.transparentCircleRadius = 10f
+        pieChart!!.setDrawCenterText(true)
+        pieChart!!.setDrawEntryLabels(false)
+        pieChart!!.legend.isEnabled = true
+        pieChart!!.legend.textSize = 15f
     }
 
     private fun showPieChart() {
@@ -85,7 +90,6 @@ class MainFragment : Fragment() {
         val label = ""
         //input data and fit data into pie chart entry
         for (type in investmentMap!!.keys) {
-            Log.d("Tracker", "Type: $type")
             pieEntries!!.add(PieEntry(investmentMap!![type]!!.toFloat(), type))
         }
         pieDataSet = PieDataSet(pieEntries, label)
@@ -95,6 +99,8 @@ class MainFragment : Fragment() {
         pieData!!.setDrawValues(true)
         pieDataSet!!.sliceSpace = 0.1f
         pieData!!.setValueFormatter(PercentFormatter())
+        pieData!!.setValueTextColor(Color.GRAY)
+        pieData!!.setValueTextSize(14f)
         pieChart!!.data = pieData
         pieChart!!.invalidate()
     }
