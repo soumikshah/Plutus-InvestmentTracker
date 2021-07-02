@@ -12,9 +12,9 @@
             android:id="@+id/background_image"
             android:layout_width="@dimen/ic_delete"
             android:layout_height="@dimen/ic_delete"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/padd_10"
+            android:layout_marginEnd="@dimen/padd_10"
             android:src="@drawable/delete" />
 
         <TextView
@@ -22,12 +22,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/padd_10"
-            android:layout_toLeftOf="@id/background_image"
+            android:layout_marginEnd="@dimen/padd_10"
+            android:layout_toStartOf="@id/background_image"
             android:text="@string/delete"
             android:textColor="#fff"
             android:fontFamily="@font/robotoregular"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
     </RelativeLayout>
 
