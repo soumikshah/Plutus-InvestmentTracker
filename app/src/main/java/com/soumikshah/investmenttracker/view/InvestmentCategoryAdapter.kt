@@ -1,15 +1,19 @@
 package com.soumikshah.investmenttracker.view
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
+import android.widget.AdapterView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
+import com.soumikshah.investmenttracker.utils.RecyclerTouchListener
 import java.util.*
 
 class InvestmentCategoryAdapter internal constructor(private val context: Context, private val investmentList: List<Investment>, private val investmentCategory: List<String>) : RecyclerView.Adapter<InvestmentCategoryAdapter.MyViewHolder>() {
@@ -41,6 +45,20 @@ class InvestmentCategoryAdapter internal constructor(private val context: Contex
             transaction.addToBackStack(null) // if written, this transaction will be added to backstack
             transaction.commit()
         }
+        holder.horizontalView.addOnItemTouchListener(
+            RecyclerTouchListener(context, holder.horizontalView, object: AdapterView.OnItemClickListener,
+                RecyclerTouchListener.ClickListener {
+                override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                }
+
+                override fun onClick(view: View?, position: Int) {
+                    //Todo open dialogbox showing item that is clicked
+                }
+
+                override fun onLongClick(view: View?, position: Int) {
+                }
+            })
+        )
     }
 
     override fun getItemCount(): Int {
