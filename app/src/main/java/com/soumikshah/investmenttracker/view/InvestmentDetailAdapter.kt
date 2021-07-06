@@ -15,7 +15,7 @@ import java.util.*
 class InvestmentDetailAdapter internal constructor(private val context: Context, investmentList: ArrayList<Investment>) : RecyclerView.Adapter<InvestmentDetailAdapter.MyViewHolder>() {
     private var investmentList: ArrayList<Investment> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_investment_page, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.mainpage_investment_detail_box_design, parent, false)
         return MyViewHolder(view)
     }
 

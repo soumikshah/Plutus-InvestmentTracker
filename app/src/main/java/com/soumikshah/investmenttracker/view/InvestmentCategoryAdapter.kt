@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.AdapterView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -19,7 +18,7 @@ import java.util.*
 class InvestmentCategoryAdapter internal constructor(private val context: Context, private val investmentList: List<Investment>, private val investmentCategory: List<String>) : RecyclerView.Adapter<InvestmentCategoryAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.investment_detail_box, parent, false)
+                .inflate(R.layout.mainpage_horizontal_recyclerview, parent, false)
         return MyViewHolder(itemView)
     }
 
@@ -53,6 +52,7 @@ class InvestmentCategoryAdapter internal constructor(private val context: Contex
 
                 override fun onClick(view: View?, position: Int) {
                     //Todo open dialogbox showing item that is clicked
+                    Log.d("Tracker","Position "+position)
                 }
 
                 override fun onLongClick(view: View?, position: Int) {

@@ -31,7 +31,7 @@ class InvestmentCardActivity internal constructor(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_item_details, container, false)
+        val view = inflater.inflate(R.layout.fragment_discretescrollview_details, container, false)
         itemName = view.findViewById(R.id.item_name)
         itemPicker = view.findViewById(R.id.item_picker)
         backButton = view.findViewById(R.id.backButton)

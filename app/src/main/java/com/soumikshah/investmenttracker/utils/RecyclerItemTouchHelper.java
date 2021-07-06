@@ -1,3 +1,4 @@
+/*
 package com.soumikshah.investmenttracker.utils;
 
 import android.graphics.Canvas;
@@ -72,3 +73,4 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
         void onSwiped(ViewHolder viewHolder, int direction, int position);
     }
 }
+*/

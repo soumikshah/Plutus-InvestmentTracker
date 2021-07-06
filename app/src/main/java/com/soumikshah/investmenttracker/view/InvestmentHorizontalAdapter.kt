@@ -18,7 +18,7 @@ class InvestmentHorizontalAdapter internal constructor(private val context: Cont
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.investment_horizontal_box, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.category_swiping_cardview, parent, false)
         return MyViewHolder(view)
     }
 

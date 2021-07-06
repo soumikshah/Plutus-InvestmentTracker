@@ -21,12 +21,13 @@ class InvestmentDetailFragment internal constructor(investmentList: ArrayList<In
     private var backButton: Button? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_investment_detail, container, false)
+        val view = inflater.inflate(R.layout.fragment_category_detail, container, false)
         investmentName = view.findViewById(R.id.investment_category_name)
         backButton = view.findViewById(R.id.backButton)
         recyclerView = view.findViewById(R.id.recycler_view)
         mAdapter = InvestmentDetailAdapter(requireContext(), investmentList!!)
-        if (investmentList != null && investmentList!!.isNotEmpty()) investmentName!!.text = investmentList!![0].investmentCategory
+        if (investmentList != null && investmentList!!.isNotEmpty())
+            investmentName!!.text = investmentList!![0].investmentCategory
 
         recyclerView!!.setHasFixedSize(true)
         val manager = GridLayoutManager(activity, 2)

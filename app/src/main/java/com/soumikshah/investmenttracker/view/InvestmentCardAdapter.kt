@@ -1,7 +1,6 @@
 package com.soumikshah.investmenttracker.view
 
 import android.content.Context
-import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -20,7 +19,7 @@ class InvestmentCardAdapter(
 ) : RecyclerView.Adapter<InvestmentCardAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val v = inflater.inflate(R.layout.item_investment_card, parent, false)
+        val v = inflater.inflate(R.layout.category_scrolling_cardview, parent, false)
         return ViewHolder(v)
     }
 
