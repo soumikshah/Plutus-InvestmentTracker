@@ -150,11 +150,11 @@ class MainActivity : AppCompatActivity() {
         }
         alertDialogBuilderUserInput
                 .setCancelable(false)
-                .setPositiveButton(if (shouldUpdate) "update" else "save") { dialogBox, id -> }
+                .setPositiveButton(if (shouldUpdate) "update" else "save") { _, _ -> }
                 .setNegativeButton("cancel"
-                ) { dialogBox, id -> dialogBox.cancel() }
+                ) { dialogBox, _ -> dialogBox.cancel() }
         val alertDialog = alertDialogBuilderUserInput.create()
-        alertDialog.setOnKeyListener { dialogInterface, i, keyEvent ->
+        alertDialog.setOnKeyListener { _, _, keyEvent ->
             if (keyEvent.keyCode == KeyEvent.KEYCODE_BACK) {
                 alertDialog.dismiss()
             }

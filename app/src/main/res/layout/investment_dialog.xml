@@ -7,8 +7,7 @@
     android:paddingLeft="@dimen/activity_margin"
     android:paddingRight="@dimen/activity_margin"
     android:paddingTop="@dimen/activity_margin"
-    android:paddingBottom="25dp"
-    android:background="#1C1919">
+    android:paddingBottom="25dp">
 
     <TextView android:id="@+id/dialog_title"
         android:layout_width="wrap_content"
@@ -18,10 +17,10 @@
         android:lineSpacingExtra="8sp"
         android:layout_gravity="center_horizontal"
         android:text="@string/new_investment_title"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/investment_name"
         android:paddingBottom="10dp"
         android:textSize="@dimen/lbl_new_investment_title"
-        android:textStyle="normal" />
+        android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/investmentname"
@@ -37,7 +36,7 @@
             android:hint="@string/hint_enter_investment_name"
             android:inputType="textCapSentences|textMultiLine"
             android:lines="2"
-            android:layout_margin="5dp"
+            android:layout_margin="3dp"
             android:textColorHint="@color/investment_name"
             android:textColor="@color/investment_name"
             android:textSize="@dimen/input_new_investment" />
