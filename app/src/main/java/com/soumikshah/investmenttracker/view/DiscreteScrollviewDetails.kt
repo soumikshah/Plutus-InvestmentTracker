@@ -14,6 +14,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.soumikshah.investmenttracker.R
 import com.yarolegovich.discretescrollview.DSVOrientation
+import com.yarolegovich.discretescrollview.transform.Pivot
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer
 import java.util.ArrayList
 
@@ -54,10 +55,13 @@ class DiscreteScrollviewDetails internal constructor(
 
         val targetPosition = infiniteScrollAdapter!!.getClosestPosition(positionForRecyclerView!!)
         itemPicker!!.scrollToPosition(targetPosition)
-
+        itemPicker!!.setSlideOnFling(true)
         itemPicker!!.setItemTransformer(
             ScaleTransformer.Builder()
-                .setMinScale(0.9f)
+                .setMaxScale(1.0f)
+                .setMinScale(0.8f)
+                .setPivotX(Pivot.X.CENTER) // CENTER is a default one
+                .setPivotY(Pivot.Y.BOTTOM) // CENTER is a default one
                 .build()
         )
 

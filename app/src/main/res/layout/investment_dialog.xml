@@ -15,6 +15,7 @@
         android:layout_marginBottom="@dimen/dimen_10"
         android:fontFamily="sans-serif-medium"
         android:lineSpacingExtra="8sp"
+        android:textAllCaps="true"
         android:layout_gravity="center_horizontal"
         android:text="@string/new_investment_title"
         android:textColor="@color/investment_name"
@@ -26,6 +27,7 @@
         android:id="@+id/investmentname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAllCaps="true"
         app:hintTextColor="@color/investment_name"
         android:textColorHint="@color/investment_name"
         android:textSize="@dimen/input_new_investment">
@@ -39,7 +41,8 @@
             android:layout_margin="3dp"
             android:textColorHint="@color/investment_name"
             android:textColor="@color/investment_name"
-            android:textSize="@dimen/input_new_investment" />
+            android:textSize="@dimen/input_new_investment"
+            android:textAllCaps="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -56,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:maxLength="9"
+            android:textAllCaps="true"
             android:hint="@string/hint_enter_investment_amount"
             android:inputType="number|numberDecimal"
             android:textColorHint="@color/investment_amount"
@@ -68,6 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="5dp"
+        android:textAllCaps="true"
         app:hintTextColor="@color/investment_medium"
         android:textColorHint="@color/investment_medium"
         android:textSize="@dimen/investment_medium">
@@ -78,6 +83,7 @@
         android:hint="@string/hint_enter_investment_medium"
         android:inputType="textCapSentences|text"
         android:layout_margin="3dp"
+        android:textAllCaps="true"
         android:textColorHint="@color/investment_medium"
         android:textColor="@color/investment_medium"
         android:textSize="@dimen/investment_medium" />
@@ -88,6 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="5dp"
+        android:textAllCaps="true"
         app:hintTextColor="@color/investment_category"
         android:textColorHint="@color/investment_category"
         android:textSize="@dimen/investment_category">
@@ -98,6 +105,7 @@
         android:hint="@string/hint_enter_investment_category"
         android:inputType="textCapSentences|text"
         android:layout_margin="3dp"
+        android:textAllCaps="true"
         android:textColorHint="@color/investment_category"
         android:textColor="@color/investment_category"
         android:textSize="@dimen/investment_category" />
@@ -108,6 +116,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="5dp"
+        android:textAllCaps="true"
         app:hintTextColor="@color/investment_datepicker"
         android:textColorHint="@color/investment_datepicker"
         android:textSize="@dimen/investment_category">
@@ -118,6 +127,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/hint_enter_investment_date"
             android:layout_margin="3dp"
+            android:textAllCaps="true"
             android:paddingBottom="5dp"
             android:focusable="false"
             android:textColorHint="@color/investment_datepicker"
@@ -131,6 +141,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="5dp"
+        android:textAllCaps="true"
         app:hintTextColor="@color/investment_interest_percent"
         android:textColorHint="@color/investment_interest_percent"
         android:textSize="@dimen/investment_interest">
@@ -141,6 +152,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:layout_weight="0.3"
+            android:textAllCaps="true"
             android:hint="@string/hint_enter_interest_percent"
             android:inputType="number|numberDecimal"
             android:textColorHint="@color/investment_interest_percent"
@@ -154,6 +166,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="5dp"
+        android:textAllCaps="true"
         android:textColorHint="@color/investment_amount_of_month"
         android:textSize="@dimen/investment_category">
         <EditText
@@ -162,6 +175,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/hint_enter_investment_month"
             android:inputType="number"
+            android:textAllCaps="true"
             android:autofillHints="@string/hint_enter_investment_month"
             android:layout_margin="3dp"
             android:textColorHint="@color/investment_amount_of_month"
