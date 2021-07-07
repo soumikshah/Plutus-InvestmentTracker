@@ -15,6 +15,7 @@ import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
 import com.soumikshah.investmenttracker.utils.RecyclerTouchListener
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MainPageHorizontalRecyclerview internal constructor(private val context: Context, private val investmentList: ArrayList<Investment>, private val investmentCategory: List<String>) : RecyclerView.Adapter<MainPageHorizontalRecyclerview.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -52,10 +53,13 @@ class MainPageHorizontalRecyclerview internal constructor(private val context: C
                 }
 
                 override fun onClick(view: View?, position: Int) {
-                    //Todo open dialogbox showing item that is clicked
-                    Log.d("Tracker", "Position $position and "+investmentData[position].id+" : "+investmentData[position].investmentName )
-
-                    val someFragment: Fragment = DiscreteScrollviewDetails(investmentList,investmentCat,investmentData[position].id)
+                    val categoryList: ArrayList<Investment> = ArrayList()
+                    for((_,value ) in investmentList.withIndex()){
+                        if(value.investmentCategory.equals(investmentData[position].investmentCategory)){
+                            categoryList.add(value)
+                        }
+                    }
+                    val someFragment: Fragment = DiscreteScrollviewDetails(categoryList,investmentData[position].investmentCategory,investmentData[position].id)
                     val transaction = (context as MainActivity).supportFragmentManager.beginTransaction()
                     transaction.replace(R.id.fragment, someFragment) // give your fragment container id in first parameter
                     transaction.addToBackStack(null) // if written, this transaction will be added to backstack
