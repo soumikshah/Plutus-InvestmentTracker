@@ -1,5 +1,6 @@
 package com.soumikshah.investmenttracker.view
 
+import android.app.Activity
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,7 +16,7 @@ import com.soumikshah.investmenttracker.database.model.Investment
 import com.soumikshah.investmenttracker.utils.RecyclerTouchListener
 import java.util.*
 
-class MainPageHorizontalRecyclerview internal constructor(private val context: Context, private val investmentList: List<Investment>, private val investmentCategory: List<String>) : RecyclerView.Adapter<MainPageHorizontalRecyclerview.MyViewHolder>() {
+class MainPageHorizontalRecyclerview internal constructor(private val context: Context, private val investmentList: ArrayList<Investment>, private val investmentCategory: List<String>) : RecyclerView.Adapter<MainPageHorizontalRecyclerview.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.mainpage_horizontal_recyclerview, parent, false)
@@ -52,10 +53,17 @@ class MainPageHorizontalRecyclerview internal constructor(private val context: C
 
                 override fun onClick(view: View?, position: Int) {
                     //Todo open dialogbox showing item that is clicked
-                    Log.d("Tracker", "Position $position")
+                    Log.d("Tracker", "Position $position and "+investmentData[position].id+" : "+investmentData[position].investmentName )
+
+                    val someFragment: Fragment = DiscreteScrollviewDetails(investmentList,investmentCat,investmentData[position].id)
+                    val transaction = (context as MainActivity).supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fragment, someFragment) // give your fragment container id in first parameter
+                    transaction.addToBackStack(null) // if written, this transaction will be added to backstack
+                    transaction.commit()
                 }
 
                 override fun onLongClick(view: View?, position: Int) {
+                    (context as MainActivity).showInvestmentDialog(true,investmentData[position],position)
                 }
             })
         )

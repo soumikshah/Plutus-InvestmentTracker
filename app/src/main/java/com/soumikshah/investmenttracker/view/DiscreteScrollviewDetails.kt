@@ -44,7 +44,7 @@ class DiscreteScrollviewDetails internal constructor(
         itemName!!.text = investmentItemName
         for((index,value) in investments.withIndex()){
             if(value.id == investmentItemId){
-                positionForRecyclerView = index;
+                positionForRecyclerView = index
             }
         }
 

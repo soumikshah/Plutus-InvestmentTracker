@@ -19,10 +19,11 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.InvestmentHelper
+import com.soumikshah.investmenttracker.database.model.Investment
 import java.util.*
 
 class MainFragment : Fragment() {
-    private val noInvestmentView: TextView? = null
+    private var noInvestmentView: TextView? = null
     private var pieChart: PieChart? = null
     @JvmField
     var investmentHelper: InvestmentHelper? = null
@@ -37,7 +38,7 @@ class MainFragment : Fragment() {
     private var mAdapter: MainPageHorizontalRecyclerview? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.mainfragment, container, false)
-        //noInvestmentView = view.findViewById(R.id.empty_investment_view);
+        noInvestmentView = view.findViewById(R.id.empty_investment_view);
         //private InvestmentAdapter mAdapter;
         val totalAmount = view.findViewById<TextView>(R.id.total_amount_invested)
         val otherInvestment = view.findViewById<TextView>(R.id.otherInvestment)
@@ -45,26 +46,30 @@ class MainFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recycler_view)
         fragment = view.findViewById(R.id.fragment)
         investmentHelper = InvestmentHelper(requireContext())
-        totalAmount.text = String.format(resources.getString(R.string.rs) + "%,d", investmentHelper!!.investmentTotalAmount)
-        otherInvestment.text = investmentHelper!!.investmentCategoryAndAmount
-        graphFragment = GraphFragment()
-        mAdapter = MainPageHorizontalRecyclerview(requireContext(), investmentHelper!!.getInvestmentsList(), investmentCategories)
-        val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
-        recyclerView!!.setHasFixedSize(true)
-        recyclerView!!.layoutManager = mLayoutManager
-        recyclerView!!.itemAnimator = DefaultItemAnimator()
-        recyclerView!!.adapter = mAdapter
-        investmentMap = investmentHelper!!.investmentTypeAndAmount
-        if (investmentMap != null) {
-            for (type in investmentMap!!.keys) {
-                if (!investmentCategories.contains(type)) {
-                    investmentCategories.add(type)
+        if(investmentHelper!!.getInvestmentsList().isEmpty()){
+            noInvestmentView!!.visibility = View.VISIBLE
+        }else{
+            totalAmount.text = String.format(resources.getString(R.string.rs) + "%,d", investmentHelper!!.investmentTotalAmount)
+            otherInvestment.text = investmentHelper!!.investmentCategoryAndAmount
+            graphFragment = GraphFragment()
+            mAdapter = MainPageHorizontalRecyclerview(requireContext(), investmentHelper!!.getInvestmentsList(), investmentCategories)
+            val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
+            recyclerView!!.setHasFixedSize(true)
+            recyclerView!!.layoutManager = mLayoutManager
+            recyclerView!!.itemAnimator = DefaultItemAnimator()
+            recyclerView!!.adapter = mAdapter
+            investmentMap = investmentHelper!!.investmentTypeAndAmount
+            if (investmentMap != null) {
+                for (type in investmentMap!!.keys) {
+                    if (!investmentCategories.contains(type)) {
+                        investmentCategories.add(type)
+                    }
                 }
             }
+            initPieChart()
+            showPieChart()
+            mAdapter!!.notifyDataSetChanged()
         }
-        initPieChart()
-        showPieChart()
-        mAdapter!!.notifyDataSetChanged()
         return view
     }
 

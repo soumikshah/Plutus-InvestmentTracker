@@ -62,7 +62,10 @@ class MainActivity : AppCompatActivity() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
             override fun onPageSelected(position: Int) {
                 when (position) {
-                    0 -> bottomNavigationView!!.menu.findItem(R.id.mainPage).isChecked = true
+                    0 -> {
+                        bottomNavigationView!!.menu.findItem(R.id.mainPage).isChecked = true
+
+                    }
                     1 -> bottomNavigationView!!.menu.findItem(R.id.graph).isChecked = true
                     2 -> bottomNavigationView!!.menu.findItem(R.id.settings).isChecked = true
                 }
@@ -110,7 +113,7 @@ class MainActivity : AppCompatActivity() {
      * when shouldUpdate=true, it automatically displays old note and changes the
      * button text to UPDATE
      */
-    private fun showInvestmentDialog(shouldUpdate: Boolean, investment: Investment?, position: Int) {
+    fun showInvestmentDialog(shouldUpdate: Boolean, investment: Investment?, position: Int) {
         val layoutInflaterAndroid = LayoutInflater.from(this@MainActivity)
         val view = layoutInflaterAndroid.inflate(R.layout.investment_dialog, null)
         val alertDialogBuilderUserInput = AlertDialog.Builder(this@MainActivity)
