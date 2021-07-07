@@ -2,7 +2,6 @@ package com.soumikshah.investmenttracker.view
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +34,7 @@ class MainFragment : Fragment() {
     private var graphFragment: GraphFragment? = null
     private var recyclerView: RecyclerView? = null
     var fragment: RelativeLayout? = null
-    private var mAdapter: InvestmentCategoryAdapter? = null
+    private var mAdapter: MainPageHorizontalRecyclerview? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.mainfragment, container, false)
         //noInvestmentView = view.findViewById(R.id.empty_investment_view);
@@ -49,7 +48,7 @@ class MainFragment : Fragment() {
         totalAmount.text = String.format(resources.getString(R.string.rs) + "%,d", investmentHelper!!.investmentTotalAmount)
         otherInvestment.text = investmentHelper!!.investmentCategoryAndAmount
         graphFragment = GraphFragment()
-        mAdapter = InvestmentCategoryAdapter(requireContext(), investmentHelper!!.getInvestmentsList(), investmentCategories)
+        mAdapter = MainPageHorizontalRecyclerview(requireContext(), investmentHelper!!.getInvestmentsList(), investmentCategories)
         val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
         recyclerView!!.setHasFixedSize(true)
         recyclerView!!.layoutManager = mLayoutManager

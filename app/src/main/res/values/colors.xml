@@ -13,6 +13,7 @@
     <color name="investment_category">#845ec2</color>
     <color name="investment_datepicker">#845ec2</color>
     <color name="investment_amount_of_month">#845ec2</color>
+    <color name="fab_color">#845ec2</color>
     <color name="recyclerview_divider">#B0A8B9</color>
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="windowBackground">#FFFFFF</color>

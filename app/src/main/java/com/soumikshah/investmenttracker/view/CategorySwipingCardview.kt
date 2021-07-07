@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
 
-class InvestmentHorizontalAdapter internal constructor(private val context: Context, private val investmentData: List<Investment>) : RecyclerView.Adapter<InvestmentHorizontalAdapter.MyViewHolder>() {
+class CategorySwipingCardview internal constructor(private val context: Context, private val investmentData: List<Investment>) : RecyclerView.Adapter<CategorySwipingCardview.MyViewHolder>() {
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var name: TextView = view.findViewById(R.id.investmentName)
         var placeInvestmentDone: TextView = view.findViewById(R.id.investmentPlace)

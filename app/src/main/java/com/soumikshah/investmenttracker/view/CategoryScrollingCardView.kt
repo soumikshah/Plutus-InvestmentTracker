@@ -13,10 +13,10 @@ import com.soumikshah.investmenttracker.database.model.Investment
 import java.text.SimpleDateFormat
 import java.util.*
 
-class InvestmentCardAdapter(
+class CategoryScrollingCardView(
     private val context: Context,
     private val investments: ArrayList<Investment>
-) : RecyclerView.Adapter<InvestmentCardAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<CategoryScrollingCardView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val v = inflater.inflate(R.layout.category_scrolling_cardview, parent, false)

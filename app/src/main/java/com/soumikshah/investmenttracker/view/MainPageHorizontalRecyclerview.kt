@@ -15,7 +15,7 @@ import com.soumikshah.investmenttracker.database.model.Investment
 import com.soumikshah.investmenttracker.utils.RecyclerTouchListener
 import java.util.*
 
-class InvestmentCategoryAdapter internal constructor(private val context: Context, private val investmentList: List<Investment>, private val investmentCategory: List<String>) : RecyclerView.Adapter<InvestmentCategoryAdapter.MyViewHolder>() {
+class MainPageHorizontalRecyclerview internal constructor(private val context: Context, private val investmentList: List<Investment>, private val investmentCategory: List<String>) : RecyclerView.Adapter<MainPageHorizontalRecyclerview.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.mainpage_horizontal_recyclerview, parent, false)
@@ -33,12 +33,12 @@ class InvestmentCategoryAdapter internal constructor(private val context: Contex
                 investmentData.add(i)
             }
         }
-        val investmentHorizontalAdapter = InvestmentHorizontalAdapter(context, investmentData)
+        val investmentHorizontalAdapter = CategorySwipingCardview(context, investmentData)
         holder.horizontalView.setHasFixedSize(true)
         holder.horizontalView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         holder.horizontalView.adapter = investmentHorizontalAdapter
         holder.investmentCategory.setOnClickListener {
-            val someFragment: Fragment = InvestmentDetailFragment(investmentData)
+            val someFragment: Fragment = InvestmentCategoryFragment(investmentData)
             val transaction = (context as MainActivity).supportFragmentManager.beginTransaction()
             transaction.replace(R.id.fragment, someFragment) // give your fragment container id in first parameter
             transaction.addToBackStack(null) // if written, this transaction will be added to backstack
@@ -52,7 +52,7 @@ class InvestmentCategoryAdapter internal constructor(private val context: Contex
 
                 override fun onClick(view: View?, position: Int) {
                     //Todo open dialogbox showing item that is clicked
-                    Log.d("Tracker","Position "+position)
+                    Log.d("Tracker", "Position $position")
                 }
 
                 override fun onLongClick(view: View?, position: Int) {

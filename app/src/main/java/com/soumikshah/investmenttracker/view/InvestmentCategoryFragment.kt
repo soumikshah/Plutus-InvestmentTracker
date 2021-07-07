@@ -13,11 +13,11 @@ import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
 import java.util.*
 
-class InvestmentDetailFragment internal constructor(investmentList: ArrayList<Investment>?) : Fragment() {
+class InvestmentCategoryFragment internal constructor(investmentList: ArrayList<Investment>?) : Fragment() {
     private var recyclerView: RecyclerView? = null
     private var investmentName: TextView? = null
     private var investmentList: ArrayList<Investment>? = ArrayList()
-    private var mAdapter: InvestmentDetailAdapter? = null
+    private var mBoxAdapter: MainpageDetailBoxAdapter? = null
     private var backButton: Button? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -25,14 +25,14 @@ class InvestmentDetailFragment internal constructor(investmentList: ArrayList<In
         investmentName = view.findViewById(R.id.investment_category_name)
         backButton = view.findViewById(R.id.backButton)
         recyclerView = view.findViewById(R.id.recycler_view)
-        mAdapter = InvestmentDetailAdapter(requireContext(), investmentList!!)
+        mBoxAdapter = MainpageDetailBoxAdapter(requireContext(), investmentList!!)
         if (investmentList != null && investmentList!!.isNotEmpty())
             investmentName!!.text = investmentList!![0].investmentCategory
 
         recyclerView!!.setHasFixedSize(true)
         val manager = GridLayoutManager(activity, 2)
         recyclerView!!.layoutManager = manager
-        recyclerView!!.adapter = mAdapter
+        recyclerView!!.adapter = mBoxAdapter
         backButton!!.setOnClickListener {
             //BackPress
             activity?.onBackPressed()
