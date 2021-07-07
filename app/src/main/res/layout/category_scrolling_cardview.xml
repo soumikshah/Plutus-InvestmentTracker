@@ -42,7 +42,8 @@
             android:textSize="20sp"
             android:textStyle="bold"
             tools:text="Investment Category: Equity"
-            android:layout_margin="3dp" />
+            android:layout_margin="3dp"
+            android:layout_marginBottom="10dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,5 +53,23 @@
             android:layout_margin="3dp"
             android:layout_marginBottom="10dp"
             android:visibility="gone"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/investmentPercent"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="Interest Percent: 5.0%"
+            android:layout_margin="3dp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/investmentPeriod"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="Invested For: 24"
+            android:layout_margin="3dp"
+            android:layout_marginBottom="10dp"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

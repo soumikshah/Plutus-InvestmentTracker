@@ -43,6 +43,19 @@ class CategoryScrollingCardView(
         }else{
             holder.investmentDate.visibility = GONE
         }
+
+        if(investment.investmentPercent.isNaN() || investment.investmentPercent.equals(0f)){
+           holder.investmentInterest.visibility= GONE
+        }else{
+            holder.investmentInterest.visibility = VISIBLE
+            holder.investmentInterest.text = String.format("Invested At %s%% Interest",investment.investmentPercent.toString())
+        }
+        if((investment.investmentMonth.toString().isNotBlank() || investment.investmentMonth.toString().isNotEmpty())&& investment.investmentMonth != 0){
+            holder.investmentPeriod.visibility = VISIBLE
+            holder.investmentPeriod.text = String.format("Invested For %s Months",investment.investmentMonth)
+        }else{
+            holder.investmentPeriod.visibility = GONE
+        }
     }
 
     override fun getItemCount(): Int {
@@ -55,5 +68,7 @@ class CategoryScrollingCardView(
         val investmentMedium: TextView? = itemView.findViewById(R.id.investmentMedium)
         val investmentCategory: TextView? = itemView.findViewById(R.id.investmentCategory)
         val investmentDate: TextView = itemView.findViewById(R.id.investmentDate)
+        val investmentInterest: TextView = itemView.findViewById(R.id.investmentPercent)
+        val investmentPeriod: TextView = itemView.findViewById(R.id.investmentPeriod)
     }
 }

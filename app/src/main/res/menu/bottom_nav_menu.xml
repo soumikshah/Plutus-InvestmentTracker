@@ -5,8 +5,14 @@
     android:enabled="true"
     android:icon="@drawable/ic_mainpage_icon"
     android:title="@string/mainpage"
-    app:showAsAction="ifRoom" />
+    app:showAsAction="always" />
     <item
+        android:id="@+id/settings"
+        android:enabled="true"
+        android:title="@string/settings"
+        android:icon="@drawable/ic_settingspage_icon"
+        app:showAsAction="always" />
+    <!--<item
     android:id="@+id/graph"
     android:enabled="true"
     android:title="@string/graphs"
@@ -17,5 +23,5 @@
     android:enabled="true"
     android:title="@string/settings"
     android:icon="@drawable/ic_settingspage_icon"
-    app:showAsAction="ifRoom" />
+    app:showAsAction="ifRoom" />-->
 </menu>

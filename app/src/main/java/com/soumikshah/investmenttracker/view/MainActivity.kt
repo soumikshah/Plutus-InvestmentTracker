@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnTouchListener
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -25,6 +26,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.investment_dialog.*
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
     var coordinatorLayout: CoordinatorLayout? = null
@@ -52,22 +54,25 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView!!.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.mainPage -> viewPager!!.currentItem = 0
-                R.id.graph -> viewPager!!.currentItem = 1
-                R.id.settings -> viewPager!!.currentItem = 2
+                R.id.settings -> viewPager!!.currentItem = 1
+                /*R.id.graph -> viewPager!!.currentItem = 1*/
                 else -> throw IllegalStateException("Unexpected value: " + item.itemId)
             }
             true
         }
+
         viewPager!!.addOnPageChangeListener(object : OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+            }
             override fun onPageSelected(position: Int) {
                 when (position) {
                     0 -> {
                         bottomNavigationView!!.menu.findItem(R.id.mainPage).isChecked = true
-
                     }
-                    1 -> bottomNavigationView!!.menu.findItem(R.id.graph).isChecked = true
-                    2 -> bottomNavigationView!!.menu.findItem(R.id.settings).isChecked = true
+                    1 -> bottomNavigationView!!.menu.findItem(R.id.settings).isChecked = true
+                    /*1 -> bottomNavigationView!!.menu.findItem(R.id.graph).isChecked = true
+                    2 -> bottomNavigationView!!.menu.findItem(R.id.settings).isChecked = true*/
                 }
             }
 
@@ -81,8 +86,8 @@ class MainActivity : AppCompatActivity() {
     private fun setupViewPager(viewPager: ViewPager?) {
         val adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragment(mainFragment, "Mainpage")
-        adapter.addFragment(GraphFragment(), "Graph")
         adapter.addFragment(SettingsFragment(), "Settings")
+        /*adapter.addFragment(GraphFragment(), "Graph")*/
         adapter.also { viewPager!!.adapter = it }
     }
 
@@ -104,6 +109,10 @@ class MainActivity : AppCompatActivity() {
 
         override fun getPageTitle(position: Int): CharSequence {
             return mFragmentTitleList[position]
+        }
+
+        override fun getItemPosition(`object`: Any): Int {
+            return POSITION_NONE
         }
     }
 
@@ -206,6 +215,7 @@ class MainActivity : AppCompatActivity() {
                         inputInvestmentCategory.text.toString(),
                         investmentDateInLong, inputInvestmentNumberOfMonths.text.toString().toInt())
             }
+            viewPager!!.adapter!!.notifyDataSetChanged()
         })
     }
 }
