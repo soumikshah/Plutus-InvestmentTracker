@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -30,6 +31,7 @@ class MainFragment : Fragment() {
     private var pieEntries: ArrayList<PieEntry>? = null
     private var pieDataSet: PieDataSet? = null
     private var pieData: PieData? = null
+    private var linearLayoutView: LinearLayout? = null
     private var investmentMap: HashMap<String, Int>? = null
     private var investmentCategories: MutableList<String> = ArrayList()
     private var graphFragment: GraphFragment? = null
@@ -45,10 +47,18 @@ class MainFragment : Fragment() {
         pieChart = view.findViewById(R.id.pieChart_view)
         recyclerView = view.findViewById(R.id.recycler_view)
         fragment = view.findViewById(R.id.fragment)
+        linearLayoutView = view.findViewById(R.id.linearLayout)
         investmentHelper = InvestmentHelper(requireContext())
         if(investmentHelper!!.getInvestmentsList().isEmpty()){
             noInvestmentView!!.visibility = View.VISIBLE
+            linearLayoutView!!.visibility = View.GONE
+            pieChart!!.visibility = View.GONE
+            recyclerView!!.visibility = View.GONE
         }else{
+            noInvestmentView!!.visibility = View.GONE
+            linearLayoutView!!.visibility = View.VISIBLE
+            pieChart!!.visibility = View.VISIBLE
+            recyclerView!!.visibility = View.VISIBLE
             totalAmount.text = String.format(resources.getString(R.string.rs) + "%,d", investmentHelper!!.investmentTotalAmount)
             otherInvestment.text = investmentHelper!!.investmentCategoryAndAmount
             graphFragment = GraphFragment()

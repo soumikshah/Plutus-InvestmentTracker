@@ -41,8 +41,7 @@
             android:layout_margin="3dp"
             android:textColorHint="@color/investment_name"
             android:textColor="@color/investment_name"
-            android:textSize="@dimen/input_new_investment"
-            android:textAllCaps="true" />
+            android:textSize="@dimen/input_new_investment" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

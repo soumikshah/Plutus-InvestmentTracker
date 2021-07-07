@@ -118,13 +118,13 @@ class MainActivity : AppCompatActivity() {
         val view = layoutInflaterAndroid.inflate(R.layout.investment_dialog, null)
         val alertDialogBuilderUserInput = AlertDialog.Builder(this@MainActivity)
         alertDialogBuilderUserInput.setView(view)
-        val inputInvestmentName = view.findViewById<EditText>(R.id.investment)
-        val inputInvestmentAmount = view.findViewById<EditText>(R.id.investmentAmount)
-        val inputInvestmentPercent = view.findViewById<EditText>(R.id.investmentInterest)
-        val inputInvestmentMedium = view.findViewById<EditText>(R.id.investmentMedium)
-        val inputInvestmentCategory = view.findViewById<EditText>(R.id.investmentCategory)
+        val inputInvestmentName:EditText = view.findViewById<EditText>(R.id.investment)
+        val inputInvestmentAmount: EditText = view.findViewById<EditText>(R.id.investmentAmount)
+        val inputInvestmentPercent: EditText = view.findViewById<EditText>(R.id.investmentInterest)
+        val inputInvestmentMedium: EditText = view.findViewById<EditText>(R.id.investmentMedium)
+        val inputInvestmentCategory: EditText = view.findViewById<EditText>(R.id.investmentCategory)
         val inputInvestmentDate = view.findViewById<TextView>(R.id.investedDate)
-        val inputInvestmentNumberOfMonths = view.findViewById<EditText>(R.id.investedNumberOfMonths)
+        val inputInvestmentNumberOfMonths: EditText = view.findViewById<EditText>(R.id.investedNumberOfMonths)
         val dialogTitle = view.findViewById<TextView>(R.id.dialog_title)
         dialogTitle.text = if (!shouldUpdate) getString(R.string.new_investment_title) else getString(R.string.edit_investment_title)
         inputInvestmentDate.setOnClickListener { // calender class's instance and get current date , month and year from calender
@@ -142,13 +142,15 @@ class MainActivity : AppCompatActivity() {
             datePickerDialog!!.show()
         }
         if (shouldUpdate && investment != null) {
-            inputInvestmentName.setText(investment.investmentName)
+            inputInvestmentName.setText(investment.investmentName.toString())
             inputInvestmentAmount.setText(investment.investmentAmount.toString())
             inputInvestmentPercent.setText(investment.investmentPercent.toString())
             inputInvestmentMedium.setText(investment.investmentMedium.toString())
             inputInvestmentCategory.setText(investment.investmentCategory.toString())
-            val sim = SimpleDateFormat("dd/MM/YYYY", Locale.ENGLISH)
-            inputInvestmentDate.text = sim.format(investment.investmentDate)
+            if(inputInvestmentDate.text.isNotBlank()){
+                val sim = SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH)
+                inputInvestmentDate.text = sim.format(investment.investmentDate)
+            }
             inputInvestmentNumberOfMonths.setText(investment.investmentMonth.toString())
         }
         alertDialogBuilderUserInput
