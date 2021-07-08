@@ -6,11 +6,11 @@
     <string name="new_investment_title">Add New Investment</string>
     <string name="edit_investment_title">Edit Investment</string>
     <string name="hint_enter_investment_name">Name*</string>
-    <string name="hint_enter_investment_amount">Amount (Rs.)*</string>
+    <string name="hint_enter_investment_amount">Amount*</string>
     <string name="hint_enter_interest_percent">Interest Percent?</string>
     <string name="hint_enter_investment_medium">Through some bank or investing app?</string>
     <string name="label_enter_investment_medium">How did you invest?*</string>
-    <string name="hint_enter_investment_category">Investment Category*</string>
+    <string name="hint_enter_investment_category">Investment Category/Sector*</string>
     <string name="hint_enter_investment_date">When Did You Invest?</string>
     <string name="hint_enter_investment_month">Amount Of Time (Months)</string>
     <string name="delete">Delete</string>
@@ -19,6 +19,7 @@
     <string name="undo">UNDO</string>
     <string name="toast_message_no_detail">No more information to show. You can long press on this investment and add some more details!</string>
     <string name="total_amount_of_investment">Total: </string>
+    <string name="currency">Currency: </string>
     <string name="mainpage">MainPage</string>
     <string name="graphs">Graphs</string>
     <string name="settings">Settings</string>

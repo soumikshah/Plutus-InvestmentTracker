@@ -21,6 +21,8 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.InvestmentHelper
 import com.soumikshah.investmenttracker.database.model.Investment
+import nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
 import java.util.*
 
 class MainFragment : Fragment() {
@@ -44,6 +46,8 @@ class MainFragment : Fragment() {
         //private InvestmentAdapter mAdapter;
         val totalAmount = view.findViewById<TextView>(R.id.total_amount_invested)
         val otherInvestment = view.findViewById<TextView>(R.id.otherInvestment)
+        val buttonGroup = view.findViewById<ThemedToggleButtonGroup>(R.id.toggleGroup)
+        val inrButton = view.findViewById<ThemedButton>(R.id.rupee)
         pieChart = view.findViewById(R.id.pieChart_view)
         recyclerView = view.findViewById(R.id.recycler_view)
         fragment = view.findViewById(R.id.fragment)
@@ -78,6 +82,8 @@ class MainFragment : Fragment() {
             }
             initPieChart()
             showPieChart()
+            //Select INR button by default
+            buttonGroup.selectButton(inrButton)
             mAdapter!!.notifyDataSetChanged()
         }
         return view
