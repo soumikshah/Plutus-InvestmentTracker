@@ -97,6 +97,8 @@ class MainFragment : Fragment() {
         pieChart!!.setDrawEntryLabels(false)
         pieChart!!.legend.isEnabled = true
         pieChart!!.legend.textSize = 15f
+        pieChart!!.legend.isWordWrapEnabled = true
+
     }
 
     private fun showPieChart() {

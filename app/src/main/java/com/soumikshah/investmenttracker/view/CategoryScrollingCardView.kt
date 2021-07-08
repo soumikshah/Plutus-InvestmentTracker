@@ -36,7 +36,7 @@ class CategoryScrollingCardView(
             String.format("Medium: %s", investment.investmentMedium)
         holder.investmentCategory!!.text =
             String.format("Category: %s", investment.investmentCategory)
-        if(investment.investmentDate.toString().isNotBlank()){
+        if(investment.investmentDate.toString() != "0"){
             val formatter = SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH)
             holder.investmentDate.visibility = VISIBLE
             holder.investmentDate.text = String.format("Date Invested On: %s",formatter.format(investment.investmentDate))

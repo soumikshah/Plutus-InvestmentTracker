@@ -1,5 +1,7 @@
 package com.soumikshah.investmenttracker.database.model;
 
+import android.util.Log;
+
 public class Investment {
     public static final String TABLE_NAME = "investment";
 
@@ -118,6 +120,7 @@ public class Investment {
 
 
     public long getInvestmentDate() {
+        Log.d("Tracker","Date is "+investmentDate);
         return investmentDate;
     }
 
