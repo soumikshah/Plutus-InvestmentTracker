@@ -8,7 +8,8 @@
     <string name="hint_enter_investment_name">Name*</string>
     <string name="hint_enter_investment_amount">Amount (Rs.)*</string>
     <string name="hint_enter_interest_percent">Interest Percent?</string>
-    <string name="hint_enter_investment_medium">Medium Of Investment*</string>
+    <string name="hint_enter_investment_medium">Through some bank or investing app?</string>
+    <string name="label_enter_investment_medium">How did you invest?*</string>
     <string name="hint_enter_investment_category">Investment Category*</string>
     <string name="hint_enter_investment_date">When Did You Invest?</string>
     <string name="hint_enter_investment_month">Amount Of Time (Months)</string>

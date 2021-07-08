@@ -73,14 +73,17 @@
         android:paddingBottom="5dp"
         android:textAllCaps="true"
         app:hintTextColor="@color/investment_medium"
+        app:placeholderText="@string/hint_enter_investment_medium"
+        app:placeholderTextAppearance="@color/investment_medium"
         android:textColorHint="@color/investment_medium"
         android:textSize="@dimen/investment_medium">
     <EditText
         android:id="@+id/investmentMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_enter_investment_medium"
+        android:hint="@string/label_enter_investment_medium"
         android:inputType="textCapSentences|text"
+        android:marqueeRepeatLimit="marquee_forever"
         android:layout_margin="3dp"
         android:textAllCaps="true"
         android:textColorHint="@color/investment_medium"
