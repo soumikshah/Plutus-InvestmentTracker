@@ -1,187 +1,244 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/activity_margin"
-    android:paddingRight="@dimen/activity_margin"
-    android:paddingTop="@dimen/activity_margin"
-    android:paddingBottom="25dp">
-
-    <TextView android:id="@+id/dialog_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dimen_10"
-        android:fontFamily="sans-serif-medium"
-        android:lineSpacingExtra="8sp"
-        android:textAllCaps="true"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/new_investment_title"
-        android:textColor="@color/investment_name"
-        android:paddingBottom="10dp"
-        android:textSize="@dimen/lbl_new_investment_title"
-        android:textStyle="bold" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/investmentname"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAllCaps="true"
-        app:hintTextColor="@color/investment_name"
-        android:textColorHint="@color/investment_name"
-        android:textSize="@dimen/input_new_investment">
-        <EditText
-            android:id="@+id/investment"
-            android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_margin"
+        android:paddingRight="@dimen/activity_margin"
+        android:paddingTop="@dimen/activity_margin"
+        android:paddingBottom="25dp">
+
+        <TextView android:id="@+id/dialog_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_enter_investment_name"
-            android:inputType="textCapSentences|textMultiLine"
-            android:lines="2"
-            android:layout_margin="3dp"
-            android:textColorHint="@color/investment_name"
+            android:layout_marginBottom="@dimen/dimen_10"
+            android:fontFamily="sans-serif-medium"
+            android:lineSpacingExtra="8sp"
+            android:textAllCaps="true"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/new_investment_title"
             android:textColor="@color/investment_name"
-            android:textSize="@dimen/input_new_investment" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:paddingBottom="10dp"
+            android:textSize="@dimen/lbl_new_investment_title"
+            android:textStyle="bold" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/investmentAmountTextInput"
-        android:layout_width="match_parent"
-        android:paddingBottom="5dp"
-        android:layout_height="wrap_content"
-        app:hintTextColor="@color/investment_amount"
-        android:textColorHint="@color/investment_amount"
-        android:textSize="@dimen/investment_amount">
-        <EditText
-            android:id="@+id/investmentAmount"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:maxLength="9"
-            android:textAllCaps="true"
-            android:hint="@string/hint_enter_investment_amount"
-            android:inputType="number|numberDecimal"
-            android:textColorHint="@color/investment_amount"
-            android:textColor="@color/investment_amount"
-            android:textSize="@dimen/investment_amount" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/investmentMediumTextInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:textAllCaps="true"
-        app:hintTextColor="@color/investment_medium"
-        app:placeholderText="@string/hint_enter_investment_medium"
-        app:placeholderTextAppearance="@color/investment_medium"
-        android:textColorHint="@color/investment_medium"
-        android:textSize="@dimen/investment_medium">
-    <EditText
-        android:id="@+id/investmentMedium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/label_enter_investment_medium"
-        android:inputType="textCapSentences|text"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:layout_margin="3dp"
-        android:textAllCaps="true"
-        android:textColorHint="@color/investment_medium"
-        android:textColor="@color/investment_medium"
-        android:textSize="@dimen/investment_medium" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/investmentCategoryTextInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:textAllCaps="true"
-        app:hintTextColor="@color/investment_category"
-        android:textColorHint="@color/investment_category"
-        android:textSize="@dimen/investment_category">
-    <EditText
-        android:id="@+id/investmentCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/hint_enter_investment_category"
-        android:inputType="textCapSentences|text"
-        android:layout_margin="3dp"
-        android:textAllCaps="true"
-        android:textColorHint="@color/investment_category"
-        android:textColor="@color/investment_category"
-        android:textSize="@dimen/investment_category" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/investmentDateTextInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:textAllCaps="true"
-        app:hintTextColor="@color/investment_datepicker"
-        android:textColorHint="@color/investment_datepicker"
-        android:textSize="@dimen/investment_category">
-
-        <TextView
-            android:id="@+id/investedDate"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:layout_marginBottom="2dp">
+            <TextView
+                android:id="@+id/currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="13dp"
+                android:text="@string/currency"
+                android:textColor="@color/investment_name"
+                android:textSize="22sp" />
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+                android:id="@+id/toggleGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:toggle_requiredAmount="1"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="3dp"
+                app:toggle_selectableAmount="1">
+                <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                    android:id="@+id/rupee"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:toggle_btnCornerRadius="50dp"
+                    app:toggle_borderWidth="5dp"
+                    app:toggle_borderColor="#C6C6C6"
+                    app:toggle_selectedBorderColor="@color/colorPrimary"
+                    app:toggle_icon="@drawable/rupee1"
+                    app:toggle_iconColor="#C6C6C6"
+                    app:toggle_selectedBackgroundColor="@color/colorAccent"
+                    app:toggle_selectedIcon="@drawable/rupee1"
+                    app:toggle_backgroundColor="@android:color/white"
+                    app:toggle_iconPadding="30dp"/>
+                <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                    android:id="@+id/dollar"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:toggle_btnCornerRadius="50dp"
+                    app:toggle_borderWidth="5dp"
+                    app:toggle_borderColor="#C6C6C6"
+                    app:toggle_selectedBorderColor="@color/colorPrimary"
+                    app:toggle_icon="@drawable/dollar"
+                    app:toggle_iconColor="#C6C6C6"
+                    app:toggle_selectedBackgroundColor="@color/colorAccent"
+                    app:toggle_selectedIcon="@drawable/dollar"
+                    app:toggle_backgroundColor="@android:color/white"
+                    app:toggle_iconPadding="30dp" />
+            </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+        </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/investmentname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_enter_investment_date"
-            android:layout_margin="3dp"
             android:textAllCaps="true"
+            app:hintTextColor="@color/investment_name"
+            android:textColorHint="@color/investment_name"
+            android:textSize="@dimen/input_new_investment">
+            <EditText
+                android:id="@+id/investment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_enter_investment_name"
+                android:inputType="textCapSentences|textMultiLine"
+                android:lines="2"
+                android:layout_margin="3dp"
+                android:textColorHint="@color/investment_name"
+                android:textColor="@color/investment_name"
+                android:textSize="@dimen/input_new_investment" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/investmentAmountTextInput"
+            android:layout_width="match_parent"
             android:paddingBottom="5dp"
-            android:focusable="false"
+            android:layout_height="wrap_content"
+            app:hintTextColor="@color/investment_amount"
+            android:textColorHint="@color/investment_amount"
+            android:textSize="@dimen/investment_amount">
+            <EditText
+                android:id="@+id/investmentAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:maxLength="9"
+                android:textAllCaps="true"
+                android:hint="@string/hint_enter_investment_amount"
+                android:inputType="number|numberDecimal"
+                android:textColorHint="@color/investment_amount"
+                android:textColor="@color/investment_amount"
+                android:textSize="@dimen/investment_amount" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/investmentMediumTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:textAllCaps="true"
+            app:hintTextColor="@color/investment_medium"
+            app:placeholderText="@string/hint_enter_investment_medium"
+            app:placeholderTextAppearance="@color/investment_medium"
+            android:textColorHint="@color/investment_medium"
+            android:textSize="@dimen/investment_medium">
+            <EditText
+                android:id="@+id/investmentMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/label_enter_investment_medium"
+                android:inputType="textCapSentences|text"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:layout_margin="3dp"
+                android:textAllCaps="true"
+                android:textColorHint="@color/investment_medium"
+                android:textColor="@color/investment_medium"
+                android:textSize="@dimen/investment_medium" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/investmentCategoryTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:textAllCaps="true"
+            app:hintTextColor="@color/investment_category"
+            android:textColorHint="@color/investment_category"
+            android:textSize="@dimen/investment_category">
+            <EditText
+                android:id="@+id/investmentCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_enter_investment_category"
+                android:inputType="textCapSentences|text"
+                android:layout_margin="3dp"
+                android:textAllCaps="true"
+                android:textColorHint="@color/investment_category"
+                android:textColor="@color/investment_category"
+                android:textSize="@dimen/investment_category" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/investmentDateTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:textAllCaps="true"
+            app:hintTextColor="@color/investment_datepicker"
             android:textColorHint="@color/investment_datepicker"
-            android:textColor="@color/investment_datepicker"
-            android:textSize="@dimen/investment_category" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:textSize="@dimen/investment_category">
+
+            <TextView
+                android:id="@+id/investedDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_enter_investment_date"
+                android:layout_margin="3dp"
+                android:textAllCaps="true"
+                android:paddingBottom="5dp"
+                android:focusable="false"
+                android:textColorHint="@color/investment_datepicker"
+                android:textColor="@color/investment_datepicker"
+                android:textSize="@dimen/investment_category" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/investmentInterestTextInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:textAllCaps="true"
-        app:hintTextColor="@color/investment_interest_percent"
-        android:textColorHint="@color/investment_interest_percent"
-        android:textSize="@dimen/investment_interest">
-
-        <EditText
-            android:id="@+id/investmentInterest"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/investmentInterestTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:layout_weight="0.3"
+            android:paddingBottom="5dp"
             android:textAllCaps="true"
-            android:hint="@string/hint_enter_interest_percent"
-            android:inputType="number|numberDecimal"
+            app:hintTextColor="@color/investment_interest_percent"
             android:textColorHint="@color/investment_interest_percent"
-            android:textColor="@color/investment_interest_percent"
-            android:textSize="@dimen/investment_interest" />
+            android:textSize="@dimen/investment_interest">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:id="@+id/investmentInterest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="0.3"
+                android:textAllCaps="true"
+                android:hint="@string/hint_enter_interest_percent"
+                android:inputType="number|numberDecimal"
+                android:textColorHint="@color/investment_interest_percent"
+                android:textColor="@color/investment_interest_percent"
+                android:textSize="@dimen/investment_interest" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/investmentNumberOfMonthsTextInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:textAllCaps="true"
-        android:textColorHint="@color/investment_amount_of_month"
-        android:textSize="@dimen/investment_category">
-        <EditText
-            android:id="@+id/investedNumberOfMonths"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/investmentNumberOfMonthsTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_enter_investment_month"
-            android:inputType="number"
+            android:paddingBottom="5dp"
             android:textAllCaps="true"
-            android:autofillHints="@string/hint_enter_investment_month"
-            android:layout_margin="3dp"
             android:textColorHint="@color/investment_amount_of_month"
-            android:textColor="@color/investment_amount_of_month"
-            android:textSize="@dimen/investment_category" />
-    </com.google.android.material.textfield.TextInputLayout>
-</LinearLayout>
+            android:textSize="@dimen/investment_category">
+            <EditText
+                android:id="@+id/investedNumberOfMonths"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_enter_investment_month"
+                android:inputType="number"
+                android:textAllCaps="true"
+                android:autofillHints="@string/hint_enter_investment_month"
+                android:layout_margin="3dp"
+                android:textColorHint="@color/investment_amount_of_month"
+                android:textColor="@color/investment_amount_of_month"
+                android:textSize="@dimen/investment_category" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+</ScrollView>

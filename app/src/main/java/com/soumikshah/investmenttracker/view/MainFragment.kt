@@ -48,6 +48,7 @@ class MainFragment : Fragment() {
         val otherInvestment = view.findViewById<TextView>(R.id.otherInvestment)
         val buttonGroup = view.findViewById<ThemedToggleButtonGroup>(R.id.toggleGroup)
         val inrButton = view.findViewById<ThemedButton>(R.id.rupee)
+        val dollarButton = view.findViewById<ThemedButton>(R.id.dollar)
         pieChart = view.findViewById(R.id.pieChart_view)
         recyclerView = view.findViewById(R.id.recycler_view)
         fragment = view.findViewById(R.id.fragment)
@@ -58,6 +59,7 @@ class MainFragment : Fragment() {
             linearLayoutView!!.visibility = View.GONE
             pieChart!!.visibility = View.GONE
             recyclerView!!.visibility = View.GONE
+            (activity as MainActivity).showInvestmentDialog(false,null,-1)
         }else{
             noInvestmentView!!.visibility = View.GONE
             linearLayoutView!!.visibility = View.VISIBLE
