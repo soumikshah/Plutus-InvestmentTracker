@@ -11,6 +11,8 @@
     <string name="hint_enter_investment_medium">Through some bank or investing app?</string>
     <string name="label_enter_investment_medium">How did you invest?*</string>
     <string name="hint_enter_investment_category">Investment Category/Sector*</string>
+    <string name="hint_enter_investment_number_of_units">Number Of Units Held</string>
+    <string name="hint_enter_investment_price_per_unit">What Was Price Per Unit?</string>
     <string name="hint_enter_investment_date">When Did You Invest?</string>
     <string name="hint_enter_investment_month">Amount Of Time (Months)</string>
     <string name="delete">Delete</string>
@@ -27,4 +29,6 @@
     <string name="select_category">Select Category</string>
     <string name="rs">\u20B9</string>
     <string name="arrow">\u2794</string>
+    <string name="usd">USD</string>
+    <string name="inr">INR</string>
 </resources>

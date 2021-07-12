@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,8 @@ import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.investment_dialog.*
+import nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -133,7 +136,17 @@ class MainActivity : AppCompatActivity() {
         val inputInvestmentMedium: EditText = view.findViewById<EditText>(R.id.investmentMedium)
         val inputInvestmentCategory: EditText = view.findViewById<EditText>(R.id.investmentCategory)
         val inputInvestmentDate = view.findViewById<TextView>(R.id.investedDate)
+        val inputInvestNumberOfUnitsHeld = view.findViewById<EditText>(R.id.investmentNumberOfUnits)
+        val inputInvestPricePerUnit = view.findViewById<EditText>(R.id.investmentPricePerUnit)
         val inputInvestmentNumberOfMonths: EditText = view.findViewById<EditText>(R.id.investedNumberOfMonths)
+        val buttonGroup = view.findViewById<ThemedToggleButtonGroup>(R.id.toggleGroup)
+        val inrButton = view.findViewById<ThemedButton>(R.id.rupee)
+        val dollarButton = view.findViewById<ThemedButton>(R.id.dollar)
+        var currency:String? = null
+
+        //Select INR button by default
+        buttonGroup.selectButton(inrButton)
+
         val dialogTitle = view.findViewById<TextView>(R.id.dialog_title)
         dialogTitle.text = if (!shouldUpdate) getString(R.string.new_investment_title) else getString(R.string.edit_investment_title)
         inputInvestmentDate.setOnClickListener { // calender class's instance and get current date , month and year from calender
@@ -161,6 +174,14 @@ class MainActivity : AppCompatActivity() {
                 inputInvestmentDate.text = sim.format(investment.investmentDate)
             }
             inputInvestmentNumberOfMonths.setText(investment.investmentMonth.toString())
+            inputInvestNumberOfUnitsHeld.setText(investment.investmentNumberOfUnits.toString())
+            inputInvestPricePerUnit.setText(investment.investmentPricePerUnit.toString())
+
+            if(inrButton.isSelected){
+                currency = getString(R.string.inr)
+            }else if(dollarButton.isSelected){
+                currency = getString(R.string.usd)
+            }
         }
         alertDialogBuilderUserInput
                 .setCancelable(false)
@@ -201,19 +222,41 @@ class MainActivity : AppCompatActivity() {
             if (inputInvestmentNumberOfMonths.text.toString().isEmpty()) {
                 inputInvestmentNumberOfMonths.setText("0")
             }
+            if(inputInvestNumberOfUnitsHeld.text.toString().isEmpty()){
+                inputInvestNumberOfUnitsHeld.setText("")
+            }
+            if(inputInvestPricePerUnit.text.toString().isEmpty()){
+                inputInvestPricePerUnit.setText("0")
+            }
+            if(inrButton.isSelected){
+                currency = getString(R.string.inr)
+            }else if(dollarButton.isSelected){
+                currency = getString(R.string.usd)
+            }else{
+                currency = getString(R.string.inr)
+            }
             if (shouldUpdate && investment != null) {
                 mainFragment!!.investmentHelper!!.updateInvestment(inputInvestmentName.text.toString(), inputInvestmentAmount.text.toString().toInt(),
                         interestToBeReceived,
                         inputInvestmentMedium.text.toString(),
                         inputInvestmentCategory.text.toString(),
                         investmentDateInLong, inputInvestmentNumberOfMonths.text.toString().toInt(),
+                        inputInvestNumberOfUnitsHeld.text.toString(),
+                        inputInvestPricePerUnit.text.toString().toInt(),
+                        currency,
                         position)
             } else {
+                Log.d("Tracker"," Data is "+inputInvestmentNumberOfMonths.text.toString()+": "+
+                    inputInvestPricePerUnit.text.toString().toInt()
+                    + " :" +currency)
                 mainFragment!!.investmentHelper!!.createInvestment(inputInvestmentName.text.toString(), inputInvestmentAmount.text.toString().toInt(),
                         interestToBeReceived,
                         inputInvestmentMedium.text.toString(),
                         inputInvestmentCategory.text.toString(),
-                        investmentDateInLong, inputInvestmentNumberOfMonths.text.toString().toInt())
+                        investmentDateInLong, inputInvestmentNumberOfMonths.text.toString().toInt(),
+                        inputInvestmentNumberOfMonths.text.toString(),
+                        inputInvestPricePerUnit.text.toString().toInt(),
+                        currency)
             }
             viewPager!!.adapter!!.notifyDataSetChanged()
         })

@@ -170,6 +170,50 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/investmentNumberOfUnitsTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:textAllCaps="true"
+            app:hintTextColor="@color/investment_category"
+            android:textColorHint="@color/investment_category"
+            android:textSize="@dimen/investment_category">
+            <EditText
+                android:id="@+id/investmentNumberOfUnits"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_enter_investment_number_of_units"
+                android:inputType="textCapSentences|text"
+                android:layout_margin="3dp"
+                android:textAllCaps="true"
+                android:textColorHint="@color/investment_category"
+                android:textColor="@color/investment_category"
+                android:textSize="@dimen/investment_category" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/investmentPricePerUnitTextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:textAllCaps="true"
+            app:hintTextColor="@color/investment_category"
+            android:textColorHint="@color/investment_category"
+            android:textSize="@dimen/investment_category">
+            <EditText
+                android:id="@+id/investmentPricePerUnit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_enter_investment_price_per_unit"
+                android:inputType="number"
+                android:layout_margin="3dp"
+                android:textAllCaps="true"
+                android:textColorHint="@color/investment_category"
+                android:textColor="@color/investment_category"
+                android:textSize="@dimen/investment_category" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/investmentDateTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

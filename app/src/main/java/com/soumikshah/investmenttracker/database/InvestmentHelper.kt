@@ -13,18 +13,22 @@ class InvestmentHelper(var context: Context) {
     private val InvestmentsList: ArrayList<Investment> = ArrayList()
     private val db: DatabaseHelper?
     private var nullDb = false
-    val investmentTypeAndAmount: HashMap<String, Int>? = HashMap()
+    val investmentTypeAndAmount: HashMap<String, Int> = HashMap()
     fun createInvestment(investmentName: String?,
                          investmentAmount: Int,
                          investmentPercent: Float,
                          investmentMedium: String?,
                          investmentCategory: String?,
                          investmentDate: Long,
-                         investmentMonth: Int) {
+                         investmentMonth: Int,
+                         investmentNumberOfUnits:String,
+                         investmentPricePerUnit:Int,
+                         investmentCurrency:String?) {
         if (this.db != null) {
             val id = this.db.insertInvestment(investmentName, investmentAmount,
                     investmentPercent, investmentMedium, investmentCategory,
-                    investmentDate, investmentMonth)
+                    investmentDate, investmentMonth,investmentNumberOfUnits,
+                    investmentPricePerUnit, investmentCurrency)
 
             // get the newly inserted note from db
             val n = db.getInvestment(id)
@@ -41,7 +45,11 @@ class InvestmentHelper(var context: Context) {
                          investmentPercent: Float, investmentMedium: String?,
                          investmentCategory: String?,
                          investmentDate: Long,
-                         investmentMonth: Int, position: Int) {
+                         investmentMonth: Int,
+                         investmentNumberOfUnits: String,
+                         investmentPricePerUnit: Int,
+                         investmentCurrency: String?,
+                         position: Int) {
         val n = InvestmentsList[position]
         n.investmentName = investment
         n.investmentAmount = investmentAmount
@@ -50,6 +58,9 @@ class InvestmentHelper(var context: Context) {
         n.investmentCategory = investmentCategory
         n.investmentDate = investmentDate
         n.investmentMonth = investmentMonth
+        n.investmentNumberOfUnits = investmentNumberOfUnits
+        n.investmentPricePerUnit = investmentPricePerUnit
+        n.investmentCurrency = investmentCurrency
 
         // updating note in db
         db!!.updateInvestment(n)

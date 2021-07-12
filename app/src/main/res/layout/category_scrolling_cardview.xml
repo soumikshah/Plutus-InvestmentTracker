@@ -47,6 +47,24 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/investmentNumberOfUnits"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="Number Of Units Bought: 24"
+            android:layout_margin="3dp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/investmentPricePerUnit"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="Price Per Unit: 24"
+            android:layout_margin="3dp"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/investmentDate"
             android:textSize="20sp"
             tools:text="Investment Date: 23/05/2010"

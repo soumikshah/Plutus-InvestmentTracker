@@ -56,6 +56,20 @@ class CategoryScrollingCardView(
         }else{
             holder.investmentPeriod.visibility = GONE
         }
+
+        if((investment.investmentNumberOfUnits.toString().isNotEmpty())){
+            holder.investmentNumberOfUnits.visibility = VISIBLE
+            holder.investmentNumberOfUnits.text = String.format("Number Of Units Bought: %s",investment.investmentNumberOfUnits)
+        }else{
+            holder.investmentNumberOfUnits.visibility = GONE
+        }
+
+        if(investment.investmentPricePerUnit.toString().equals("0")){
+           holder.investmentPricePerUnit.visibility = GONE
+        }else{
+            holder.investmentPricePerUnit.visibility = VISIBLE
+            holder.investmentNumberOfUnits.text = String.format("Price Per Unit is %s",investment.investmentPricePerUnit.toString())
+        }
     }
 
     override fun getItemCount(): Int {
@@ -70,5 +84,7 @@ class CategoryScrollingCardView(
         val investmentDate: TextView = itemView.findViewById(R.id.investmentDate)
         val investmentInterest: TextView = itemView.findViewById(R.id.investmentPercent)
         val investmentPeriod: TextView = itemView.findViewById(R.id.investmentPeriod)
+        val investmentNumberOfUnits: TextView = itemView.findViewById(R.id.investmentNumberOfUnits)
+        val investmentPricePerUnit: TextView = itemView.findViewById(R.id.investmentPricePerUnit)
     }
 }

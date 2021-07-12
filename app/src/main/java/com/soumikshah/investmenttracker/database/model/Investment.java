@@ -14,6 +14,9 @@ public class Investment {
     public static final String COLUMN_TIMESTAMP = "investment_timestamp";
     public static final String COLUMN_INVESTMENT_DATE = "investment_date";
     public static final String COLUMN_INVESTMENT_MONTH = "investment_month";
+    public static final String COLUMN_INVESTMENT_NUMBER_OF_UNITS = "investment_number_of_units";
+    public static final String COLUMN_INVESTMENT_PRICE_PER_UNIT = "investment_price_per_unit";
+    public static final String COLUMN_INVESTMENT_CURRENCY = "investment_currency";
 
     private int id;
     private String investmentName;
@@ -24,6 +27,9 @@ public class Investment {
     private String timestamp;
     private long investmentDate;
     private int investmentMonth;
+    private String investmentNumberOfUnits;
+    private int investmentPricePerUnit;
+    private String investmentCurrency;
 
     public static final String CREATE_TABLE =
             "CREATE TABLE "+TABLE_NAME
@@ -36,7 +42,10 @@ public class Investment {
                     + COLUMN_INVESTMENT_CATEGORY+ " TEXT,"
                     + COLUMN_INVESTMENT_DATE+ " INTEGER,"
                     + COLUMN_INVESTMENT_MONTH+ " INTEGER,"
-                    + COLUMN_TIMESTAMP+ " DATETIME DEFAULT CURRENT_TIMESTAMP"
+                    + COLUMN_TIMESTAMP+ " DATETIME DEFAULT CURRENT_TIMESTAMP,"
+                    + COLUMN_INVESTMENT_NUMBER_OF_UNITS+ " TEXT,"
+                    +COLUMN_INVESTMENT_PRICE_PER_UNIT+ " INTEGER,"
+                    +COLUMN_INVESTMENT_CURRENCY+ " TEXT"
                     + ")";
     public Investment(){
     }
@@ -49,7 +58,10 @@ public class Investment {
                       String investmentCategory,
                       Long investmentDate,
                       Integer investmentNumberOfMonths,
-                      String timestamp){
+                      String timestamp,
+                      String investmentNumberOfUnits,
+                      int investmentPricePerUnit,
+                      String investmentCurrency){
 
         this.id = id;
         this.investmentName = investmentName;
@@ -60,6 +72,9 @@ public class Investment {
         this.investmentDate = investmentDate;
         this.investmentMonth = investmentNumberOfMonths;
         this.timestamp = timestamp;
+        this.investmentNumberOfUnits = investmentNumberOfUnits;
+        this.investmentPricePerUnit = investmentPricePerUnit;
+        this.investmentCurrency = investmentCurrency;
     }
 
     public int getId() {
@@ -135,5 +150,27 @@ public class Investment {
     public void setInvestmentMonth(int investmentMonth) {
         this.investmentMonth = investmentMonth;
     }
+    public String getInvestmentNumberOfUnits() {
+        return investmentNumberOfUnits;
+    }
 
+    public void setInvestmentNumberOfUnits(String investmentNumberOfUnits) {
+        this.investmentNumberOfUnits = investmentNumberOfUnits;
+    }
+
+    public int getInvestmentPricePerUnit() {
+        return investmentPricePerUnit;
+    }
+
+    public void setInvestmentPricePerUnit(int investmentPricePerUnit) {
+        this.investmentPricePerUnit = investmentPricePerUnit;
+    }
+
+    public String getInvestmentCurrency() {
+        return investmentCurrency;
+    }
+
+    public void setInvestmentCurrency(String investmentCurrency) {
+        this.investmentCurrency = investmentCurrency;
+    }
 }
