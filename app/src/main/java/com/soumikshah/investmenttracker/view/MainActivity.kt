@@ -246,15 +246,12 @@ class MainActivity : AppCompatActivity() {
                         currency,
                         position)
             } else {
-                Log.d("Tracker"," Data is "+inputInvestmentNumberOfMonths.text.toString()+": "+
-                    inputInvestPricePerUnit.text.toString().toInt()
-                    + " :" +currency)
                 mainFragment!!.investmentHelper!!.createInvestment(inputInvestmentName.text.toString(), inputInvestmentAmount.text.toString().toInt(),
                         interestToBeReceived,
                         inputInvestmentMedium.text.toString(),
                         inputInvestmentCategory.text.toString(),
                         investmentDateInLong, inputInvestmentNumberOfMonths.text.toString().toInt(),
-                        inputInvestmentNumberOfMonths.text.toString(),
+                        inputInvestNumberOfUnitsHeld.text.toString(),
                         inputInvestPricePerUnit.text.toString().toInt(),
                         currency)
             }

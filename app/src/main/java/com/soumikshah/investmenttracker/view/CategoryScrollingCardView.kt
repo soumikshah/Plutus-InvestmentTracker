@@ -32,10 +32,22 @@ class CategoryScrollingCardView(
             "Amount: %,d",
             investment.investmentAmount
         )
-        holder.investmentMedium!!.text =
-            String.format("Medium: %s", investment.investmentMedium)
-        holder.investmentCategory!!.text =
-            String.format("Category: %s", investment.investmentCategory)
+        if(investment.investmentMedium.isEmpty()){
+            holder.investmentMedium!!.visibility =GONE
+        }else{
+            holder.investmentMedium!!.visibility = VISIBLE
+            holder.investmentMedium!!.text =
+                String.format("Medium: %s", investment.investmentMedium)
+        }
+
+        if(investment.investmentCategory.isEmpty()){
+            holder.investmentCategory!!.visibility = GONE
+        }else{
+            holder.investmentCategory!!.visibility = VISIBLE
+            holder.investmentCategory!!.text =
+                String.format("Category: %s", investment.investmentCategory)
+        }
+
         if(investment.investmentDate.toString() != "0"){
             val formatter = SimpleDateFormat("dd/MM/yyyy",Locale.ENGLISH)
             holder.investmentDate.visibility = VISIBLE
@@ -57,18 +69,18 @@ class CategoryScrollingCardView(
             holder.investmentPeriod.visibility = GONE
         }
 
-        if((investment.investmentNumberOfUnits.toString().isNotEmpty())){
+        if((investment.investmentNumberOfUnits.toString().isEmpty())){
+            holder.investmentNumberOfUnits.visibility = GONE
+        }else{
             holder.investmentNumberOfUnits.visibility = VISIBLE
             holder.investmentNumberOfUnits.text = String.format("Number Of Units Bought: %s",investment.investmentNumberOfUnits)
-        }else{
-            holder.investmentNumberOfUnits.visibility = GONE
         }
 
-        if(investment.investmentPricePerUnit.toString().equals("0")){
+        if(investment.investmentPricePerUnit.toString() == "0"){
            holder.investmentPricePerUnit.visibility = GONE
         }else{
             holder.investmentPricePerUnit.visibility = VISIBLE
-            holder.investmentNumberOfUnits.text = String.format("Price Per Unit is %s",investment.investmentPricePerUnit.toString())
+            holder.investmentPricePerUnit.text = String.format("Price Per Unit is %s",investment.investmentPricePerUnit.toString())
         }
     }
 

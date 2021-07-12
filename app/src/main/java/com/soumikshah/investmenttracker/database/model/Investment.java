@@ -135,7 +135,6 @@ public class Investment {
 
 
     public long getInvestmentDate() {
-        Log.d("Tracker","Date is "+investmentDate);
         return investmentDate;
     }
 

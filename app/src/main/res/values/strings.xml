@@ -31,4 +31,7 @@
     <string name="arrow">\u2794</string>
     <string name="usd">USD</string>
     <string name="inr">INR</string>
+    <string name="update">update</string>
+    <string name="save">save</string>
+    <string name="cancel">cancel</string>
 </resources>
