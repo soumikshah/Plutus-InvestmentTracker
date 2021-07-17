@@ -26,7 +26,7 @@ class CategorySwipingCardview internal constructor(private val context: Context,
         val invest = investmentData[position]
         holder.name.text = invest.investmentName
         holder.placeInvestmentDone.text = invest.investmentMedium
-        holder.amount.text = String.format(context.resources.getString(R.string.rs) + "%,d", invest.investmentAmount)
+        holder.amount.text = String.format("%,d", invest.investmentAmount)
     }
 
     override fun getItemCount(): Int {

@@ -3,17 +3,33 @@ package com.soumikshah.investmenttracker.database
 import android.content.Context
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
+import com.soumikshah.investmenttracker.view.MainActivity
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class InvestmentHelper(var context: Context) {
     fun getInvestmentsList(): ArrayList<Investment> {
         return InvestmentsList
     }
 
+    fun getInvestmentsListAccTOCurrency(currency: String):ArrayList<Investment>{
+        var currencyInvestmentsList:ArrayList<Investment> = ArrayList()
+        for(investment in getInvestmentsList()){
+            if(investment.investmentCurrency.equals(currency)){
+                currencyInvestmentsList.add(investment)
+            }
+        }
+        return currencyInvestmentsList!!
+    }
+
+
+
     private val InvestmentsList: ArrayList<Investment> = ArrayList()
     private val db: DatabaseHelper?
     private var nullDb = false
     val investmentTypeAndAmount: HashMap<String, Int> = HashMap()
+    val investmentTypeAndAmountInCurrency: HashMap<String, Int> = HashMap()
     fun createInvestment(investmentName: String?,
                          investmentAmount: Int,
                          investmentPercent: Float,
@@ -104,19 +120,40 @@ class InvestmentHelper(var context: Context) {
             }
             return totalAmount
         }
+
+    fun investmentTotalAmountWithCurrency(currency: String):Int{
+        var totalAmount = 0
+        var investment:Investment
+        investmentTypeAndAmount.clear()
+        for (i in getInvestmentsList().indices) {
+            investment = getInvestmentsList()[i]
+            if(investment.investmentCurrency.equals(currency)){
+                if (!investmentTypeAndAmount.containsKey(investment.investmentCategory)) {
+                    investmentTypeAndAmount[investment.investmentCategory] = investment.investmentAmount
+                } else if (investmentTypeAndAmount.containsKey(investment.investmentCategory)) {
+                    investmentTypeAndAmount[investment.investmentCategory] = investmentTypeAndAmount[investment.investmentCategory]!! + investment.investmentAmount
+                }
+                totalAmount += investment.investmentAmount
+            }
+        }
+
+        return totalAmount
+    }
     val investmentCategoryAndAmount: String
         get() {
             val sb = StringBuilder()
-            for ((key, value) in investmentTypeAndAmount!!) {
-                val amount = String.format(context.resources.getString(R.string.rs) + "%,d", value)
+            for ((key, value) in investmentTypeAndAmount) {
+                val amount = String.format( "%,d", value)
                 sb.append(key).append(" : ").append(amount).append("\n")
             }
             return sb.toString()
         }
+
+
     val investmentCategory: ArrayList<String>
         get() {
             val investmentCategory: ArrayList<String> = ArrayList()
-            for ((key) in investmentTypeAndAmount!!) {
+            for ((key) in investmentTypeAndAmount) {
                 investmentCategory.add(key)
             }
             return investmentCategory

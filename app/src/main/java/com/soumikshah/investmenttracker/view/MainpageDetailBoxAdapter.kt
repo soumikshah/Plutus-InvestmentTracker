@@ -23,7 +23,7 @@ class MainpageDetailBoxAdapter internal constructor(private val context: Context
         val investment = investmentList[position]
         holder.investmentName.text = investment.investmentName
         holder.investmentMedium.text = investment.investmentMedium
-        holder.investmentAmount.text = String.format(context.resources.getString(R.string.rs) + " %,d", investment.investmentAmount)
+        holder.investmentAmount.text = String.format(" %,d", investment.investmentAmount)
         //todo holder.parent && moredetails will open new fragment with details about clicked investment.
         holder.investmentParent.setOnClickListener {
             val someFragment: Fragment = DiscreteScrollviewDetails(investmentList,investment.investmentCategory,investment.id)

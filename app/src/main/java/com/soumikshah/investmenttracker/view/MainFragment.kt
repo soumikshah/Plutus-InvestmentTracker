@@ -1,5 +1,6 @@
 package com.soumikshah.investmenttracker.view
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,9 +22,12 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.InvestmentHelper
 import com.soumikshah.investmenttracker.database.model.Investment
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.main_content.*
 import nl.bryanderidder.themedtogglebuttongroup.ThemedButton
 import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MainFragment : Fragment() {
     private var noInvestmentView: TextView? = null
@@ -40,20 +44,26 @@ class MainFragment : Fragment() {
     private var recyclerView: RecyclerView? = null
     var fragment: RelativeLayout? = null
     private var mAdapter: MainPageHorizontalRecyclerview? = null
+    private var totalAmount:TextView? = null
+    private var otherInvestment:TextView? = null
+    private var investmentListDemo: ArrayList<Investment>  = ArrayList()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.mainfragment, container, false)
         noInvestmentView = view.findViewById(R.id.empty_investment_view);
         //private InvestmentAdapter mAdapter;
-        val totalAmount = view.findViewById<TextView>(R.id.total_amount_invested)
-        val otherInvestment = view.findViewById<TextView>(R.id.otherInvestment)
+        totalAmount = view.findViewById(R.id.total_amount_invested)
+        otherInvestment = view.findViewById(R.id.otherInvestment)
         val buttonGroup = view.findViewById<ThemedToggleButtonGroup>(R.id.toggleGroup)
         val inrButton = view.findViewById<ThemedButton>(R.id.rupee)
         val dollarButton = view.findViewById<ThemedButton>(R.id.dollar)
+        var currency:String = getString(R.string.inr)
         pieChart = view.findViewById(R.id.pieChart_view)
         recyclerView = view.findViewById(R.id.recycler_view)
         fragment = view.findViewById(R.id.fragment)
         linearLayoutView = view.findViewById(R.id.linearLayout)
         investmentHelper = InvestmentHelper(requireContext())
+
         if(investmentHelper!!.getInvestmentsList().isEmpty()){
             noInvestmentView!!.visibility = View.VISIBLE
             linearLayoutView!!.visibility = View.GONE
@@ -65,15 +75,25 @@ class MainFragment : Fragment() {
             linearLayoutView!!.visibility = View.VISIBLE
             pieChart!!.visibility = View.VISIBLE
             recyclerView!!.visibility = View.VISIBLE
-            totalAmount.text = String.format(resources.getString(R.string.rs) + "%,d", investmentHelper!!.investmentTotalAmount)
-            otherInvestment.text = investmentHelper!!.investmentCategoryAndAmount
             graphFragment = GraphFragment()
-            mAdapter = MainPageHorizontalRecyclerview(requireContext(), investmentHelper!!.getInvestmentsList(), investmentCategories)
+            if(getCurrency()!!.isEmpty()){
+                setCurrency(getString(R.string.inr))
+            }
+            investmentListDemo.addAll(investmentHelper!!.getInvestmentsListAccTOCurrency(getCurrency()!!))
+            mAdapter = MainPageHorizontalRecyclerview(requireContext(),investmentListDemo , investmentCategories)
             val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
             recyclerView!!.setHasFixedSize(true)
             recyclerView!!.layoutManager = mLayoutManager
             recyclerView!!.itemAnimator = DefaultItemAnimator()
             recyclerView!!.adapter = mAdapter
+
+            if(getCurrency().equals(getString(R.string.inr))){
+                buttonGroup.selectButton(inrButton)
+                loadData(getCurrency()!!)
+            }else if(getCurrency().equals(getString(R.string.usd))){
+                buttonGroup.selectButton(dollarButton)
+                loadData(getCurrency()!!)
+            }
             investmentMap = investmentHelper!!.investmentTypeAndAmount
             if (investmentMap != null) {
                 for (type in investmentMap!!.keys) {
@@ -82,15 +102,56 @@ class MainFragment : Fragment() {
                     }
                 }
             }
-            initPieChart()
-            showPieChart()
-            //Select INR button by default
-            buttonGroup.selectButton(inrButton)
             mAdapter!!.notifyDataSetChanged()
+            inrButton.setOnClickListener {
+                setCurrency(getString(R.string.inr))
+                loadData(getCurrency()!!)
+            }
+            dollarButton.setOnClickListener {
+                setCurrency(getString(R.string.usd))
+                loadData(getCurrency()!!)
+            }
         }
         return view
     }
+    private fun setCurrency(currencyName:String){
+        val pref = requireContext().getSharedPreferences("currency_name", Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        editor.putString("currency",currencyName)
+        editor.apply()
+    }
 
+    private fun getCurrency(): String? {
+        val pref = requireContext().getSharedPreferences("currency_name", Context.MODE_PRIVATE)
+        return pref.getString("currency", "")
+    }
+    private fun loadData(localCurrency: String){
+        var currencyInString: String? = null
+        if(getCurrency().equals(getString(R.string.inr))){
+            currencyInString = getString(R.string.rs)
+        }else if (getCurrency().equals(getString(R.string.usd))){
+            currencyInString = getString(R.string.dollarSign)
+        }
+        totalAmount!!.text = String.format(currencyInString
+                + "%,d", investmentHelper!!.investmentTotalAmountWithCurrency(localCurrency))
+        otherInvestment!!.text = investmentHelper!!.investmentCategoryAndAmount
+        recyclerView!!.adapter!!.notifyDataSetChanged()
+        investmentMap = investmentHelper!!.investmentTypeAndAmount
+        if (investmentMap != null) {
+            for (type in investmentMap!!.keys) {
+                if (!investmentCategories.contains(type)) {
+                    investmentCategories.add(type)
+                }
+            }
+        }
+        investmentListDemo.clear()
+        investmentListDemo.addAll(investmentHelper!!.getInvestmentsListAccTOCurrency(getCurrency()!!))
+        initPieChart()
+        showPieChart()
+        mAdapter!!.notifyDataSetChanged()
+//        recyclerView!!.adapter!!.notifyDataSetChanged()
+        //(context as MainActivity).viewpager!!.adapter!!.notifyDataSetChanged()
+    }
     private fun initPieChart() {
         pieChart!!.setUsePercentValues(true)
         pieChart!!.description.isEnabled = false

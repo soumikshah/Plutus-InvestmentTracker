@@ -28,6 +28,7 @@
     <string name="select_investment_category">Select Investment Category:</string>
     <string name="select_category">Select Category</string>
     <string name="rs">\u20B9</string>
+    <string name="dollarSign">\$</string>
     <string name="arrow">\u2794</string>
     <string name="usd">USD</string>
     <string name="inr">INR</string>

@@ -17,7 +17,7 @@ import com.soumikshah.investmenttracker.utils.RecyclerTouchListener
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MainPageHorizontalRecyclerview internal constructor(private val context: Context, private val investmentList: ArrayList<Investment>, private val investmentCategory: List<String>) : RecyclerView.Adapter<MainPageHorizontalRecyclerview.MyViewHolder>() {
+class MainPageHorizontalRecyclerview internal constructor(private val context: Context, private var investmentList: ArrayList<Investment>, private val investmentCategory: List<String>) : RecyclerView.Adapter<MainPageHorizontalRecyclerview.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.mainpage_horizontal_recyclerview, parent, false)
@@ -77,6 +77,10 @@ class MainPageHorizontalRecyclerview internal constructor(private val context: C
         return investmentList.size
     }
 
+    fun updateData(investmentListsCurrency: ArrayList<Investment>){
+        investmentList.clear()
+        investmentList.addAll(investmentListsCurrency)
+    }
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var investmentCategory: TextView = itemView.findViewById(R.id.category_of_the_investment)
         var horizontalView: RecyclerView = itemView.findViewById(R.id.horizontal_view)
