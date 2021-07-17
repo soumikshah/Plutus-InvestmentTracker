@@ -35,4 +35,7 @@
     <string name="update">update</string>
     <string name="save">save</string>
     <string name="cancel">cancel</string>
+    <string name="sampletext">This app is currently in development. It still is in alpha stage. This app is not open source currently but will be in few weeks\n
+                "\nYou may find some bugs with it, if you do. Please contact Soumik"
+                "\n\nYou can find me at soumikshah.com</string>
 </resources>
