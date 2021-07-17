@@ -50,14 +50,13 @@ class MainFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.mainfragment, container, false)
-        noInvestmentView = view.findViewById(R.id.empty_investment_view);
+        noInvestmentView = view.findViewById(R.id.empty_investment_view)
         //private InvestmentAdapter mAdapter;
         totalAmount = view.findViewById(R.id.total_amount_invested)
         otherInvestment = view.findViewById(R.id.otherInvestment)
         val buttonGroup = view.findViewById<ThemedToggleButtonGroup>(R.id.toggleGroup)
         val inrButton = view.findViewById<ThemedButton>(R.id.rupee)
         val dollarButton = view.findViewById<ThemedButton>(R.id.dollar)
-        var currency:String = getString(R.string.inr)
         pieChart = view.findViewById(R.id.pieChart_view)
         recyclerView = view.findViewById(R.id.recycler_view)
         fragment = view.findViewById(R.id.fragment)
@@ -94,6 +93,7 @@ class MainFragment : Fragment() {
                 buttonGroup.selectButton(dollarButton)
                 loadData(getCurrency()!!)
             }
+
             investmentMap = investmentHelper!!.investmentTypeAndAmount
             if (investmentMap != null) {
                 for (type in investmentMap!!.keys) {
@@ -136,6 +136,7 @@ class MainFragment : Fragment() {
                 + "%,d", investmentHelper!!.investmentTotalAmountWithCurrency(localCurrency))
         otherInvestment!!.text = investmentHelper!!.investmentCategoryAndAmount
         recyclerView!!.adapter!!.notifyDataSetChanged()
+        investmentCategories.clear()
         investmentMap = investmentHelper!!.investmentTypeAndAmount
         if (investmentMap != null) {
             for (type in investmentMap!!.keys) {
@@ -149,8 +150,6 @@ class MainFragment : Fragment() {
         initPieChart()
         showPieChart()
         mAdapter!!.notifyDataSetChanged()
-//        recyclerView!!.adapter!!.notifyDataSetChanged()
-        //(context as MainActivity).viewpager!!.adapter!!.notifyDataSetChanged()
     }
     private fun initPieChart() {
         pieChart!!.setUsePercentValues(true)
