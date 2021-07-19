@@ -2,9 +2,12 @@ package com.soumikshah.investmenttracker.view
 
 import android.content.Context
 import android.graphics.Color
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -42,11 +45,13 @@ class MainFragment : Fragment() {
     private var investmentCategories: MutableList<String> = ArrayList()
     private var graphFragment: GraphFragment? = null
     private var recyclerView: RecyclerView? = null
+    private var currencyTextView: TextView? = null
     var fragment: RelativeLayout? = null
     private var mAdapter: MainPageHorizontalRecyclerview? = null
     private var totalAmount:TextView? = null
     private var otherInvestment:TextView? = null
     private var investmentListDemo: ArrayList<Investment>  = ArrayList()
+    private var dollarInvestmentExists: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.mainfragment, container, false)
@@ -62,21 +67,35 @@ class MainFragment : Fragment() {
         fragment = view.findViewById(R.id.fragment)
         linearLayoutView = view.findViewById(R.id.linearLayout)
         investmentHelper = InvestmentHelper(requireContext())
-
+        currencyTextView = view.findViewById(R.id.currency)
         if(investmentHelper!!.getInvestmentsList().isEmpty()){
-            noInvestmentView!!.visibility = View.VISIBLE
-            linearLayoutView!!.visibility = View.GONE
-            pieChart!!.visibility = View.GONE
-            recyclerView!!.visibility = View.GONE
+            noInvestmentView!!.visibility = VISIBLE
+            buttonGroup!!.visibility = GONE
+            linearLayoutView!!.visibility = GONE
+            pieChart!!.visibility = GONE
+            recyclerView!!.visibility = GONE
             (activity as MainActivity).showInvestmentDialog(false,null,-1)
         }else{
-            noInvestmentView!!.visibility = View.GONE
-            linearLayoutView!!.visibility = View.VISIBLE
-            pieChart!!.visibility = View.VISIBLE
-            recyclerView!!.visibility = View.VISIBLE
+            noInvestmentView!!.visibility = GONE
+            linearLayoutView!!.visibility = VISIBLE
+            pieChart!!.visibility = VISIBLE
+            recyclerView!!.visibility = VISIBLE
             graphFragment = GraphFragment()
             if(getCurrency()!!.isEmpty()){
                 setCurrency(getString(R.string.inr))
+            }
+            for(investment in investmentHelper!!.getInvestmentsList()){
+                if(investment.investmentCurrency.equals(getString(R.string.usd))){
+                    dollarInvestmentExists = true
+                    break;
+                }
+            }
+            if(!dollarInvestmentExists){
+                buttonGroup.visibility = GONE
+                currencyTextView!!.visibility = GONE
+            }else{
+                buttonGroup.visibility = VISIBLE
+                currencyTextView!!.visibility = VISIBLE
             }
             investmentListDemo.addAll(investmentHelper!!.getInvestmentsListAccTOCurrency(getCurrency()!!))
             mAdapter = MainPageHorizontalRecyclerview(requireContext(),investmentListDemo , investmentCategories)
@@ -85,6 +104,7 @@ class MainFragment : Fragment() {
             recyclerView!!.layoutManager = mLayoutManager
             recyclerView!!.itemAnimator = DefaultItemAnimator()
             recyclerView!!.adapter = mAdapter
+
 
             if(getCurrency().equals(getString(R.string.inr))){
                 buttonGroup.selectButton(inrButton)
