@@ -38,9 +38,6 @@ class MainActivity : AppCompatActivity() {
     private var bottomNavigationView: BottomNavigationView? = null
     @JvmField
     var mainFragment: MainFragment? = null
-    var investmentDateInLong: Long = 0
-    var datePickerDialog: DatePickerDialog? = null
-    var interestToBeReceived = 0f
     private var fab: FloatingActionButton? =null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,11 +73,10 @@ class MainActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 when (position) {
                     0 -> {
-                        fab!!.show()
                         bottomNavigationView!!.menu.findItem(R.id.mainPage).isChecked = true
+                        viewPager!!.adapter!!.notifyDataSetChanged()
                     }
                     1 -> {
-                        fab!!.hide()
                         bottomNavigationView!!.menu.findItem(R.id.settings).isChecked = true
                     }
                     else ->{
@@ -109,9 +105,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupViewPager(viewPager: ViewPager?) {
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(mainFragment, "Mainpage")
-        adapter.addFragment(SettingsFragment(), "Settings")
-        /*adapter.addFragment(GraphFragment(), "Graph")*/
+        adapter.addFragment(mainFragment, getString(R.string.mainpage_viewpager_name))
+        adapter.addFragment(SettingsFragment(), getString(R.string.setttings_viewpager_name))
         adapter.also { viewPager!!.adapter = it }
     }
 

@@ -17,9 +17,7 @@ class InvestmentHelper(var context: Context) {
     fun getInvestmentsListAccTOCurrency(currency: String):ArrayList<Investment>{
         var currencyInvestmentsList:ArrayList<Investment> = ArrayList()
         for(investment in getInvestmentsList()){
-            Log.d("Tracker","Investment "+investment.investmentName+ " : "+investment.investmentCurrency)
-            if(investment.investmentCurrency.equals(currency)){
-                Log.d("Tracker","Investment currency "+investment.investmentCurrency)
+           if(investment.investmentCurrency.equals(currency)){
                 currencyInvestmentsList.add(investment)
             }
         }

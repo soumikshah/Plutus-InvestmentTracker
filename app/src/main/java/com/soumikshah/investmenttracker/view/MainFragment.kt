@@ -85,7 +85,6 @@ class MainFragment : Fragment() {
             if(getCurrency()!!.isEmpty()){
                 setCurrency(getString(R.string.inr))
             }
-            Log.d("Tracker","currency is ${getCurrency()}")
             for(investment in investmentHelper!!.getInvestmentsList()){
                 if(investment.investmentCurrency.equals(getString(R.string.usd))){
                     dollarInvestmentExists = true
