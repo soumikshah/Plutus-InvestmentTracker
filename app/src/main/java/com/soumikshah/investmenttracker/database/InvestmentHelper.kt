@@ -1,6 +1,7 @@
 package com.soumikshah.investmenttracker.database
 
 import android.content.Context
+import android.util.Log
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
 import com.soumikshah.investmenttracker.view.MainActivity
@@ -16,7 +17,9 @@ class InvestmentHelper(var context: Context) {
     fun getInvestmentsListAccTOCurrency(currency: String):ArrayList<Investment>{
         var currencyInvestmentsList:ArrayList<Investment> = ArrayList()
         for(investment in getInvestmentsList()){
+            Log.d("Tracker","Investment "+investment.investmentName+ " : "+investment.investmentCurrency)
             if(investment.investmentCurrency.equals(currency)){
+                Log.d("Tracker","Investment currency "+investment.investmentCurrency)
                 currencyInvestmentsList.add(investment)
             }
         }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.opengl.Visibility
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -74,7 +75,7 @@ class MainFragment : Fragment() {
             linearLayoutView!!.visibility = GONE
             pieChart!!.visibility = GONE
             recyclerView!!.visibility = GONE
-            (activity as MainActivity).showInvestmentDialog(false,null,-1)
+            (activity as MainActivity).loadFragment(ShowDialog(false, null, -1))
         }else{
             noInvestmentView!!.visibility = GONE
             linearLayoutView!!.visibility = VISIBLE
@@ -84,6 +85,7 @@ class MainFragment : Fragment() {
             if(getCurrency()!!.isEmpty()){
                 setCurrency(getString(R.string.inr))
             }
+            Log.d("Tracker","currency is ${getCurrency()}")
             for(investment in investmentHelper!!.getInvestmentsList()){
                 if(investment.investmentCurrency.equals(getString(R.string.usd))){
                     dollarInvestmentExists = true

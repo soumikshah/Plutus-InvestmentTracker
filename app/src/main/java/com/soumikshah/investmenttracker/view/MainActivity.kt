@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     var investmentDateInLong: Long = 0
     var datePickerDialog: DatePickerDialog? = null
     var interestToBeReceived = 0f
+    private var fab: FloatingActionButton? =null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -57,9 +58,13 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView!!.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.mainPage -> viewPager!!.currentItem = 0
-                R.id.settings -> viewPager!!.currentItem = 1
+                R.id.settings -> {
+                    viewPager!!.currentItem = 1
+                }
                 /*R.id.graph -> viewPager!!.currentItem = 1*/
-                else -> throw IllegalStateException("Unexpected value: " + item.itemId)
+                else -> {
+                    throw IllegalStateException("Unexpected value: " + item.itemId)
+                }
             }
             true
         }
@@ -71,19 +76,35 @@ class MainActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 when (position) {
                     0 -> {
+                        fab!!.show()
                         bottomNavigationView!!.menu.findItem(R.id.mainPage).isChecked = true
                     }
-                    1 -> bottomNavigationView!!.menu.findItem(R.id.settings).isChecked = true
-                    /*1 -> bottomNavigationView!!.menu.findItem(R.id.graph).isChecked = true
-                    2 -> bottomNavigationView!!.menu.findItem(R.id.settings).isChecked = true*/
+                    1 -> {
+                        fab!!.hide()
+                        bottomNavigationView!!.menu.findItem(R.id.settings).isChecked = true
+                    }
+                    else ->{
+                        fab!!.hide()
+                    }
                 }
             }
 
             override fun onPageScrollStateChanged(state: Int) {}
         })
         coordinatorLayout = findViewById(R.id.coordinator_layout)
-        val fab = findViewById<View>(R.id.fab) as FloatingActionButton
-        fab.setOnClickListener { showInvestmentDialog(false, null, -1) }
+        fab = findViewById<View>(R.id.fab) as FloatingActionButton
+        fab!!.setOnClickListener {
+            loadFragment(ShowDialog(false, null, -1))
+            viewPager!!.adapter!!.notifyDataSetChanged()
+        }
+    }
+
+    fun loadFragment(someFragment: Fragment){
+        val fragment: Fragment = someFragment
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.fragment, fragment) // give your fragment container id in first parameter
+        transaction.addToBackStack(null) // if written, this transaction will be added to backstack
+        transaction.commit()
     }
 
     private fun setupViewPager(viewPager: ViewPager?) {

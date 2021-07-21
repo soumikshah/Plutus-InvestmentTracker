@@ -26,11 +26,7 @@ class MainpageDetailBoxAdapter internal constructor(private val context: Context
         holder.investmentAmount.text = String.format(" %,d", investment.investmentAmount)
         //todo holder.parent && moredetails will open new fragment with details about clicked investment.
         holder.investmentParent.setOnClickListener {
-            val someFragment: Fragment = DiscreteScrollviewDetails(investmentList,investment.investmentCategory,investment.id)
-            val transaction = (context as MainActivity).supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment, someFragment) // give your fragment container id in first parameter
-            transaction.addToBackStack(null) // if written, this transaction will be added to backstack
-            transaction.commit()
+            (context as MainActivity).loadFragment(DiscreteScrollviewDetails(investmentList,investment.investmentCategory,investment.id))
         }
     }
 

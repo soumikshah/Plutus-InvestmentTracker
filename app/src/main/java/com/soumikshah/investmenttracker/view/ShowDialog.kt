@@ -5,18 +5,16 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
-import kotlinx.android.synthetic.main.activity_main.*
 import nl.bryanderidder.themedtogglebuttongroup.ThemedButton
 import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
 import java.text.SimpleDateFormat
@@ -43,14 +41,15 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
     private var investment:Investment? = null
     private var positionOfTheInvestment: Int? = null
     private var interestToBeReceived = 0f
+    private var positiveButton: Button? = null
+    private var negativeButton: Button? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.investment_dialog, container,false)
-        val alertDialogBuilderUserInput = AlertDialog.Builder(requireContext())
-        alertDialogBuilderUserInput.setView(view)
+        val view = inflater.inflate(R.layout.investment_dialog, container, false)
         inputInvestmentName = view.findViewById(R.id.investment)
         inputInvestmentAmount = view.findViewById(R.id.investmentAmount)
         inputInvestmentPercent = view.findViewById(R.id.investmentInterest)
@@ -59,16 +58,27 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         inputInvestmentDate = view.findViewById(R.id.investedDate)
         inputInvestNumberOfUnitsHeld = view.findViewById(R.id.investmentNumberOfUnits)
         inputInvestPricePerUnit = view.findViewById(R.id.investmentPricePerUnit)
-        inputInvestmentAmount = view.findViewById(R.id.investedNumberOfMonths)
+        inputInvestmentNumberOfMonths = view.findViewById(R.id.investedNumberOfMonths)
         buttonGroup = view.findViewById(R.id.toggleGroup)
         inrButton = view.findViewById(R.id.rupee)
         dollarButton = view.findViewById(R.id.dollar)
         dialogTitle = view.findViewById(R.id.dialog_title)
-
+        positiveButton = view.findViewById(R.id.positiveButton)
+        negativeButton = view.findViewById(R.id.negativeButton)
         //Select INR button by default
-        buttonGroup!!.selectButton(inrButton!!)
+        if(investment== null){
+            buttonGroup!!.selectButton(inrButton!!)
+        }else{
+            if(investment!!.investmentCurrency.equals(getString(R.string.inr))){
+                currency = getString(R.string.inr)
+                buttonGroup!!.selectButton(inrButton!!)
+            }else if (investment!!.investmentCurrency.equals(getString(R.string.usd))){
+                currency = getString(R.string.usd)
+                buttonGroup!!.selectButton(dollarButton!!)
+            }
+        }
         dialogTitle!!.text = if (!shouldUpdate) getString(R.string.new_investment_title)
-                            else getString(R.string.edit_investment_title)
+        else getString(R.string.edit_investment_title)
 
         inputInvestmentDate!!.setOnClickListener { // calender class's instance and get current date , month and year from calender
             val c = Calendar.getInstance()
@@ -77,7 +87,7 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
             val mDay = c[Calendar.DAY_OF_MONTH] // current day
             // date picker dialog
             datePickerDialog = DatePickerDialog(requireContext(), R.style.DatePickerTheme,
-                { view, year, monthOfYear, dayOfMonth -> // set day of month , month and year value in the edit text
+                { _, year, monthOfYear, dayOfMonth -> // set day of month , month and year value in the edit text
                     inputInvestmentDate!!.text = String.format(Locale.ENGLISH, "%d/%d/%d", dayOfMonth,
                         monthOfYear + 1, year)
                     investmentDateInLong = c.timeInMillis
@@ -87,66 +97,30 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         }
 
         if (shouldUpdate) {
-            editInvestmentData(investment!!)
+            showEditedInvestment(investment!!)
+            positiveButton!!.text = getString(R.string.edit)
         }
-        alertDialogBuilderUserInput
-            .setCancelable(false)
-            .setPositiveButton(if (shouldUpdate) getString(R.string.update) else getString(R.string.save)) { _, _ -> }
-            .setNegativeButton(getString(R.string.cancel)
-            ) { dialogBox, _ -> dialogBox.cancel() }
+        negativeButton!!.setOnClickListener { activity?.onBackPressed() }
 
-        val alertDialog = alertDialogBuilderUserInput.create()
-        alertDialog.setOnKeyListener { _, _, keyEvent ->
-            if (keyEvent.keyCode == KeyEvent.KEYCODE_BACK) {
-                alertDialog.dismiss()
-            }
-            false
-        }
-        alertDialog.show()
-
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(View.OnClickListener { // Show toast message when no text is entered
+        positiveButton!!.setOnClickListener {
             if (TextUtils.isEmpty(inputInvestmentName!!.text.toString())) {
                 Toast.makeText(requireContext(), "Enter Investment Name!", Toast.LENGTH_SHORT).show()
-                return@OnClickListener
             } else if (TextUtils.isEmpty(inputInvestmentAmount!!.text.toString())) {
                 Toast.makeText(requireContext(), "Enter Investment Amount!", Toast.LENGTH_LONG).show()
-                return@OnClickListener
             } else if (TextUtils.isEmpty(inputInvestmentCategory!!.text.toString())) {
                 Toast.makeText(requireContext(), "Enter Investment Type!", Toast.LENGTH_LONG).show()
-            } else {
-                alertDialog.dismiss()
             }
-            addInvestment()
-            if (shouldUpdate && investment != null) {
-                (activity as MainActivity).mainFragment!!.investmentHelper!!.updateInvestment(inputInvestmentName!!.text.toString(),
-                    inputInvestmentAmount!!.text.toString().toInt(),
-                    interestToBeReceived,
-                    inputInvestmentMedium!!.text.toString(),
-                    inputInvestmentCategory!!.text.toString(),
-                    investmentDateInLong,
-                    inputInvestmentNumberOfMonths!!.text.toString().toInt(),
-                    inputInvestNumberOfUnitsHeld!!.text.toString(),
-                    inputInvestPricePerUnit!!.text.toString().toInt(),
-                    currency,
-                    positionOfTheInvestment!!)
-            } else {
-                (activity as MainActivity).mainFragment!!.investmentHelper!!.createInvestment(inputInvestmentName!!.text.toString(),
-                    inputInvestmentAmount!!.text.toString().toInt(),
-                    interestToBeReceived,
-                    inputInvestmentMedium!!.text.toString(),
-                    inputInvestmentCategory!!.text.toString(),
-                    investmentDateInLong,
-                    inputInvestmentNumberOfMonths!!.text.toString().toInt(),
-                    inputInvestNumberOfUnitsHeld!!.text.toString(),
-                    inputInvestPricePerUnit!!.text.toString().toInt(),
-                    currency)
+            if(shouldUpdate && investment != null){
+                editInvestment()
+            }else{
+                addInvestment()
             }
-        })
-//        (activity as MainActivity).viewpager!!.adapter!!.notifyDataSetChanged()
+            activity?.onBackPressed()
+        }
         return view
     }
 
-    private fun editInvestmentData(investment:Investment ){
+    private fun showEditedInvestment(investment:Investment ){
             inputInvestmentName!!.setText(investment.investmentName.toString())
             inputInvestmentAmount!!.setText(investment.investmentAmount.toString())
             inputInvestmentPercent!!.setText(investment.investmentPercent.toString())
@@ -165,6 +139,7 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
             }else if(dollarButton!!.isSelected){
                 currency = getString(R.string.usd)
             }
+//        activity?.onBackPressed()
     }
 
     private fun addInvestment(){
@@ -196,6 +171,53 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         }else{
             currency = getString(R.string.inr)
         }
+        (activity as MainActivity).mainFragment!!.investmentHelper!!.createInvestment(inputInvestmentName!!.text.toString(),
+            inputInvestmentAmount!!.text.toString().toInt(),
+            interestToBeReceived,
+            inputInvestmentMedium!!.text.toString(),
+            inputInvestmentCategory!!.text.toString(),
+            investmentDateInLong,
+            inputInvestmentNumberOfMonths!!.text.toString().toInt(),
+            inputInvestNumberOfUnitsHeld!!.text.toString(),
+            inputInvestPricePerUnit!!.text.toString().toInt(),
+            currency)
+        //activity?.onBackPressed()
+    }
+
+    private fun editInvestment(){
+        interestToBeReceived = if (inputInvestmentPercent!!.text.toString().matches("".toRegex())) {
+            0f
+        } else {
+            inputInvestmentPercent!!.text.toString().toFloat()
+        }
+
+        if (inputInvestmentMedium!!.text.toString().isEmpty()) {
+            inputInvestmentMedium!!.setText(R.string.not_mentioned)
+        }
+        if (inputInvestmentCategory!!.text.toString().isEmpty()) {
+            inputInvestmentCategory!!.setText("")
+        }
+        if (inputInvestmentNumberOfMonths!!.text.toString().isEmpty()) {
+            inputInvestmentNumberOfMonths!!.setText("0")
+        }
+        if(inputInvestNumberOfUnitsHeld!!.text.toString().isEmpty()){
+            inputInvestNumberOfUnitsHeld!!.setText("")
+        }
+        if(inputInvestPricePerUnit!!.text.toString().isEmpty()){
+            inputInvestPricePerUnit!!.setText("0")
+        }
+
+        (activity as MainActivity).mainFragment!!.investmentHelper!!.updateInvestment(inputInvestmentName!!.text.toString(),
+            inputInvestmentAmount!!.text.toString().toInt(),
+            interestToBeReceived,
+            inputInvestmentMedium!!.text.toString(),
+            inputInvestmentCategory!!.text.toString(),
+            investmentDateInLong,
+            inputInvestmentNumberOfMonths!!.text.toString().toInt(),
+            inputInvestNumberOfUnitsHeld!!.text.toString(),
+            inputInvestPricePerUnit!!.text.toString().toInt(),
+            currency,
+            positionOfTheInvestment!!)
     }
 
     init {

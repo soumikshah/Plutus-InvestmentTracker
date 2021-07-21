@@ -40,11 +40,7 @@ class MainPageHorizontalRecyclerview internal constructor(private val context: C
         holder.horizontalView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         holder.horizontalView.adapter = investmentHorizontalAdapter
         holder.investmentCategory.setOnClickListener {
-            val someFragment: Fragment = InvestmentCategoryFragment(investmentData)
-            val transaction = (context as MainActivity).supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment, someFragment) // give your fragment container id in first parameter
-            transaction.addToBackStack(null) // if written, this transaction will be added to backstack
-            transaction.commit()
+            (context as MainActivity).loadFragment(InvestmentCategoryFragment(investmentData))
         }
         holder.horizontalView.addOnItemTouchListener(
             RecyclerTouchListener(context, holder.horizontalView, object: AdapterView.OnItemClickListener,
@@ -59,14 +55,11 @@ class MainPageHorizontalRecyclerview internal constructor(private val context: C
                             categoryList.add(value)
                         }
                     }
-                    val someFragment: Fragment = DiscreteScrollviewDetails(categoryList,investmentData[position].investmentCategory,investmentData[position].id)
-                    val transaction = (context as MainActivity).supportFragmentManager.beginTransaction()
-                    transaction.replace(R.id.fragment, someFragment) // give your fragment container id in first parameter
-                    transaction.addToBackStack(null) // if written, this transaction will be added to backstack
-                    transaction.commit()
+                    (context as MainActivity).loadFragment( DiscreteScrollviewDetails(categoryList,investmentData[position].investmentCategory,investmentData[position].id))
                 }
 
                 override fun onLongClick(view: View?, position: Int) {
+                    (context as MainActivity).loadFragment(ShowDialog(true,investmentData[position],position))
                     //(context as MainActivity).showInvestmentDialog(true,investmentData[position],position)
                 }
             })
