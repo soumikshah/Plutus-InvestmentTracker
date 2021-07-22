@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputEditText
 import com.soumikshah.investmenttracker.R
+import com.soumikshah.investmenttracker.database.InvestmentHelper
 import com.soumikshah.investmenttracker.database.model.Investment
 import nl.bryanderidder.themedtogglebuttongroup.ThemedButton
 import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
@@ -44,6 +45,7 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
     private var interestToBeReceived = 0f
     private var positiveButton: Button? = null
     private var negativeButton: Button? = null
+    private var investmentIDBeforeEdit: Int? = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,6 +68,7 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         dialogTitle = view.findViewById(R.id.dialog_title)
         positiveButton = view.findViewById(R.id.positiveButton)
         negativeButton = view.findViewById(R.id.negativeButton)
+        (activity as MainActivity).hideFab()
         //Select INR button by default
         if(investment== null){
             buttonGroup!!.selectButton(inrButton!!)
@@ -113,8 +116,10 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
             }
             if(shouldUpdate && investment != null){
                 editInvestment()
+                (activity as MainActivity).mainFragment!!.loadData(currency!!)
             }else{
                 addInvestment()
+                (activity as MainActivity).mainFragment!!.loadData(currency!!)
             }
             activity?.onBackPressed()
         }
@@ -122,6 +127,7 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
     }
 
     private fun showEditedInvestment(investment:Investment ){
+            investmentIDBeforeEdit = investment.id.toInt()
             inputInvestmentName!!.setText(investment.investmentName.toString())
             inputInvestmentAmount!!.setText(investment.investmentAmount.toString())
             inputInvestmentPercent!!.setText(investment.investmentPercent.toString())
@@ -181,7 +187,6 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
             inputInvestNumberOfUnitsHeld!!.text.toString(),
             inputInvestPricePerUnit!!.text.toString().toInt(),
             currency)
-        //activity?.onBackPressed()
     }
 
     private fun editInvestment(){
@@ -207,7 +212,8 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
             inputInvestPricePerUnit!!.setText("0")
         }
 
-        (activity as MainActivity).mainFragment!!.investmentHelper!!.updateInvestment(inputInvestmentName!!.text.toString(),
+        (activity as MainActivity).mainFragment!!.investmentHelper!!.updateInvestment(investmentIDBeforeEdit!!,
+            inputInvestmentName!!.text.toString(),
             inputInvestmentAmount!!.text.toString().toInt(),
             interestToBeReceived,
             inputInvestmentMedium!!.text.toString(),
@@ -218,6 +224,11 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
             inputInvestPricePerUnit!!.text.toString().toInt(),
             currency,
             positionOfTheInvestment!!)
+    }
+
+    override fun onDestroy() {
+        (activity as MainActivity).showFab()
+        super.onDestroy()
     }
 
     init {

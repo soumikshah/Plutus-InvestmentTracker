@@ -16,9 +16,11 @@ class InvestmentHelper(var context: Context) {
 
     fun getInvestmentsListAccTOCurrency(currency: String):ArrayList<Investment>{
         var currencyInvestmentsList:ArrayList<Investment> = ArrayList()
-        for(investment in getInvestmentsList()){
+        InvestmentsList.clear()
+        InvestmentsList.addAll(db!!.allInvestments)
+        for(investment in InvestmentsList){
            if(investment.investmentCurrency.equals(currency)){
-                currencyInvestmentsList.add(investment)
+               currencyInvestmentsList.add(investment)
             }
         }
         return currencyInvestmentsList!!
@@ -58,7 +60,7 @@ class InvestmentHelper(var context: Context) {
         }
     }
 
-    fun updateInvestment(investment: String?, investmentAmount: Int,
+    fun updateInvestment(investmentId:Int,investment: String?, investmentAmount: Int,
                          investmentPercent: Float, investmentMedium: String?,
                          investmentCategory: String?,
                          investmentDate: Long,
@@ -68,6 +70,7 @@ class InvestmentHelper(var context: Context) {
                          investmentCurrency: String?,
                          position: Int) {
         val n = InvestmentsList[position]
+        n.id = investmentId
         n.investmentName = investment
         n.investmentAmount = investmentAmount
         n.investmentPercent = investmentPercent

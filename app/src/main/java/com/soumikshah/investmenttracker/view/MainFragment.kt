@@ -146,7 +146,7 @@ class MainFragment : Fragment() {
         val pref = requireContext().getSharedPreferences("currency_name", Context.MODE_PRIVATE)
         return pref.getString("currency", "")
     }
-    private fun loadData(localCurrency: String){
+    fun loadData(localCurrency: String){
         var currencyInString: String? = null
         if(getCurrency().equals(getString(R.string.inr))){
             currencyInString = getString(R.string.rs)

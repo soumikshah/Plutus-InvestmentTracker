@@ -17,6 +17,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -74,13 +75,9 @@ class MainActivity : AppCompatActivity() {
                 when (position) {
                     0 -> {
                         bottomNavigationView!!.menu.findItem(R.id.mainPage).isChecked = true
-                        viewPager!!.adapter!!.notifyDataSetChanged()
                     }
                     1 -> {
                         bottomNavigationView!!.menu.findItem(R.id.settings).isChecked = true
-                    }
-                    else ->{
-                        fab!!.hide()
                     }
                 }
             }
@@ -94,13 +91,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun showFab(){
+        fab!!.show()
+    }
+    fun hideFab(){
+        fab!!.hide()
+    }
+
     fun loadFragment(someFragment: Fragment){
         val fragment: Fragment = someFragment
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.fragment, fragment) // give your fragment container id in first parameter
         transaction.addToBackStack(null) // if written, this transaction will be added to backstack
         transaction.commit()
-        fab!!.hide()
     }
 
     private fun setupViewPager(viewPager: ViewPager?) {
