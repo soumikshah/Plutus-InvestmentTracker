@@ -60,7 +60,6 @@ class MainPageHorizontalRecyclerview internal constructor(private val context: C
 
                 override fun onLongClick(view: View?, position: Int) {
                     (context as MainActivity).loadFragment(ShowDialog(true,investmentData[position],position))
-                    //(context as MainActivity).showInvestmentDialog(true,investmentData[position],position)
                 }
             })
         )

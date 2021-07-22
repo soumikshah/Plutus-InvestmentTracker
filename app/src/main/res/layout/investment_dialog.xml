@@ -87,7 +87,7 @@
                 app:hintTextColor="@color/investment_name"
                 android:textColorHint="@color/investment_name"
                 android:textSize="@dimen/input_new_investment">
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/investment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
                 app:hintTextColor="@color/investment_amount"
                 android:textColorHint="@color/investment_amount"
                 android:textSize="@dimen/investment_amount">
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/investmentAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -132,7 +132,7 @@
                 app:placeholderTextAppearance="@color/investment_medium"
                 android:textColorHint="@color/investment_medium"
                 android:textSize="@dimen/investment_medium">
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/investmentMedium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -154,7 +154,7 @@
                 app:hintTextColor="@color/investment_category"
                 android:textColorHint="@color/investment_category"
                 android:textSize="@dimen/investment_category">
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/investmentCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -175,7 +175,7 @@
                 app:hintTextColor="@color/investment_category"
                 android:textColorHint="@color/investment_category"
                 android:textSize="@dimen/investment_category">
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/investmentNumberOfUnits"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -196,7 +196,7 @@
                 app:hintTextColor="@color/investment_category"
                 android:textColorHint="@color/investment_category"
                 android:textSize="@dimen/investment_category">
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/investmentPricePerUnit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -242,7 +242,7 @@
                 android:textColorHint="@color/investment_interest_percent"
                 android:textSize="@dimen/investment_interest">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/investmentInterest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -264,7 +264,7 @@
                 android:textAllCaps="true"
                 android:textColorHint="@color/investment_amount_of_month"
                 android:textSize="@dimen/investment_category">
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/investedNumberOfMonths"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

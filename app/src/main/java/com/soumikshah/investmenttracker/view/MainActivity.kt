@@ -91,7 +91,6 @@ class MainActivity : AppCompatActivity() {
         fab = findViewById<View>(R.id.fab) as FloatingActionButton
         fab!!.setOnClickListener {
             loadFragment(ShowDialog(false, null, -1))
-            viewPager!!.adapter!!.notifyDataSetChanged()
         }
     }
 
@@ -101,6 +100,7 @@ class MainActivity : AppCompatActivity() {
         transaction.add(R.id.fragment, fragment) // give your fragment container id in first parameter
         transaction.addToBackStack(null) // if written, this transaction will be added to backstack
         transaction.commit()
+        fab!!.hide()
     }
 
     private fun setupViewPager(viewPager: ViewPager?) {

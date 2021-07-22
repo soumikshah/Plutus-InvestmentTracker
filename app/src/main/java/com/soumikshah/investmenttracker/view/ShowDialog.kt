@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.android.material.textfield.TextInputEditText
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
 import nl.bryanderidder.themedtogglebuttongroup.ThemedButton
@@ -21,15 +22,15 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investment?, position: Int): Fragment() {
-    private var inputInvestmentName: EditText? = null
-    private var inputInvestmentAmount: EditText? = null
-    private var inputInvestmentPercent: EditText? = null
-    private var inputInvestmentMedium: EditText? = null
-    private var inputInvestmentCategory: EditText? = null
+    private var inputInvestmentName: TextInputEditText? = null
+    private var inputInvestmentAmount: TextInputEditText? = null
+    private var inputInvestmentPercent: TextInputEditText? = null
+    private var inputInvestmentMedium: TextInputEditText? = null
+    private var inputInvestmentCategory: TextInputEditText? = null
     private var inputInvestmentDate:TextView? = null
-    private var inputInvestNumberOfUnitsHeld: EditText? = null
-    private var inputInvestPricePerUnit: EditText? = null
-    private var inputInvestmentNumberOfMonths: EditText? = null
+    private var inputInvestNumberOfUnitsHeld: TextInputEditText? = null
+    private var inputInvestPricePerUnit: TextInputEditText? = null
+    private var inputInvestmentNumberOfMonths: TextInputEditText? = null
     private var buttonGroup: ThemedToggleButtonGroup? = null
     private var inrButton:ThemedButton? = null
     private var dollarButton: ThemedButton? = null
@@ -139,7 +140,6 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
             }else if(dollarButton!!.isSelected){
                 currency = getString(R.string.usd)
             }
-//        activity?.onBackPressed()
     }
 
     private fun addInvestment(){
