@@ -113,15 +113,19 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
                 Toast.makeText(requireContext(), "Enter Investment Amount!", Toast.LENGTH_LONG).show()
             } else if (TextUtils.isEmpty(inputInvestmentCategory!!.text.toString())) {
                 Toast.makeText(requireContext(), "Enter Investment Type!", Toast.LENGTH_LONG).show()
+            }else if(TextUtils.isEmpty(inputInvestmentMedium!!.text.toString())){
+                Toast.makeText(requireContext(),"Please insert how did you invest the money",Toast.LENGTH_LONG).show()
+            } else{
+                if(shouldUpdate && investment != null){
+                    editInvestment()
+                    (activity as? MainActivity)!!.updateViewPager()
+                    activity?.onBackPressed()
+                }else{
+                    addInvestment()
+                    (activity as? MainActivity)!!.updateViewPager()
+                    activity?.onBackPressed()
+                }
             }
-            if(shouldUpdate && investment != null){
-                editInvestment()
-                (activity as MainActivity).mainFragment!!.loadData(currency!!)
-            }else{
-                addInvestment()
-                (activity as MainActivity).mainFragment!!.loadData(currency!!)
-            }
-            activity?.onBackPressed()
         }
         return view
     }

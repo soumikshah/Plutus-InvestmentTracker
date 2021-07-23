@@ -1,34 +1,18 @@
 package com.soumikshah.investmenttracker.view
 
-import android.app.DatePickerDialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
-import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnTouchListener
-import android.widget.*
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.soumikshah.investmenttracker.R
-import com.soumikshah.investmenttracker.database.model.Investment
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.investment_dialog.*
-import nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -40,6 +24,8 @@ class MainActivity : AppCompatActivity() {
     @JvmField
     var mainFragment: MainFragment? = null
     private var fab: FloatingActionButton? =null
+    private var adapter:ViewPagerAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -75,9 +61,11 @@ class MainActivity : AppCompatActivity() {
                 when (position) {
                     0 -> {
                         bottomNavigationView!!.menu.findItem(R.id.mainPage).isChecked = true
+                        viewPager!!.adapter!!.notifyDataSetChanged()
                     }
                     1 -> {
                         bottomNavigationView!!.menu.findItem(R.id.settings).isChecked = true
+                        viewPager!!.adapter!!.notifyDataSetChanged()
                     }
                 }
             }
@@ -106,14 +94,19 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
+    fun updateViewPager(){
+        if(adapter!=null){
+            adapter!!.notifyDataSetChanged()
+        }
+    }
     private fun setupViewPager(viewPager: ViewPager?) {
-        val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(mainFragment, getString(R.string.mainpage_viewpager_name))
-        adapter.addFragment(SettingsFragment(), getString(R.string.setttings_viewpager_name))
+        adapter = ViewPagerAdapter(supportFragmentManager)
+        adapter!!.addFragment(mainFragment, getString(R.string.mainpage_viewpager_name))
+        adapter!!.addFragment(SettingsFragment(), getString(R.string.setttings_viewpager_name))
         adapter.also { viewPager!!.adapter = it }
     }
 
-    internal class ViewPagerAdapter(manager: FragmentManager?) : FragmentPagerAdapter(manager!!) {
+    class ViewPagerAdapter(manager: FragmentManager?) : FragmentPagerAdapter(manager!!) {
         private val mFragmentList: MutableList<Fragment> = ArrayList()
         private val mFragmentTitleList: MutableList<String> = ArrayList()
         override fun getItem(position: Int): Fragment {

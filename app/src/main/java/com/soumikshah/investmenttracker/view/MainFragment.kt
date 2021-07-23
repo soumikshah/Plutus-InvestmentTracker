@@ -69,22 +69,22 @@ class MainFragment : Fragment() {
         linearLayoutView = view.findViewById(R.id.linearLayout)
         investmentHelper = InvestmentHelper(requireContext())
         currencyTextView = view.findViewById(R.id.currency)
+        graphFragment = GraphFragment()
+        if(getCurrency()!!.isEmpty()){
+            setCurrency(getString(R.string.inr))
+        }
         if(investmentHelper!!.getInvestmentsList().isEmpty()){
             noInvestmentView!!.visibility = VISIBLE
             buttonGroup!!.visibility = GONE
             linearLayoutView!!.visibility = GONE
             pieChart!!.visibility = GONE
             recyclerView!!.visibility = GONE
-            (activity as MainActivity).loadFragment(ShowDialog(false, null, -1))
         }else{
             noInvestmentView!!.visibility = GONE
             linearLayoutView!!.visibility = VISIBLE
             pieChart!!.visibility = VISIBLE
             recyclerView!!.visibility = VISIBLE
-            graphFragment = GraphFragment()
-            if(getCurrency()!!.isEmpty()){
-                setCurrency(getString(R.string.inr))
-            }
+
             for(investment in investmentHelper!!.getInvestmentsList()){
                 if(investment.investmentCurrency.equals(getString(R.string.usd))){
                     dollarInvestmentExists = true
@@ -156,7 +156,9 @@ class MainFragment : Fragment() {
         totalAmount!!.text = String.format(currencyInString
                 + "%,d", investmentHelper!!.investmentTotalAmountWithCurrency(localCurrency))
         otherInvestment!!.text = investmentHelper!!.investmentCategoryAndAmount
-        recyclerView!!.adapter!!.notifyDataSetChanged()
+        if(recyclerView!=null && recyclerView!!.adapter!= null && recyclerView!!.adapter!!.itemCount>0){
+            recyclerView!!.adapter!!.notifyDataSetChanged()
+        }
         investmentCategories.clear()
         investmentMap = investmentHelper!!.investmentTypeAndAmount
         if (investmentMap != null) {
@@ -170,7 +172,9 @@ class MainFragment : Fragment() {
         investmentListDemo.addAll(investmentHelper!!.getInvestmentsListAccTOCurrency(getCurrency()!!))
         initPieChart()
         showPieChart()
-        mAdapter!!.notifyDataSetChanged()
+        if(mAdapter!= null){
+            mAdapter!!.notifyDataSetChanged()
+        }
     }
     private fun initPieChart() {
         pieChart!!.setUsePercentValues(true)
