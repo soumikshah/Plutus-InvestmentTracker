@@ -10,7 +10,7 @@ This application uses no internet connection. So we won't track the prices of yo
 
 This application don't use internet connection, so be sure that data you insert in this application is not shared with anyone. It's just for you to see.
 
-Version 0.4 
+Version 0.4 https://github.com/soumikshah/InvestmentTracker/releases/tag/0.4
 
 
 - This release has working implementation for fingerprint scanner. You just need to use your device credentials to log in. So for example if you want to use pin instead of fingerprint, you need to click 'USE PIN' button. And pin would be the pin you use to unlock your device. I don't want you to remember yet another pin for another app. So use the same old device pin. 
