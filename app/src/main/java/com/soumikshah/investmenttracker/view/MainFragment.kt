@@ -109,8 +109,8 @@ class MainFragment : Fragment() {
             recyclerView!!.setHasFixedSize(true)
             recyclerView!!.layoutManager = mLayoutManager
             //recyclerView!!.itemAnimator = DefaultItemAnimator()
-            recyclerView!!.scheduleLayoutAnimation()
             recyclerView!!.adapter = mAdapter
+            recyclerView!!.scheduleLayoutAnimation()
 
 
             if(getCurrency().equals(getString(R.string.inr))){
