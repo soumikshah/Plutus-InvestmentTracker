@@ -102,7 +102,6 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
 
         if (shouldUpdate) {
             showEditedInvestment(investment!!)
-            positiveButton!!.text = getString(R.string.edit)
         }
         negativeButton!!.setOnClickListener { activity?.onBackPressed() }
 
@@ -131,7 +130,7 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
     }
 
     private fun showEditedInvestment(investment:Investment ){
-            investmentIDBeforeEdit = investment.id.toInt()
+            investmentIDBeforeEdit = investment.id
             inputInvestmentName!!.setText(investment.investmentName.toString())
             inputInvestmentAmount!!.setText(investment.investmentAmount.toString())
             inputInvestmentPercent!!.setText(investment.investmentPercent.toString())

@@ -282,25 +282,27 @@
                 android:orientation="horizontal"
                 android:layout_gravity="center_horizontal">
                 <Button
-                    android:id="@+id/positiveButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add"
-                    android:textSize="15sp"
-                    android:textColor="@color/colorPrimary"
-                    android:padding="5dp"
-                    android:textAllCaps="true"
-                    android:background="@android:color/transparent"/>
-                <Button
                     android:id="@+id/negativeButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/cancel"
+                    android:text="@android:string/cancel"
                     android:textSize="15sp"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimary"
                     android:padding="5dp"
                     android:layout_marginStart="5dp"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:background="@android:color/transparent"/>
+                <Button
+                    android:id="@+id/positiveButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/save"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorPrimary"
+                    android:padding="5dp"
+                    android:textAllCaps="true"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:background="@android:color/transparent"/>
             </LinearLayout>
         </LinearLayout>

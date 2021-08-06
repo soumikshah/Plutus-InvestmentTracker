@@ -34,11 +34,11 @@
     <string name="inr">INR</string>
     <string name="update">update</string>
     <string name="save">save</string>
-    <string name="cancel">cancel</string>
+    <string name="cancel">Cancel</string>
     <string name="sampletext">This app is currently in development. It still is in alpha stage. This app is not open source currently but will be in few weeks\n
                 \n\nThis app uses no internet connection, so we\'re not taking your data.
                 "\n\nYou may find some bugs with it, if you do. Please contact Soumik"
-                "\n\nYou can find me at soumikshah.com</string>
+                "\n\nYou can find me at developer@soumikshah.com</string>
     <string name="add">Add</string>
     <string name="edit">Edit</string>
     <string name="mainpage_viewpager_name">Mainpage</string>
@@ -50,6 +50,6 @@
     <string name="auth_description">We want to keep your financials safe from unauthorized users. \n\nSo only users who know the pin or have registered fingerprints can open this application.</string>
     <string name="error_msg_no_biometric_hardware">Your phone doesn\'t support fingerprint scanner</string>
     <string name="error_msg_biometric_hw_unavailable">No fingerprint scanner available</string>
-    <string name="error_msg_biometric_not_setup">No fingerprints are registered on your phone. Please register fingerprint and try again!</string>
+    <string name="error_msg_biometric_not_setup">No fingerprints are registered on your phone</string>
     <string name="fingerprint_negative_button_error_text">You rejected use of fingerprint. You need to authenticate yourself to use this app(This feature will be opt-in in future).</string>
 </resources>
