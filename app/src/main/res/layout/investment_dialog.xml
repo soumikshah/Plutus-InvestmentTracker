@@ -17,7 +17,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dimen_10"
-                android:fontFamily="sans-serif-medium"
                 android:lineSpacingExtra="8sp"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/new_investment_title"

@@ -108,7 +108,8 @@ class MainFragment : Fragment() {
             val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
             recyclerView!!.setHasFixedSize(true)
             recyclerView!!.layoutManager = mLayoutManager
-            recyclerView!!.itemAnimator = DefaultItemAnimator()
+            //recyclerView!!.itemAnimator = DefaultItemAnimator()
+            recyclerView!!.scheduleLayoutAnimation()
             recyclerView!!.adapter = mAdapter
 
 
