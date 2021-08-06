@@ -54,6 +54,11 @@ class MainFragment : Fragment() {
     private var investmentListDemo: ArrayList<Investment>  = ArrayList()
     private var dollarInvestmentExists: Boolean = false
 
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).hideFab()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.mainfragment, container, false)
         noInvestmentView = view.findViewById(R.id.empty_investment_view)
@@ -88,7 +93,7 @@ class MainFragment : Fragment() {
             for(investment in investmentHelper!!.getInvestmentsList()){
                 if(investment.investmentCurrency.equals(getString(R.string.usd))){
                     dollarInvestmentExists = true
-                    break;
+                    break
                 }
             }
             if(!dollarInvestmentExists){

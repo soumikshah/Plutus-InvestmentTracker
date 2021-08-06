@@ -17,4 +17,8 @@ class SettingsFragment internal constructor() : Fragment(){
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).showFab()
+    }
 }
