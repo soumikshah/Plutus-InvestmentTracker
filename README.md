@@ -10,15 +10,5 @@ Just to be clear, this application is not a portfolio tracker as well. There are
 
 This application don't use internet connection, so be sure that data you insert in this application is not shared with anyone. It's just for you to see. So you can be sure that we can't track your investment data, nor can we sell anything to anyone.
 
-Version 0.4 https://github.com/soumikshah/InvestmentTracker/releases/tag/0.4
-
-
-- This release has working implementation for fingerprint scanner. You just need to use your device credentials to log in. So for example if you want to use pin instead of fingerprint, you need to click 'USE PIN' button. And pin would be the pin you use to unlock your device. I don't want you to remember yet another pin for another app. So use the same old device pin. 
-
-- After login in the application, press + sign to add new investment. If your investment is in INR then select rupee sign on the top, if it's in USD then select $ sign. You need to fill in all the mandatory details on that Add investment page.
-
-- After you're done adding details press ADD button on the bottom, if you can't see that button please scroll down a little.
-
-- You can edit the investment from homepage, home page would be the page where you see the graph. You need to long click on the investment and that will get you to edit page. If you find it tough to find, please let me know so I can make it easier for user to find this edit option.
-
-- We don't have DELETE investment feature implemented yet. So for now if you make an investment and want to delete it, please consider editing it into different investment altogether.
+Download APK files from here
+https://github.com/soumikshah/InvestmentTracker/releases
