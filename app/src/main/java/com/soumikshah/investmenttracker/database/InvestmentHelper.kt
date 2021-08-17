@@ -15,7 +15,7 @@ class InvestmentHelper(var context: Context) {
     }
 
     fun getInvestmentsListAccTOCurrency(currency: String):ArrayList<Investment>{
-        var currencyInvestmentsList:ArrayList<Investment> = ArrayList()
+        val currencyInvestmentsList:ArrayList<Investment> = ArrayList()
         InvestmentsList.clear()
         InvestmentsList.addAll(db!!.allInvestments)
         for(investment in InvestmentsList){
@@ -23,7 +23,7 @@ class InvestmentHelper(var context: Context) {
                currencyInvestmentsList.add(investment)
             }
         }
-        return currencyInvestmentsList!!
+        return currencyInvestmentsList
     }
 
 
@@ -153,6 +153,23 @@ class InvestmentHelper(var context: Context) {
             return sb.toString()
         }
 
+    val investmentName: ArrayList<String>
+    get() {
+        val investmentName: ArrayList<String> = ArrayList()
+        for(investment in getInvestmentsList()){
+            investmentName.add(investment.investmentName)
+        }
+        return investmentName
+    }
+
+    val investmentMedium:ArrayList<String>
+    get(){
+        val investmentMediumList: ArrayList<String> = ArrayList()
+        for (investment in getInvestmentsList()){
+            investmentMediumList.add(investment.investmentMedium)
+        }
+        return investmentMediumList
+    }
 
     val investmentCategory: ArrayList<String>
         get() {

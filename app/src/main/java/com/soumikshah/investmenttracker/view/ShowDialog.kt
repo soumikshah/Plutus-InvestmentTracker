@@ -8,26 +8,25 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputEditText
 import com.soumikshah.investmenttracker.R
-import com.soumikshah.investmenttracker.database.InvestmentHelper
 import com.soumikshah.investmenttracker.database.model.Investment
+import kotlinx.android.synthetic.main.investment_dialog.*
 import nl.bryanderidder.themedtogglebuttongroup.ThemedButton
 import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
+
 
 class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investment?, position: Int): Fragment() {
     private var inputInvestmentName: TextInputEditText? = null
     private var inputInvestmentAmount: TextInputEditText? = null
     private var inputInvestmentPercent: TextInputEditText? = null
-    private var inputInvestmentMedium: TextInputEditText? = null
-    private var inputInvestmentCategory: TextInputEditText? = null
+    private var inputInvestmentMedium: AutoCompleteTextView? = null
+    private var inputInvestmentCategory: AutoCompleteTextView? = null
     private var inputInvestmentDate:TextView? = null
     private var inputInvestNumberOfUnitsHeld: TextInputEditText? = null
     private var inputInvestPricePerUnit: TextInputEditText? = null
@@ -46,6 +45,8 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
     private var positiveButton: Button? = null
     private var negativeButton: Button? = null
     private var investmentIDBeforeEdit: Int? = 0
+    private var investmentCategoryList:ArrayList<String>? = null
+    private var investmentMediumList: ArrayList<String>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,6 +69,17 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         dialogTitle = view.findViewById(R.id.dialog_title)
         positiveButton = view.findViewById(R.id.positiveButton)
         negativeButton = view.findViewById(R.id.negativeButton)
+        investmentCategoryList = (activity as MainActivity?)!!.mainFragment!!.investmentHelper!!.investmentCategory
+        investmentMediumList = (activity as MainActivity?)!!.mainFragment!!.investmentHelper!!.investmentMedium
+        val investmentCategoryAdapter= ArrayAdapter(requireContext(), android.R.layout.select_dialog_item, investmentCategoryList!!.distinct())
+        val investmentMediumAdapter= ArrayAdapter(requireContext(), android.R.layout.select_dialog_item, investmentMediumList!!.distinct())
+
+        inputInvestmentCategory!!.threshold = 1
+        inputInvestmentCategory!!.setAdapter(investmentCategoryAdapter)
+
+        inputInvestmentMedium!!.threshold = 1
+        inputInvestmentMedium!!.setAdapter(investmentMediumAdapter)
+
         (activity as MainActivity).hideFab()
         //Select INR button by default
         if(investment== null){

@@ -131,7 +131,7 @@
                 app:placeholderTextAppearance="@color/investment_medium"
                 android:textColorHint="@color/investment_medium"
                 android:textSize="@dimen/investment_medium">
-                <com.google.android.material.textfield.TextInputEditText
+                <AutoCompleteTextView
                     android:id="@+id/investmentMedium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -153,7 +153,7 @@
                 app:hintTextColor="@color/investment_category"
                 android:textColorHint="@color/investment_category"
                 android:textSize="@dimen/investment_category">
-                <com.google.android.material.textfield.TextInputEditText
+                <AutoCompleteTextView
                     android:id="@+id/investmentCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
