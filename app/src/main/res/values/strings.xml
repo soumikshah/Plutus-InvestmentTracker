@@ -35,10 +35,9 @@
     <string name="update">update</string>
     <string name="save">save</string>
     <string name="cancel">Cancel</string>
-    <string name="sampletext">This app is currently in development. It still is in alpha stage. This app is not open source currently but will be in few weeks\n
-                \n\nThis app uses no internet connection, so we\'re not taking your data.
-                "\n\nYou may find some bugs with it, if you do. Please contact Soumik"
-                "\n\nYou can find me at developer@soumikshah.com</string>
+    <string name="sampletext"><font size="15">If you find any issues with the app, please let me know @ developer@soumikshah.com</font>\n\n
+    <font size="8">This app uses no internet connection and uses just one permission i.e. read and write to storage.
+        That permission is required for exporting your data as an excel file. </font></string>
     <string name="add">Add</string>
     <string name="edit">Edit</string>
     <string name="mainpage_viewpager_name">Mainpage</string>
@@ -52,6 +51,6 @@
     <string name="error_msg_biometric_hw_unavailable">No fingerprint scanner available</string>
     <string name="error_msg_biometric_not_setup">No fingerprints are registered on your phone</string>
     <string name="fingerprint_negative_button_error_text">You rejected use of fingerprint. You need to authenticate yourself to use this app(This feature will be opt-in in future).</string>
-    <string name="export_as_excel">Export As Excel</string>
+    <string name="export_as_excel"><font size="21">Export Data</font>\n<font size="11">Send all your information as an excel file</font></string>
     <string name="import_data_as_excel">Import Data As Excel Sheet</string>
 </resources>
