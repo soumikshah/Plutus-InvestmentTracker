@@ -1,13 +1,14 @@
 package com.soumikshah.investmenttracker.database
 
-import android.database.sqlite.SQLiteOpenHelper
-import android.database.sqlite.SQLiteDatabase
-import com.soumikshah.investmenttracker.database.model.Investment
 import android.content.ContentValues
 import android.content.Context
-import java.util.ArrayList
+import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteOpenHelper
+import com.soumikshah.investmenttracker.database.model.Investment
+import java.util.*
 
 class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+    //private var database:SQLiteDatabase? =null
     override fun onCreate(sqLiteDatabase: SQLiteDatabase) {
         sqLiteDatabase.execSQL(Investment.CREATE_TABLE)
     }
@@ -16,6 +17,16 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAM
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Investment.TABLE_NAME)
         onCreate(sqLiteDatabase)
     }
+
+    /*@Throws(SQLException::class)
+    fun open(): DatabaseHelper {
+        database = this.getWritableDatabase()
+        return this
+    }
+
+    override fun close(){
+        database!!.close()
+    }*/
 
     fun insertInvestment(investment: String?,
                          investmentAmount: Int,
@@ -130,6 +141,10 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAM
         val db = this.writableDatabase
         db.delete(Investment.TABLE_NAME, Investment.COLUMN_ID + " = ?", arrayOf(investment.id.toString()))
         db.close()
+    }
+
+    fun getTableName():String{
+        return DATABASE_NAME
     }
 
     companion object {

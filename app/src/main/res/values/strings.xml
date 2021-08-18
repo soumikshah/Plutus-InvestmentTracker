@@ -52,4 +52,6 @@
     <string name="error_msg_biometric_hw_unavailable">No fingerprint scanner available</string>
     <string name="error_msg_biometric_not_setup">No fingerprints are registered on your phone</string>
     <string name="fingerprint_negative_button_error_text">You rejected use of fingerprint. You need to authenticate yourself to use this app(This feature will be opt-in in future).</string>
+    <string name="export_as_excel">Export As Excel</string>
+    <string name="import_data_as_excel">Import Data As Excel Sheet</string>
 </resources>

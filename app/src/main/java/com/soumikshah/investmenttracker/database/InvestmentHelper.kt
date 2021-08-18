@@ -180,6 +180,14 @@ class InvestmentHelper(var context: Context) {
             return investmentCategory
         }
 
+    fun getTableNameFromDatabaseHelper():String{
+        return db!!.getTableName()
+    }
+
+    fun getDatabaseHelper():DatabaseHelper{
+        return db!!
+    }
+
     init {
         db = DatabaseHelper(context)
         InvestmentsList.addAll(db.allInvestments)
