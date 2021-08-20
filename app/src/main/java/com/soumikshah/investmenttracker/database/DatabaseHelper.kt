@@ -51,7 +51,7 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAM
         values.put(Investment.COLUMN_INVESTMENT_PRICE_PER_UNIT,investmentPricePerUnit)
         values.put(Investment.COLUMN_INVESTMENT_CURRENCY,investmentCurrency)
         val id = db.insert(Investment.TABLE_NAME, null, values)
-        db.close()
+        //db.close()
         return id
     }
 
@@ -108,7 +108,7 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAM
                 } while (cursor.moveToNext())
             }
             cursor.close()
-            db.close()
+            //db.close()
             return investments
         }
     val investmentCount: Int
@@ -140,7 +140,7 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAM
     fun deleteInvestment(investment: Investment) {
         val db = this.writableDatabase
         db.delete(Investment.TABLE_NAME, Investment.COLUMN_ID + " = ?", arrayOf(investment.id.toString()))
-        db.close()
+        //db.close()
     }
 
     fun getTableName():String{

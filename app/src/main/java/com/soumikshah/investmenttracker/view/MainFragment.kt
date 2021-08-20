@@ -59,6 +59,11 @@ class MainFragment : Fragment() {
         (activity as MainActivity).hideFab()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        investmentHelper!!.getDatabaseHelper().close()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.mainfragment, container, false)
         noInvestmentView = view.findViewById(R.id.empty_investment_view)
