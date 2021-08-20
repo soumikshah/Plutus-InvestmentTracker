@@ -44,6 +44,12 @@ class SettingsFragment internal constructor() : Fragment(){
             //Check for permission only when user clicks on export button.
             isStoragePermissionGranted()
 
+            try{
+                Thread.sleep(2000)
+            }catch (exception: Exception){
+                exception.printStackTrace()
+                Log.e("InvestmentTracker","${exception.message}")
+            }
             //Converting to excel and then calling send intent when converting is completed.
             convertToExcel(dbName,directoryPath)
 
