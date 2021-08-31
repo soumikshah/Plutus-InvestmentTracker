@@ -53,4 +53,8 @@
     <string name="fingerprint_negative_button_error_text">You rejected use of fingerprint. You need to authenticate yourself to use this app(This feature will be opt-in in future).</string>
     <string name="export_as_excel"><font size="21">Export Data</font>\n<font size="11">Send all your information as an excel file</font></string>
     <string name="import_data_as_excel">Import Data As Excel Sheet</string>
+    <string name="appwidget_text">Investment Tracker</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is a widget for Investment tracker. Track your portfolio here.</string>
+    <string name="total_amount_invested">Total Amount Invested:</string>
 </resources>
