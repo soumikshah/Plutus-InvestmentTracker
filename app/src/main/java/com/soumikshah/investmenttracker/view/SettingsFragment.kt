@@ -5,11 +5,13 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
@@ -39,11 +41,15 @@ class SettingsFragment internal constructor() : Fragment(){
 
         val dbName:String = (activity as MainActivity).mainFragment!!.investmentHelper!!.getTableNameFromDatabaseHelper()
         val directoryPath = createDirectoryPath("InvestmentTracker")!!.absolutePath
-
+        //Hide export button if DB is empty.
+        if((activity as MainActivity).mainFragment!!.investmentHelper!!.getInvestmentsList().isEmpty()){
+            exportButton!!.visibility = GONE
+        }
         exportButton!!.setOnClickListener {
             //Check for permission only when user clicks on export button.
             isStoragePermissionGranted()
 
+            //Implemented sleep so it gives user some time to accept or deny storage permissions.
             try{
                 Thread.sleep(2000)
             }catch (exception: Exception){
@@ -52,7 +58,6 @@ class SettingsFragment internal constructor() : Fragment(){
             }
             //Converting to excel and then calling send intent when converting is completed.
             convertToExcel(dbName,directoryPath)
-
         }
 
         /*importButton!!.setOnClickListener {
