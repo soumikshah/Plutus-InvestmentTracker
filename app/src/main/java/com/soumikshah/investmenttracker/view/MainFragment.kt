@@ -26,8 +26,6 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.InvestmentHelper
 import com.soumikshah.investmenttracker.database.model.Investment
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.main_content.*
 import nl.bryanderidder.themedtogglebuttongroup.ThemedButton
 import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
 import java.util.*
