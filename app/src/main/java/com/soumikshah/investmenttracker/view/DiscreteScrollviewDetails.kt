@@ -1,5 +1,8 @@
 package com.soumikshah.investmenttracker.view
 
+import android.annotation.SuppressLint
+import android.content.DialogInterface
+import android.graphics.Color
 import com.soumikshah.investmenttracker.database.model.Investment
 import com.yarolegovich.discretescrollview.DiscreteScrollView.OnItemChangedListener
 import android.widget.TextView
@@ -11,6 +14,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.soumikshah.investmenttracker.R
 import com.yarolegovich.discretescrollview.DSVOrientation
@@ -23,10 +28,11 @@ class DiscreteScrollviewDetails internal constructor(
     itemName: String?,
     itemId: Int?
 ) : Fragment(), OnItemChangedListener<CategoryScrollingCardView.ViewHolder?> {
-    private val investment: Investment? = null
+    private var investment: Investment? = null
     private var itemName: TextView? = null
     private var itemPicker: DiscreteScrollView? = null
     private var infiniteScrollAdapter: InfiniteScrollAdapter<*>? = null
+    private var deleteButton: Button? = null
     private var investmentItemName: String? = null
     private var investmentItemId: Int? = 0
     private var positionForRecyclerView: Int? =0
@@ -40,6 +46,7 @@ class DiscreteScrollviewDetails internal constructor(
         itemName = view.findViewById(R.id.item_name)
         itemPicker = view.findViewById(R.id.item_picker)
         backButton = view.findViewById(R.id.backButton)
+        deleteButton = view.findViewById(R.id.delete_button)
         itemPicker!!.setOrientation(DSVOrientation.HORIZONTAL)
         itemPicker!!.addOnItemChangedListener(this)
         itemName!!.text = investmentItemName
@@ -65,10 +72,43 @@ class DiscreteScrollviewDetails internal constructor(
                 .build()
         )
 
+        deleteButton!!.setOnClickListener {
+            investment = investments[infiniteScrollAdapter!!.realCurrentPosition]
+            deleteDialog()
+        }
         backButton!!.setOnClickListener { activity?.onBackPressed() }
         return view
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private fun deleteDialog() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        builder.setMessage(getString(R.string.delete_investment_title))
+            .setCancelable(false)
+            .setNegativeButton(getString(R.string.no)) { dialog, _ -> dialog.cancel() }
+            .setPositiveButton(getString(R.string.yes)) { dialog, _ ->
+                (activity as MainActivity).mainFragment!!.investmentHelper!!.deleteInvestment(
+                    investment!!
+                )
+                investments.remove(investment)
+                dialog.dismiss()
+                infiniteScrollAdapter!!.notifyDataSetChanged()
+                (activity as? MainActivity)!!.updateViewPager()
+                activity?.onBackPressed()
+            }
+        val alert: AlertDialog = builder.create()
+        alert.show()
+        val nbutton: Button = alert.getButton(DialogInterface.BUTTON_NEGATIVE)
+        nbutton.setBackgroundColor(Color.GREEN)
+        val params = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        params.setMargins(40, 0, 0, 0)
+        val pbutton: Button = alert.getButton(DialogInterface.BUTTON_POSITIVE)
+        pbutton.setBackgroundColor(Color.RED)
+        pbutton.layoutParams = params
+    }
     override fun onCurrentItemChanged(
         viewHolder: CategoryScrollingCardView.ViewHolder?,
         adapterPosition: Int) {
