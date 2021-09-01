@@ -2,7 +2,8 @@
     style="@style/Widget.InvestmentTracker.AppWidget.Container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/fading_white"
+    android:id="@+id/parent_widget"
     android:padding="@dimen/dimen_10">
 
     <TextView
@@ -29,6 +30,7 @@
         android:layout_marginEnd="@dimen/dimen_10"
         android:layout_marginBottom="@dimen/dimen_10"
         android:fontFamily="@font/robotobold"
+        android:textColor="@color/black"
         android:paddingStart="5dp"
         android:paddingEnd="5dp"
         android:textSize="20sp" />

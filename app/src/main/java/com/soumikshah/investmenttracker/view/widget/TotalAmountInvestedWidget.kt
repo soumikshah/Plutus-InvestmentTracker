@@ -6,6 +6,9 @@ import android.content.Context
 import android.widget.RemoteViews
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.InvestmentHelper
+import android.app.PendingIntent
+import com.soumikshah.investmenttracker.view.MainActivity
+import android.content.Intent
 
 /**
  * Implementation of App Widget functionality.
@@ -38,9 +41,9 @@ internal fun updateAppWidget(
     // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.total_amount_invested_widget)
     views.setTextViewText(R.id.appwidget_text, widgetText)
-    val investmentHelper: InvestmentHelper = InvestmentHelper(context)
-    var inrTotalAmount:String = investmentHelper.investmentTotalAmountWithCurrency(context.getString(R.string.inr)).toString()
-    var usdTotalAmount:String = investmentHelper.investmentTotalAmountWithCurrency(context.getString(R.string.usd)).toString()
+    val investmentHelper = InvestmentHelper(context)
+    var inrTotalAmount:String = String.format("%,d",investmentHelper.investmentTotalAmountWithCurrency(context.getString(R.string.inr)))
+    var usdTotalAmount:String = String.format("%,d",investmentHelper.investmentTotalAmountWithCurrency(context.getString(R.string.usd)))
     if(inrTotalAmount.isEmpty()){
         inrTotalAmount = "0"
     }
@@ -50,6 +53,10 @@ internal fun updateAppWidget(
     val totalAmount = "INR: "+context.getString(R.string.rs)+"$inrTotalAmount \n\nUSD: "+ context.getString(R.string.dollarSign) + usdTotalAmount
     views.setTextViewText(R.id.total_amount_invested,totalAmount)
 
+    //Implementing click function for widget to open the application.
+    val configIntent = Intent(context, MainActivity::class.java)
+    val configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0)
+    views.setOnClickPendingIntent(R.id.parent_widget, configPendingIntent)
     // Instruct the widget manager to update the widget
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }
