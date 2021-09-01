@@ -1,5 +1,8 @@
 package com.soumikshah.investmenttracker.view
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
@@ -18,6 +21,7 @@ import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.soumikshah.investmenttracker.R
+import com.soumikshah.investmenttracker.view.widget.TotalAmountInvestedWidget
 import java.util.*
 import java.util.concurrent.Executor
 
@@ -32,6 +36,17 @@ class MainActivity : AppCompatActivity() {
     private var fab: FloatingActionButton? =null
     private var adapter:ViewPagerAdapter? = null
 
+    override fun onDestroy() {
+        super.onDestroy()
+        //Update the widget when application is closed, so any changes made will be reflected in the widget right away.
+        val intent = Intent(this,TotalAmountInvestedWidget::class.java)
+        intent.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+        val ids = AppWidgetManager.getInstance(application)
+            .getAppWidgetIds(ComponentName(applicationContext,
+                TotalAmountInvestedWidget::class.java))
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+        sendBroadcast(intent)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
