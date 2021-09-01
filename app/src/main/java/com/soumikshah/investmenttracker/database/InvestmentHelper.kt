@@ -90,7 +90,13 @@ class InvestmentHelper(var context: Context) {
         toggleEmptyInvestments()
     }
 
-    private fun deleteInvestment(position: Int) {
+    fun deleteInvestment(investment: Investment){
+        db!!.deleteInvestment(investment)
+
+        InvestmentsList.remove(investment)
+        toggleEmptyInvestments()
+    }
+    fun deleteInvestment(position: Int) {
         // deleting the note from db
         db!!.deleteInvestment(InvestmentsList[position])
 

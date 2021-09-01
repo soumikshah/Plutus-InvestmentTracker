@@ -18,6 +18,10 @@ import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import android.content.DialogInterface
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import android.widget.LinearLayout
 
 
 class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investment?, position: Int): Fragment() {
@@ -33,6 +37,7 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
     private var buttonGroup: ThemedToggleButtonGroup? = null
     private var inrButton:ThemedButton? = null
     private var dollarButton: ThemedButton? = null
+    private var deleteButton:Button? = null
     private var currency:String? = null
     private var dialogTitle:TextView? = null
     private var shouldUpdate:Boolean = false
@@ -62,6 +67,7 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         inputInvestNumberOfUnitsHeld = view.findViewById(R.id.investmentNumberOfUnits)
         inputInvestPricePerUnit = view.findViewById(R.id.investmentPricePerUnit)
         inputInvestmentNumberOfMonths = view.findViewById(R.id.investedNumberOfMonths)
+        deleteButton = view.findViewById(R.id.delete_button)
         buttonGroup = view.findViewById(R.id.toggleGroup)
         inrButton = view.findViewById(R.id.rupee)
         dollarButton = view.findViewById(R.id.dollar)
@@ -94,6 +100,12 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         }
         dialogTitle!!.text = if (!shouldUpdate) getString(R.string.new_investment_title)
         else getString(R.string.edit_investment_title)
+
+        if(dialogTitle!!.text.equals(getString(R.string.edit_investment_title))){
+            deleteButton!!.visibility = View.VISIBLE
+        }else{
+            deleteButton!!.visibility = View.GONE
+        }
 
         inputInvestmentDate!!.setOnClickListener { // calender class's instance and get current date , month and year from calender
             val c = Calendar.getInstance()
@@ -137,9 +149,37 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
                 }
             }
         }
+
+        deleteButton!!.setOnClickListener{
+            deleteDialog()
+        }
         return view
     }
 
+    private fun deleteDialog() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        builder.setMessage(getString(R.string.delete_investment_title))
+            .setCancelable(false)
+            .setNegativeButton(getString(R.string.no), DialogInterface.OnClickListener { dialog, _ -> dialog.cancel() })
+            .setPositiveButton(getString(R.string.yes), DialogInterface.OnClickListener { dialog, _ ->
+                deleteInvestment(investment!!)
+                dialog.dismiss()
+                (activity as? MainActivity)!!.updateViewPager()
+                activity?.onBackPressed()
+            })
+        val alert: AlertDialog = builder.create()
+        alert.show()
+        val nbutton: Button = alert.getButton(DialogInterface.BUTTON_NEGATIVE)
+        nbutton.setBackgroundColor(Color.GREEN)
+        val params = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        params.setMargins(40, 0, 0, 0)
+        val pbutton: Button = alert.getButton(DialogInterface.BUTTON_POSITIVE)
+        pbutton.setBackgroundColor(Color.RED)
+        pbutton.layoutParams = params
+    }
     private fun showEditedInvestment(investment:Investment ){
             investmentIDBeforeEdit = investment.id
             inputInvestmentName!!.setText(investment.investmentName.toString())
@@ -203,6 +243,9 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
             currency)
     }
 
+    private fun deleteInvestment(investment: Investment){
+        (activity as MainActivity).mainFragment!!.investmentHelper!!.deleteInvestment(investment)
+    }
     private fun editInvestment(){
         interestToBeReceived = if (inputInvestmentPercent!!.text.toString().matches("".toRegex())) {
             0f
@@ -239,6 +282,7 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
             currency,
             positionOfTheInvestment!!)
     }
+
 
     override fun onDestroy() {
         (activity as MainActivity).showFab()
