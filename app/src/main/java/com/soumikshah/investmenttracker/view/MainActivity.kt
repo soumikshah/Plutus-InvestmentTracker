@@ -136,6 +136,11 @@ class MainActivity : AppCompatActivity() {
         fab!!.hide()
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val currentFragment =
+            this.supportFragmentManager.findFragmentById(R.id.mainPage)
+    }
     fun loadFragment(someFragment: Fragment){
         val fragment: Fragment = someFragment
         val transaction = supportFragmentManager.beginTransaction()

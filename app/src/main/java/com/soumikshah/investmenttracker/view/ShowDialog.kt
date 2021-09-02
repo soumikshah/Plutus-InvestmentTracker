@@ -22,6 +22,7 @@ import android.content.DialogInterface
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import android.widget.LinearLayout
+import androidx.fragment.app.FragmentManager
 
 
 class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investment?, position: Int): Fragment() {
@@ -145,7 +146,9 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
                 }else{
                     addInvestment()
                     (activity as? MainActivity)!!.updateViewPager()
-                    activity?.onBackPressed()
+                    //When save button is pressed, it takes user to homepage
+                    // and clears all the backstack of fragments.
+                    clearBackStack()
                 }
             }
         }
@@ -156,17 +159,25 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         return view
     }
 
+    private fun clearBackStack() {
+        val manager: FragmentManager = (activity as? MainActivity)!!.supportFragmentManager
+        if (manager.backStackEntryCount > 0) {
+            val first: FragmentManager.BackStackEntry = manager.getBackStackEntryAt(0)
+            manager.popBackStack(first.id, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        }
+    }
+
     private fun deleteDialog() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         builder.setMessage(getString(R.string.delete_investment_title))
             .setCancelable(false)
-            .setNegativeButton(getString(R.string.no), DialogInterface.OnClickListener { dialog, _ -> dialog.cancel() })
-            .setPositiveButton(getString(R.string.yes), DialogInterface.OnClickListener { dialog, _ ->
+            .setNegativeButton(getString(R.string.no)) { dialog, _ -> dialog.cancel() }
+            .setPositiveButton(getString(R.string.yes)) { dialog, _ ->
                 deleteInvestment(investment!!)
                 dialog.dismiss()
-                (activity as? MainActivity)!!.updateViewPager()
                 activity?.onBackPressed()
-            })
+                (activity as? MainActivity)!!.updateViewPager()
+            }
         val alert: AlertDialog = builder.create()
         alert.show()
         val nbutton: Button = alert.getButton(DialogInterface.BUTTON_NEGATIVE)
