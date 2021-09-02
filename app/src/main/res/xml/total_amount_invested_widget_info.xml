@@ -4,7 +4,7 @@
     android:initialLayout="@layout/total_amount_invested_widget"
     android:minWidth="180dp"
     android:minHeight="70dp"
-    android:previewImage="@drawable/ic_launcher_foreground"
+    android:previewImage="@drawable/ic_launcher"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="1800000"
     android:widgetCategory="home_screen" />
