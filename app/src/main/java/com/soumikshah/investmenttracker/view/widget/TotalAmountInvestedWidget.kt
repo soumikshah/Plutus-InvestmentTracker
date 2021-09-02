@@ -9,6 +9,7 @@ import com.soumikshah.investmenttracker.database.InvestmentHelper
 import android.app.PendingIntent
 import com.soumikshah.investmenttracker.view.MainActivity
 import android.content.Intent
+import android.util.Log
 
 /**
  * Implementation of App Widget functionality.
@@ -44,13 +45,17 @@ internal fun updateAppWidget(
     val investmentHelper = InvestmentHelper(context)
     var inrTotalAmount:String = String.format("%,d",investmentHelper.investmentTotalAmountWithCurrency(context.getString(R.string.inr)))
     var usdTotalAmount:String = String.format("%,d",investmentHelper.investmentTotalAmountWithCurrency(context.getString(R.string.usd)))
-    if(inrTotalAmount.isEmpty()){
-        inrTotalAmount = "0"
+    inrTotalAmount = if(inrTotalAmount == "0"){
+        ""
+    } else{
+        "INR: ${context.getString(R.string.rs)}$inrTotalAmount"
     }
-    if(usdTotalAmount.isEmpty()){
-        usdTotalAmount = "0"
+    usdTotalAmount = if(usdTotalAmount == "0"){
+        ""
+    } else{
+        "USD: ${context.getString(R.string.dollarSign)} $usdTotalAmount"
     }
-    val totalAmount = "INR: "+context.getString(R.string.rs)+"$inrTotalAmount \n\nUSD: "+ context.getString(R.string.dollarSign) + usdTotalAmount
+    val totalAmount = "$inrTotalAmount \n$usdTotalAmount"
     views.setTextViewText(R.id.total_amount_invested,totalAmount)
 
     //Implementing click function for widget to open the application.

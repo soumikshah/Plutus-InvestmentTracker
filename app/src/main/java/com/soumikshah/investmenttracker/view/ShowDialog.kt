@@ -142,7 +142,9 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
                 if(shouldUpdate && investment != null){
                     editInvestment()
                     (activity as? MainActivity)!!.updateViewPager()
-                    activity?.onBackPressed()
+                    //When save button is pressed, it takes user to homepage
+                    // and clears all the backstack of fragments.
+                    clearBackStack()
                 }else{
                     addInvestment()
                     (activity as? MainActivity)!!.updateViewPager()
@@ -175,8 +177,8 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
             .setPositiveButton(getString(R.string.yes)) { dialog, _ ->
                 deleteInvestment(investment!!)
                 dialog.dismiss()
-                activity?.onBackPressed()
                 (activity as? MainActivity)!!.updateViewPager()
+                activity?.onBackPressed()
             }
         val alert: AlertDialog = builder.create()
         alert.show()

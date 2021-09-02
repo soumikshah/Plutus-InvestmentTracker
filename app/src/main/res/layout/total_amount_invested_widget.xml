@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/fading_white"
     android:id="@+id/parent_widget"
-    android:padding="@dimen/dimen_10">
+    android:padding="5dp">
 
     <TextView
         android:id="@+id/appwidget_text"
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="1dp"
         android:contentDescription="@string/app_name"
