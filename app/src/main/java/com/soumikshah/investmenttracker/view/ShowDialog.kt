@@ -1,6 +1,7 @@
 package com.soumikshah.investmenttracker.view
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -19,10 +20,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import android.content.DialogInterface
+import android.view.ContextThemeWrapper
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import android.widget.LinearLayout
 import androidx.fragment.app.FragmentManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investment?, position: Int): Fragment() {
@@ -170,8 +173,9 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
     }
 
     private fun deleteDialog() {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-        builder.setMessage(getString(R.string.delete_investment_title))
+        val context: Context = ContextThemeWrapper(requireContext(), R.style.DialogboxTheme)
+        val builder: MaterialAlertDialogBuilder = MaterialAlertDialogBuilder(context)
+            .setMessage(getString(R.string.delete_investment_title))
             .setCancelable(false)
             .setNegativeButton(getString(R.string.no)) { dialog, _ -> dialog.cancel() }
             .setPositiveButton(getString(R.string.yes)) { dialog, _ ->

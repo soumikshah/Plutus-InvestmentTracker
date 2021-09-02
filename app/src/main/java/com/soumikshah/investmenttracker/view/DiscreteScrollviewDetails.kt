@@ -1,6 +1,7 @@
 package com.soumikshah.investmenttracker.view
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Color
 import com.soumikshah.investmenttracker.database.model.Investment
@@ -11,12 +12,13 @@ import com.yarolegovich.discretescrollview.InfiniteScrollAdapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.os.Bundle
-import android.util.Log
+import android.view.ContextThemeWrapper
 import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.soumikshah.investmenttracker.R
 import com.yarolegovich.discretescrollview.DSVOrientation
 import com.yarolegovich.discretescrollview.transform.Pivot
@@ -82,8 +84,9 @@ class DiscreteScrollviewDetails internal constructor(
 
     @SuppressLint("NotifyDataSetChanged")
     private fun deleteDialog() {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-        builder.setMessage(getString(R.string.delete_investment_title))
+        val context: Context = ContextThemeWrapper(requireContext(), R.style.DialogboxTheme)
+        val builder:MaterialAlertDialogBuilder = MaterialAlertDialogBuilder(context)
+            .setMessage(getString(R.string.delete_investment_title))
             .setCancelable(false)
             .setNegativeButton(getString(R.string.no)) { dialog, _ -> dialog.cancel() }
             .setPositiveButton(getString(R.string.yes)) { dialog, _ ->
