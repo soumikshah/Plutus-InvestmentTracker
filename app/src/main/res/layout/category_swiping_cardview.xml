@@ -35,6 +35,8 @@
             android:paddingEnd="5dp"
             android:textColor="#000"
             android:textSize="15sp"
+            android:maxLines="1"
+            android:ellipsize="end"
             tools:text="Kuvera" />
 
         <TextView

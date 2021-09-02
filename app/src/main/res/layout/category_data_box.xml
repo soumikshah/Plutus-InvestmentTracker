@@ -33,6 +33,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/investment_name"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="#000"
             android:textSize="15sp"
             android:paddingStart="10dp"
