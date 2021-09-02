@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import android.content.DialogInterface
+import android.util.Log
 import android.view.ContextThemeWrapper
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -252,8 +253,9 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         }else{
             currency = getString(R.string.inr)
         }
+        val decimalValueForInvestmentAmount =inputInvestmentAmount!!.text.toString().toDouble()
         (activity as MainActivity).mainFragment!!.investmentHelper!!.createInvestment(inputInvestmentName!!.text.toString(),
-            inputInvestmentAmount!!.text.toString().toInt(),
+            decimalValueForInvestmentAmount.toInt(),
             interestToBeReceived,
             inputInvestmentMedium!!.text.toString(),
             inputInvestmentCategory!!.text.toString(),
@@ -290,9 +292,10 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
             inputInvestPricePerUnit!!.setText("0")
         }
 
+        val decimalValueForInvestmentAmount =inputInvestmentAmount!!.text.toString().toDouble()
         (activity as MainActivity).mainFragment!!.investmentHelper!!.updateInvestment(investmentIDBeforeEdit!!,
             inputInvestmentName!!.text.toString(),
-            inputInvestmentAmount!!.text.toString().toInt(),
+            decimalValueForInvestmentAmount.toInt(),
             interestToBeReceived,
             inputInvestmentMedium!!.text.toString(),
             inputInvestmentCategory!!.text.toString(),
