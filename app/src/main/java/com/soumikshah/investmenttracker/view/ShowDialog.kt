@@ -26,6 +26,8 @@ import androidx.appcompat.app.AlertDialog
 import android.widget.LinearLayout
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 
 
 class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investment?, position: Int): Fragment() {
@@ -107,6 +109,8 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
 
         if(dialogTitle!!.text.equals(getString(R.string.edit_investment_title))){
             deleteButton!!.visibility = View.VISIBLE
+            val shake: Animation = AnimationUtils.loadAnimation(requireActivity(), R.anim.shake)
+            deleteButton!!.startAnimation(shake)
         }else{
             deleteButton!!.visibility = View.GONE
         }

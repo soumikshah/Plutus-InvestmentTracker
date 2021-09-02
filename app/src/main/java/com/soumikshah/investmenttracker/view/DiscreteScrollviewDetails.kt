@@ -14,6 +14,8 @@ import android.view.ViewGroup
 import android.os.Bundle
 import android.view.ContextThemeWrapper
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
@@ -61,7 +63,8 @@ class DiscreteScrollviewDetails internal constructor(
         infiniteScrollAdapter =
             InfiniteScrollAdapter.wrap(CategoryScrollingCardView(requireContext(), investments))
         itemPicker!!.adapter = infiniteScrollAdapter
-
+        val shake: Animation = AnimationUtils.loadAnimation(requireActivity(), R.anim.shake)
+        deleteButton!!.startAnimation(shake)
         val targetPosition = infiniteScrollAdapter!!.getClosestPosition(positionForRecyclerView!!)
         itemPicker!!.scrollToPosition(targetPosition)
         itemPicker!!.setSlideOnFling(true)
