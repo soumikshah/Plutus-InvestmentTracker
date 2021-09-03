@@ -246,12 +246,12 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         if(inputInvestPricePerUnit!!.text.toString().isEmpty()){
             inputInvestPricePerUnit!!.setText("0")
         }
-        if(inrButton!!.isSelected){
-            currency = getString(R.string.inr)
+        currency = if(inrButton!!.isSelected){
+            getString(R.string.inr)
         }else if(dollarButton!!.isSelected){
-            currency = getString(R.string.usd)
+            getString(R.string.usd)
         }else{
-            currency = getString(R.string.inr)
+            getString(R.string.inr)
         }
         val decimalValueForInvestmentAmount =inputInvestmentAmount!!.text.toString().toDouble()
         (activity as MainActivity).mainFragment!!.investmentHelper!!.createInvestment(inputInvestmentName!!.text.toString(),
@@ -292,6 +292,17 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
             inputInvestPricePerUnit!!.setText("0")
         }
 
+        currency = when {
+            inrButton!!.isSelected -> {
+                getString(R.string.inr)
+            }
+            dollarButton!!.isSelected -> {
+                getString(R.string.usd)
+            }
+            else -> {
+                getString(R.string.inr)
+            }
+        }
         val decimalValueForInvestmentAmount =inputInvestmentAmount!!.text.toString().toDouble()
         (activity as MainActivity).mainFragment!!.investmentHelper!!.updateInvestment(investmentIDBeforeEdit!!,
             inputInvestmentName!!.text.toString(),
