@@ -20,5 +20,15 @@
 
 **This application doesn't use internet connection**, so you can be sure that data you insert in this application is not shared with anyone (unless you share it from the settings menu). It's just for you to see. So you can be sure that we can't track your investment data, nor can we sell anything to anyone.
 
-Download APK files from here
-https://github.com/soumikshah/InvestmentTracker/releases
+## **Currently this application just supports INR and USD as a currency**
+
+![image1](https://user-images.githubusercontent.com/6127736/132045438-54e9f4f8-a4c4-40f1-a61b-b66edc00f5b8.PNG)
+
+![image2](https://user-images.githubusercontent.com/6127736/132045455-b0836639-8e0b-4cf7-a83b-084f103db365.PNG)
+
+
+
+
+Download APK files from [here](https://github.com/soumikshah/InvestmentTracker/releases/download/0.9/com.soumikshah.investmenttracker.apk)
+
+You can read more about the feature and bug fixes from the [release notes](https://github.com/soumikshah/InvestmentTracker/releases)
