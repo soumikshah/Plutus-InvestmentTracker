@@ -32,3 +32,5 @@
 Download APK file from [here](https://github.com/soumikshah/Plutus-InvestmentTracker/releases/download/0.9/com.soumikshah.plutus.apk)
 
 You can download older versions of this applications from the [release notes](https://github.com/soumikshah/InvestmentTracker/releases)
+
+You can get information about our new releases on [telegram](https://t.me/plutus_investment_tracker)
