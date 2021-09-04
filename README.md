@@ -1,4 +1,4 @@
-# InvestmentTracker
+# Plutus - Investment Tracker
 
 > This application will help you to track all your investments in one place. We're not portfolio tracker, we won't show you daily ups and downs. We help you keep track of money moving out of your account into different types of investment.
 
@@ -29,6 +29,6 @@
 
 
 
-Download APK files from [here](https://github.com/soumikshah/InvestmentTracker/releases/download/0.9/com.soumikshah.investmenttracker.apk)
+Download APK file from [here](https://github.com/soumikshah/InvestmentTracker/releases/download/0.9/com.soumikshah.investmenttracker.apk)
 
-You can read more about the feature and bug fixes from the [release notes](https://github.com/soumikshah/InvestmentTracker/releases)
+You can download older versions of this applications from the [release notes](https://github.com/soumikshah/InvestmentTracker/releases)
