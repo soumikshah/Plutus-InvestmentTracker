@@ -217,7 +217,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_enter_investment_price_per_unit"
-                    android:inputType="number"
+                    android:inputType="number|numberDecimal"
                     android:layout_margin="3dp"
                     android:textColorHint="@color/investment_category"
                     android:textColor="@color/investment_category"

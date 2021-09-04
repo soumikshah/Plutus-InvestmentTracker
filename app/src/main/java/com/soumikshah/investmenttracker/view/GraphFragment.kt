@@ -24,8 +24,8 @@ import java.util.*
 class GraphFragment : Fragment(), OnItemSelectedListener {
     private var pieChart: PieChart? = null
     private var pieData: PieData? = null
-    private var investmentMap: HashMap<String, Int>? = null
-    private var copyOfInvestmentMap = HashMap<String, Int>()
+    private var investmentMap: HashMap<String, Float>? = null
+    private var copyOfInvestmentMap = HashMap<String, Float>()
     private var investmentCategoryInAList: ArrayList<String>? = null
     private var investments: ArrayList<Investment>? = null
     private var pieEntries: ArrayList<PieEntry>? = null

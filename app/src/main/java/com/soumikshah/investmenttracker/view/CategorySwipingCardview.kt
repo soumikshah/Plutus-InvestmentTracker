@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
+import java.text.NumberFormat
 
 class CategorySwipingCardview internal constructor(private val context: Context, private val investmentData: List<Investment>) : RecyclerView.Adapter<CategorySwipingCardview.MyViewHolder>() {
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -26,7 +27,7 @@ class CategorySwipingCardview internal constructor(private val context: Context,
         val invest = investmentData[position]
         holder.name.text = invest.investmentName
         holder.placeInvestmentDone.text = invest.investmentMedium
-        holder.amount.text = String.format("%,d", invest.investmentAmount)
+        holder.amount.text = String.format(NumberFormat.getInstance().format(invest.investmentAmount))
     }
 
     override fun getItemCount(): Int {

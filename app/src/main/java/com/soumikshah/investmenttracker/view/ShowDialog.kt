@@ -253,16 +253,16 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         }else{
             getString(R.string.inr)
         }
-        val decimalValueForInvestmentAmount =inputInvestmentAmount!!.text.toString().toDouble()
+
         (activity as MainActivity).mainFragment!!.investmentHelper!!.createInvestment(inputInvestmentName!!.text.toString(),
-            decimalValueForInvestmentAmount.toInt(),
+            inputInvestmentAmount!!.text.toString().toFloat(),
             interestToBeReceived,
             inputInvestmentMedium!!.text.toString(),
             inputInvestmentCategory!!.text.toString(),
             investmentDateInLong,
             inputInvestmentNumberOfMonths!!.text.toString().toInt(),
             inputInvestNumberOfUnitsHeld!!.text.toString(),
-            inputInvestPricePerUnit!!.text.toString().toInt(),
+            inputInvestPricePerUnit!!.text.toString().toFloat(),
             currency)
     }
 
@@ -303,17 +303,17 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
                 getString(R.string.inr)
             }
         }
-        val decimalValueForInvestmentAmount =inputInvestmentAmount!!.text.toString().toDouble()
+
         (activity as MainActivity).mainFragment!!.investmentHelper!!.updateInvestment(investmentIDBeforeEdit!!,
             inputInvestmentName!!.text.toString(),
-            decimalValueForInvestmentAmount.toInt(),
+            inputInvestmentAmount!!.text.toString().toFloat(),
             interestToBeReceived,
             inputInvestmentMedium!!.text.toString(),
             inputInvestmentCategory!!.text.toString(),
             investmentDateInLong,
             inputInvestmentNumberOfMonths!!.text.toString().toInt(),
             inputInvestNumberOfUnitsHeld!!.text.toString(),
-            inputInvestPricePerUnit!!.text.toString().toInt(),
+            inputInvestPricePerUnit!!.text.toString().toFloat(),
             currency,
             positionOfTheInvestment!!)
     }

@@ -5,6 +5,7 @@ import android.util.Log
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
 import com.soumikshah.investmenttracker.view.MainActivity
+import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -31,17 +32,17 @@ class InvestmentHelper(var context: Context) {
     private val InvestmentsList: ArrayList<Investment> = ArrayList()
     private val db: DatabaseHelper?
     private var nullDb = false
-    val investmentTypeAndAmount: HashMap<String, Int> = HashMap()
+    val investmentTypeAndAmount: HashMap<String, Float> = HashMap()
     val investmentTypeAndAmountInCurrency: HashMap<String, Int> = HashMap()
     fun createInvestment(investmentName: String?,
-                         investmentAmount: Int,
+                         investmentAmount: Float,
                          investmentPercent: Float,
                          investmentMedium: String?,
                          investmentCategory: String?,
                          investmentDate: Long,
                          investmentMonth: Int,
                          investmentNumberOfUnits:String,
-                         investmentPricePerUnit:Int,
+                         investmentPricePerUnit:Float,
                          investmentCurrency:String?) {
         if (this.db != null) {
             val id = this.db.insertInvestment(investmentName, investmentAmount,
@@ -60,13 +61,13 @@ class InvestmentHelper(var context: Context) {
         }
     }
 
-    fun updateInvestment(investmentId:Int,investment: String?, investmentAmount: Int,
+    fun updateInvestment(investmentId:Int,investment: String?, investmentAmount: Float,
                          investmentPercent: Float, investmentMedium: String?,
                          investmentCategory: String?,
                          investmentDate: Long,
                          investmentMonth: Int,
                          investmentNumberOfUnits: String,
-                         investmentPricePerUnit: Int,
+                         investmentPricePerUnit: Float,
                          investmentCurrency: String?,
                          position: Int) {
         val n = InvestmentsList[position]
@@ -113,9 +114,9 @@ class InvestmentHelper(var context: Context) {
         }
     }
 
-    val investmentTotalAmount: Int
+    val investmentTotalAmount: Float
         get() {
-            var totalAmount = 0
+            var totalAmount:Float = 0.0F
             var investment: Investment
             for (i in getInvestmentsList().indices) {
                 investment = getInvestmentsList()[i]
@@ -131,8 +132,8 @@ class InvestmentHelper(var context: Context) {
             return totalAmount
         }
 
-    fun investmentTotalAmountWithCurrency(currency: String):Int{
-        var totalAmount = 0
+    fun investmentTotalAmountWithCurrency(currency: String):Float{
+        var totalAmount:Float = 0.0F
         var investment:Investment
         investmentTypeAndAmount.clear()
         for (i in getInvestmentsList().indices) {
@@ -153,7 +154,7 @@ class InvestmentHelper(var context: Context) {
         get() {
             val sb = StringBuilder()
             for ((key, value) in investmentTypeAndAmount) {
-                val amount = String.format( "%,d", value)
+                val amount = String.format( NumberFormat.getInstance().format(value))
                 sb.append(key).append(" : ").append(amount).append("\n")
             }
             return sb.toString()

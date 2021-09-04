@@ -14,8 +14,12 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAM
     }
 
     override fun onUpgrade(sqLiteDatabase: SQLiteDatabase, i: Int, i1: Int) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Investment.TABLE_NAME)
-        onCreate(sqLiteDatabase)
+        if(i ==1 && i==2){
+            sqLiteDatabase.execSQL(Investment.CREATE_TEMP_TABLE)
+            sqLiteDatabase.execSQL("INSERT INTO "+Investment.TEMP_TABLE_NAME+" select * from"+Investment.TABLE_NAME)
+            sqLiteDatabase.execSQL("DROP TABLE "+Investment.TABLE_NAME)
+            sqLiteDatabase.execSQL("ALTER TABLE "+Investment.TEMP_TABLE_NAME+" RENAME TO "+Investment.TABLE_NAME)
+        }
     }
 
     /*@Throws(SQLException::class)
@@ -29,14 +33,14 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAM
     }*/
 
     fun insertInvestment(investment: String?,
-                         investmentAmount: Int,
+                         investmentAmount: Float,
                          investmentPercent: Float,
                          investmentMedium: String?,
                          investmentCategory: String?,
                          investmentDate: Long,
                          investmentMonth: Int,
                          investmentNumberOfUnits:String,
-                         investmentPricePerUnit:Int,
+                         investmentPricePerUnit:Float,
                          investmentCurrency:String?): Long {
         val db = this.writableDatabase
         val values = ContentValues()
@@ -94,7 +98,7 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAM
                     val investment = Investment()
                     investment.id = cursor.getInt(cursor.getColumnIndex(Investment.COLUMN_ID))
                     investment.investmentName = cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT))
-                    investment.investmentAmount = cursor.getInt(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_AMOUNT))
+                    investment.investmentAmount = cursor.getFloat(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_AMOUNT))
                     investment.investmentPercent = cursor.getFloat(cursor.getColumnIndex(Investment.COLUMN_INTEREST_PERCENT))
                     investment.investmentMedium = cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_MEDIUM))
                     investment.investmentCategory = cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_CATEGORY))
@@ -102,7 +106,7 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAM
                     investment.investmentMonth = cursor.getInt(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_MONTH))
                     investment.timestamp = cursor.getString(cursor.getColumnIndex(Investment.COLUMN_TIMESTAMP))
                     investment.investmentNumberOfUnits = cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_NUMBER_OF_UNITS))
-                    investment.investmentPricePerUnit = cursor.getInt(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_PRICE_PER_UNIT))
+                    investment.investmentPricePerUnit = cursor.getFloat(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_PRICE_PER_UNIT))
                     investment.investmentCurrency = cursor.getString(cursor.getColumnIndex(Investment.COLUMN_INVESTMENT_CURRENCY))
                     investments.add(investment)
                 } while (cursor.moveToNext())
@@ -148,7 +152,7 @@ class DatabaseHelper(context: Context?) : SQLiteOpenHelper(context, DATABASE_NAM
     }
 
     companion object {
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
         private const val DATABASE_NAME = "investment_db"
     }
 }

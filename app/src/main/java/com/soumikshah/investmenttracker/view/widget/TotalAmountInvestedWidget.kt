@@ -10,6 +10,7 @@ import android.app.PendingIntent
 import com.soumikshah.investmenttracker.view.MainActivity
 import android.content.Intent
 import android.util.Log
+import java.text.NumberFormat
 
 /**
  * Implementation of App Widget functionality.
@@ -43,8 +44,8 @@ internal fun updateAppWidget(
     val views = RemoteViews(context.packageName, R.layout.total_amount_invested_widget)
     views.setTextViewText(R.id.appwidget_text, widgetText)
     val investmentHelper = InvestmentHelper(context)
-    var inrTotalAmount:String = String.format("%,d",investmentHelper.investmentTotalAmountWithCurrency(context.getString(R.string.inr)))
-    var usdTotalAmount:String = String.format("%,d",investmentHelper.investmentTotalAmountWithCurrency(context.getString(R.string.usd)))
+    var inrTotalAmount:String = String.format(NumberFormat.getInstance().format(investmentHelper.investmentTotalAmountWithCurrency(context.getString(R.string.inr))))
+    var usdTotalAmount:String = String.format(NumberFormat.getInstance().format(investmentHelper.investmentTotalAmountWithCurrency(context.getString(R.string.usd))))
     inrTotalAmount = if(inrTotalAmount == "0"){
         ""
     } else{

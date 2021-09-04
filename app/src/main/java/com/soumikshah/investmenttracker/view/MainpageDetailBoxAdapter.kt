@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
+import java.text.NumberFormat
 import java.util.*
 
 class MainpageDetailBoxAdapter internal constructor(private val context: Context, investmentList: ArrayList<Investment>) : RecyclerView.Adapter<MainpageDetailBoxAdapter.MyViewHolder>() {
@@ -23,7 +24,7 @@ class MainpageDetailBoxAdapter internal constructor(private val context: Context
         val investment = investmentList[position]
         holder.investmentName.text = investment.investmentName
         holder.investmentMedium.text = investment.investmentMedium
-        holder.investmentAmount.text = String.format(" %,d", investment.investmentAmount)
+        holder.investmentAmount.text = String.format(NumberFormat.getInstance().format(investment.investmentAmount))
         //todo holder.parent && moredetails will open new fragment with details about clicked investment.
         holder.investmentParent.setOnClickListener {
             (context as MainActivity).loadFragment(DiscreteScrollviewDetails(investmentList,investment.investmentCategory,investment.id))

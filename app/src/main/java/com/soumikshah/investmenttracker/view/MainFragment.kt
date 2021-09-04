@@ -25,6 +25,7 @@ import com.soumikshah.investmenttracker.database.InvestmentHelper
 import com.soumikshah.investmenttracker.database.model.Investment
 import nl.bryanderidder.themedtogglebuttongroup.ThemedButton
 import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -37,7 +38,7 @@ class MainFragment : Fragment() {
     private var pieDataSet: PieDataSet? = null
     private var pieData: PieData? = null
     private var linearLayoutView: LinearLayout? = null
-    private var investmentMap: HashMap<String, Int>? = null
+    private var investmentMap: HashMap<String, Float>? = null
     private var investmentCategories: MutableList<String> = ArrayList()
     private var graphFragment: GraphFragment? = null
     private var recyclerView: RecyclerView? = null
@@ -160,7 +161,7 @@ class MainFragment : Fragment() {
             currencyInString = getString(R.string.dollarSign)
         }
         totalAmount!!.text = String.format(currencyInString
-                + "%,d", investmentHelper!!.investmentTotalAmountWithCurrency(localCurrency))
+                + NumberFormat.getInstance().format(investmentHelper!!.investmentTotalAmountWithCurrency(localCurrency)))
         otherInvestment!!.text = investmentHelper!!.investmentCategoryAndAmount
         if(recyclerView!=null && recyclerView!!.adapter!= null && recyclerView!!.adapter!!.itemCount>0){
             recyclerView!!.adapter!!.notifyDataSetChanged()

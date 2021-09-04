@@ -4,7 +4,7 @@ import android.util.Log;
 
 public class Investment {
     public static final String TABLE_NAME = "investment";
-
+    public static final String TEMP_TABLE_NAME="tempinvestment";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_INVESTMENT = "investment_name";
     public static final String COLUMN_INVESTMENT_AMOUNT = "investment_amount";
@@ -20,7 +20,7 @@ public class Investment {
 
     private int id;
     private String investmentName;
-    private int investmentAmount;
+    private float investmentAmount;
     private float investmentPercent;
     private String investmentMedium;
     private String investmentCategory;
@@ -28,15 +28,15 @@ public class Investment {
     private long investmentDate;
     private int investmentMonth;
     private String investmentNumberOfUnits;
-    private int investmentPricePerUnit;
+    private float investmentPricePerUnit;
     private String investmentCurrency;
 
-    public static final String CREATE_TABLE =
-            "CREATE TABLE "+TABLE_NAME
+    public static final String CREATE_TEMP_TABLE =
+            "CREATE TABLE "+TEMP_TABLE_NAME
                     + "("
                     + COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + COLUMN_INVESTMENT+" TEXT,"
-                    + COLUMN_INVESTMENT_AMOUNT+ " INTEGER,"
+                    + COLUMN_INVESTMENT_AMOUNT+ " REAL,"
                     + COLUMN_INTEREST_PERCENT+ " FLOAT(1),"
                     + COLUMN_INVESTMENT_MEDIUM +" TEXT,"
                     + COLUMN_INVESTMENT_CATEGORY+ " TEXT,"
@@ -44,7 +44,24 @@ public class Investment {
                     + COLUMN_INVESTMENT_MONTH+ " INTEGER,"
                     + COLUMN_TIMESTAMP+ " DATETIME DEFAULT CURRENT_TIMESTAMP,"
                     + COLUMN_INVESTMENT_NUMBER_OF_UNITS+ " TEXT,"
-                    +COLUMN_INVESTMENT_PRICE_PER_UNIT+ " INTEGER,"
+                    +COLUMN_INVESTMENT_PRICE_PER_UNIT+ " REAL,"
+                    +COLUMN_INVESTMENT_CURRENCY+ " TEXT"
+                    + ")";
+
+    public static final String CREATE_TABLE =
+            "CREATE TABLE "+TABLE_NAME
+                    + "("
+                    + COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + COLUMN_INVESTMENT+" TEXT,"
+                    + COLUMN_INVESTMENT_AMOUNT+ " REAL,"
+                    + COLUMN_INTEREST_PERCENT+ " FLOAT(1),"
+                    + COLUMN_INVESTMENT_MEDIUM +" TEXT,"
+                    + COLUMN_INVESTMENT_CATEGORY+ " TEXT,"
+                    + COLUMN_INVESTMENT_DATE+ " INTEGER,"
+                    + COLUMN_INVESTMENT_MONTH+ " INTEGER,"
+                    + COLUMN_TIMESTAMP+ " DATETIME DEFAULT CURRENT_TIMESTAMP,"
+                    + COLUMN_INVESTMENT_NUMBER_OF_UNITS+ " TEXT,"
+                    +COLUMN_INVESTMENT_PRICE_PER_UNIT+ " REAL,"
                     +COLUMN_INVESTMENT_CURRENCY+ " TEXT"
                     + ")";
     public Investment(){
@@ -93,11 +110,11 @@ public class Investment {
         this.investmentName = investmentName;
     }
 
-    public int getInvestmentAmount() {
+    public float getInvestmentAmount() {
         return investmentAmount;
     }
 
-    public void setInvestmentAmount(int investmentAmount) {
+    public void setInvestmentAmount(float investmentAmount) {
         this.investmentAmount = investmentAmount;
     }
 
@@ -157,11 +174,11 @@ public class Investment {
         this.investmentNumberOfUnits = investmentNumberOfUnits;
     }
 
-    public int getInvestmentPricePerUnit() {
+    public float getInvestmentPricePerUnit() {
         return investmentPricePerUnit;
     }
 
-    public void setInvestmentPricePerUnit(int investmentPricePerUnit) {
+    public void setInvestmentPricePerUnit(float investmentPricePerUnit) {
         this.investmentPricePerUnit = investmentPricePerUnit;
     }
 

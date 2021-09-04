@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -28,15 +29,14 @@ class CategoryScrollingCardView(
         holder.investmentName!!.text =
             String.format("Name: %s", investment.investmentName)
         holder.investmentAmount!!.text = String.format(
-            Locale.ENGLISH,
-            "Amount: %,d",
-            investment.investmentAmount
+            "Amount: "+NumberFormat.getInstance().format(investment.investmentAmount),
+            Locale.ENGLISH
         )
         if(investment.investmentMedium.isEmpty()){
             holder.investmentMedium!!.visibility =GONE
         }else{
             holder.investmentMedium!!.visibility = VISIBLE
-            holder.investmentMedium!!.text =
+            holder.investmentMedium.text =
                 String.format("Medium: %s", investment.investmentMedium)
         }
 
@@ -44,7 +44,7 @@ class CategoryScrollingCardView(
             holder.investmentCategory!!.visibility = GONE
         }else{
             holder.investmentCategory!!.visibility = VISIBLE
-            holder.investmentCategory!!.text =
+            holder.investmentCategory.text =
                 String.format("Category: %s", investment.investmentCategory)
         }
 
@@ -80,7 +80,7 @@ class CategoryScrollingCardView(
            holder.investmentPricePerUnit.visibility = GONE
         }else{
             holder.investmentPricePerUnit.visibility = VISIBLE
-            holder.investmentPricePerUnit.text = String.format("Price Per Unit is %s",investment.investmentPricePerUnit.toString())
+            holder.investmentPricePerUnit.text = String.format("Price Per Unit: "+NumberFormat.getInstance().format(investment.investmentPricePerUnit))
         }
     }
 
