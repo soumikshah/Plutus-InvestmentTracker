@@ -29,7 +29,12 @@
 
 
 
-Download APK file from [here](https://github.com/soumikshah/Plutus-InvestmentTracker/releases/download/0.9/com.soumikshah.plutus.apk)
+Download APK file from [here](https://github.com/soumikshah/Plutus-InvestmentTracker/releases/download/0.9/com.soumikshah.plutus.apk) or
+
+
+
+[![fdroid](https://user-images.githubusercontent.com/6127736/132389902-f912a05d-6a9c-4c0a-81fe-11a9c9137a8d.png)](https://f-droid.org/packages/com.soumikshah.investmenttracker)
+
 
 You can download older versions of this applications from the [release notes](https://github.com/soumikshah/InvestmentTracker/releases)
 
