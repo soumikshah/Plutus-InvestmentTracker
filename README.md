@@ -35,6 +35,8 @@ Download APK file from [here](https://github.com/soumikshah/Plutus-InvestmentTra
 
 [![fdroid](https://user-images.githubusercontent.com/6127736/132389902-f912a05d-6a9c-4c0a-81fe-11a9c9137a8d.png)](https://f-droid.org/packages/com.soumikshah.investmenttracker)
 
+[![IzzyOnDroid](https://user-images.githubusercontent.com/6127736/132391050-ac0294f0-932f-44f4-ac37-5b2e13702a92.png)](https://apt.izzysoft.de/fdroid/index/apk/com.soumikshah.investmenttracker)
+
 
 You can download older versions of this applications from the [release notes](https://github.com/soumikshah/InvestmentTracker/releases)
 
