@@ -49,6 +49,7 @@ class MainFragment : Fragment() {
     private var otherInvestment:TextView? = null
     private var investmentListDemo: ArrayList<Investment>  = ArrayList()
     private var dollarInvestmentExists: Boolean = false
+    private var inrInvestmentExists: Boolean = false
 
     override fun onResume() {
         super.onResume()
@@ -76,9 +77,7 @@ class MainFragment : Fragment() {
         investmentHelper = InvestmentHelper(requireContext())
         currencyTextView = view.findViewById(R.id.currency)
         graphFragment = GraphFragment()
-        if(getCurrency()!!.isEmpty()){
-            setCurrency(getString(R.string.inr))
-        }
+
         if(investmentHelper!!.getInvestmentsList().isEmpty()){
             noInvestmentView!!.visibility = VISIBLE
             buttonGroup!!.visibility = GONE
@@ -97,10 +96,21 @@ class MainFragment : Fragment() {
                     break
                 }
             }
+            for(investment in investmentHelper!!.getInvestmentsList()){
+                if(investment.investmentCurrency.equals(getString(R.string.inr))){
+                    inrInvestmentExists = true
+                    break
+                }
+            }
             if(!dollarInvestmentExists){
                 buttonGroup.visibility = GONE
+                setCurrency(getString(R.string.inr))
                 currencyTextView!!.visibility = GONE
-            }else{
+            }else if(!inrInvestmentExists){
+                buttonGroup.visibility = GONE
+                setCurrency(getString(R.string.usd))
+                currencyTextView!!.visibility = GONE
+            } else{
                 buttonGroup.visibility = VISIBLE
                 currencyTextView!!.visibility = VISIBLE
             }
@@ -109,7 +119,6 @@ class MainFragment : Fragment() {
             val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
             recyclerView!!.setHasFixedSize(true)
             recyclerView!!.layoutManager = mLayoutManager
-            //recyclerView!!.itemAnimator = DefaultItemAnimator()
             recyclerView!!.adapter = mAdapter
             recyclerView!!.scheduleLayoutAnimation()
 
@@ -149,11 +158,18 @@ class MainFragment : Fragment() {
         editor.apply()
     }
 
+   /* private fun clearCurrency(){
+        val pref = requireContext().getSharedPreferences("currency_name",Context.MODE_PRIVATE)
+        val editor = pref.edit()
+        editor.clear()
+        editor.apply()
+    }*/
+
     private fun getCurrency(): String? {
         val pref = requireContext().getSharedPreferences("currency_name", Context.MODE_PRIVATE)
         return pref.getString("currency", "")
     }
-    fun loadData(localCurrency: String){
+    private fun loadData(localCurrency: String){
         var currencyInString: String? = null
         if(getCurrency().equals(getString(R.string.inr))){
             currencyInString = getString(R.string.rs)
