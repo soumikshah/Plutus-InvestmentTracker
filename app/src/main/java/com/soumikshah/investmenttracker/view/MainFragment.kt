@@ -3,6 +3,7 @@ package com.soumikshah.investmenttracker.view
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -28,6 +29,12 @@ import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
 import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import com.mynameismidori.currencypicker.CurrencyPickerListener
+
+import com.mynameismidori.currencypicker.CurrencyPicker
+
+
+
 
 class MainFragment : Fragment() {
     private var noInvestmentView: TextView? = null
@@ -79,11 +86,13 @@ class MainFragment : Fragment() {
         graphFragment = GraphFragment()
 
         if(investmentHelper!!.getInvestmentsList().isEmpty()){
-            noInvestmentView!!.visibility = VISIBLE
+            noInvestmentView!!.visibility = GONE
             buttonGroup!!.visibility = GONE
             linearLayoutView!!.visibility = GONE
             pieChart!!.visibility = GONE
             recyclerView!!.visibility = GONE
+            (activity as MainActivity).hideFab()
+            (activity as MainActivity).loadFragment(EmptyViewFragment())
         }else{
             noInvestmentView!!.visibility = GONE
             linearLayoutView!!.visibility = VISIBLE
@@ -151,7 +160,7 @@ class MainFragment : Fragment() {
         }
         return view
     }
-    private fun setCurrency(currencyName:String){
+    fun setCurrency(currencyName:String){
         val pref = requireContext().getSharedPreferences("currency_name", Context.MODE_PRIVATE)
         val editor = pref.edit()
         editor.putString("currency",currencyName)
