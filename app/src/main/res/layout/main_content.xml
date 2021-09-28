@@ -47,31 +47,27 @@
                     android:layout_marginStart="3dp"
                     app:toggle_selectableAmount="1">
                     <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-                        android:id="@+id/rupee"
+                        android:id="@+id/firstcurrency"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         app:toggle_btnCornerRadius="50dp"
                         app:toggle_borderWidth="5dp"
                         app:toggle_borderColor="#C6C6C6"
                         app:toggle_selectedBorderColor="@color/colorPrimary"
-                        app:toggle_icon="@drawable/rupee1"
                         app:toggle_iconColor="#C6C6C6"
                         app:toggle_selectedBackgroundColor="@color/colorAccent"
-                        app:toggle_selectedIcon="@drawable/rupee1"
                         app:toggle_backgroundColor="@android:color/white"
                         app:toggle_iconPadding="30dp"/>
                     <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-                        android:id="@+id/dollar"
+                        android:id="@+id/secondcurrency"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         app:toggle_btnCornerRadius="50dp"
                         app:toggle_borderWidth="5dp"
                         app:toggle_borderColor="#C6C6C6"
                         app:toggle_selectedBorderColor="@color/colorPrimary"
-                        app:toggle_icon="@drawable/dollar"
                         app:toggle_iconColor="#C6C6C6"
                         app:toggle_selectedBackgroundColor="@color/colorAccent"
-                        app:toggle_selectedIcon="@drawable/dollar"
                         app:toggle_backgroundColor="@android:color/white"
                         app:toggle_iconPadding="30dp" />
                 </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>

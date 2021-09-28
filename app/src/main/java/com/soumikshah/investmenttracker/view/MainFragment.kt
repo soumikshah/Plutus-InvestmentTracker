@@ -1,10 +1,8 @@
 package com.soumikshah.investmenttracker.view
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -30,11 +28,6 @@ import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
 import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import com.mynameismidori.currencypicker.CurrencyPickerListener
-
-import com.mynameismidori.currencypicker.CurrencyPicker
-
-
 
 
 class MainFragment : Fragment() {
@@ -56,8 +49,10 @@ class MainFragment : Fragment() {
     private var totalAmount:TextView? = null
     private var otherInvestment:TextView? = null
     private var investmentListDemo: ArrayList<Investment>  = ArrayList()
-    private var dollarInvestmentExists: Boolean = false
-    private var inrInvestmentExists: Boolean = false
+    private var secondInvestmentExists: Boolean = false
+    private var firstInvestmentExists: Boolean = false
+    private var firstCurrency:String? = null
+    private var secondCurrency:String? = null
     private var pref:SharedPreferences? = null
 
     override fun onResume() {
@@ -77,8 +72,8 @@ class MainFragment : Fragment() {
         totalAmount = view.findViewById(R.id.total_amount_invested)
         otherInvestment = view.findViewById(R.id.otherInvestment)
         val buttonGroup = view.findViewById<ThemedToggleButtonGroup>(R.id.toggleGroup)
-        val inrButton = view.findViewById<ThemedButton>(R.id.rupee)
-        val dollarButton = view.findViewById<ThemedButton>(R.id.dollar)
+        val firstButton = view.findViewById<ThemedButton>(R.id.firstcurrency)
+        val secondButton = view.findViewById<ThemedButton>(R.id.secondcurrency)
         pieChart = view.findViewById(R.id.pieChart_view)
         recyclerView = view.findViewById(R.id.recycler_view)
         fragment = view.findViewById(R.id.fragment)
@@ -103,26 +98,33 @@ class MainFragment : Fragment() {
             linearLayoutView!!.visibility = VISIBLE
             pieChart!!.visibility = VISIBLE
             recyclerView!!.visibility = VISIBLE
+            firstCurrency = getCurrency()
+            secondCurrency = getCurrency2()
 
+            firstButton!!.text = firstCurrency.toString()
+            if(secondCurrency.isNullOrEmpty()){
+                secondButton!!.visibility = GONE
+            }else{
+                secondButton!!.visibility = VISIBLE
+                secondButton.text = secondCurrency.toString()
+            }
             for(investment in investmentHelper!!.getInvestmentsList()){
-                if(investment.investmentCurrency.equals(getString(R.string.usd))){
-                    dollarInvestmentExists = true
+                if(investment.investmentCurrency.equals(secondCurrency)){
+                    secondInvestmentExists = true
                     break
                 }
             }
             for(investment in investmentHelper!!.getInvestmentsList()){
-                if(investment.investmentCurrency.equals(getString(R.string.inr))){
-                    inrInvestmentExists = true
+                if(investment.investmentCurrency.equals(firstCurrency)){
+                    firstInvestmentExists = true
                     break
                 }
             }
-            if(!dollarInvestmentExists){
+            if(!secondInvestmentExists){
                 buttonGroup.visibility = GONE
-                setCurrency(getString(R.string.inr))
                 currencyTextView!!.visibility = GONE
-            }else if(!inrInvestmentExists){
+            }else if(!firstInvestmentExists){
                 buttonGroup.visibility = GONE
-                setCurrency(getString(R.string.usd))
                 currencyTextView!!.visibility = GONE
             } else{
                 buttonGroup.visibility = VISIBLE
@@ -137,11 +139,11 @@ class MainFragment : Fragment() {
             recyclerView!!.scheduleLayoutAnimation()
 
 
-            if(getCurrency().equals(getString(R.string.inr))){
-                buttonGroup.selectButton(inrButton)
+            if(getCurrency().equals(firstCurrency)){
+                buttonGroup.selectButton(firstButton)
                 loadData(getCurrency()!!)
-            }else if(getCurrency().equals(getString(R.string.usd))){
-                buttonGroup.selectButton(dollarButton)
+            }else if(getCurrency().equals(secondCurrency)){
+                buttonGroup.selectButton(secondButton)
                 loadData(getCurrency()!!)
             }
 
@@ -154,12 +156,10 @@ class MainFragment : Fragment() {
                 }
             }
             mAdapter!!.notifyDataSetChanged()
-            inrButton.setOnClickListener {
-                setCurrency(getString(R.string.inr))
+            firstButton.setOnClickListener {
                 loadData(getCurrency()!!)
             }
-            dollarButton.setOnClickListener {
-                setCurrency(getString(R.string.usd))
+            secondButton.setOnClickListener {
                 loadData(getCurrency()!!)
             }
         }
@@ -193,13 +193,15 @@ class MainFragment : Fragment() {
 
     private fun loadData(localCurrency: String){
         var currencyInString: String? = null
-        if(getCurrency().equals(getString(R.string.inr))){
-            currencyInString = getString(R.string.rs)
-        }else if (getCurrency().equals(getString(R.string.usd))){
-            currencyInString = getString(R.string.dollarSign)
+        if(getCurrency().equals(firstCurrency)){
+            currencyInString = firstCurrency!!.toString()
+        }else if (getCurrency().equals(secondCurrency)){
+            currencyInString = secondCurrency!!.toString()
         }
-        totalAmount!!.text = String.format(currencyInString
-                + NumberFormat.getInstance().format(investmentHelper!!.investmentTotalAmountWithCurrency(localCurrency)))
+        totalAmount!!.text = String.format(
+            "$currencyInString "
+                + NumberFormat.getInstance().format(investmentHelper!!.
+        investmentTotalAmountWithCurrency(localCurrency)))
         otherInvestment!!.text = investmentHelper!!.investmentCategoryAndAmount
         if(recyclerView!=null && recyclerView!!.adapter!= null && recyclerView!!.adapter!!.itemCount>0){
             recyclerView!!.adapter!!.notifyDataSetChanged()

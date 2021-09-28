@@ -105,7 +105,7 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         if(!secondCurrency.isNullOrEmpty()){
             secondCurrencyButton!!.text = secondCurrency.toString()
         }
-                //Select INR button by default
+                //Select first button by default
         if(investment== null){
             buttonGroup!!.selectButton(firstCurrencyButton!!)
         }else{

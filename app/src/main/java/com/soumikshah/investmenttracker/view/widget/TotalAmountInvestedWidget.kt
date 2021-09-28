@@ -9,7 +9,6 @@ import com.soumikshah.investmenttracker.database.InvestmentHelper
 import android.app.PendingIntent
 import com.soumikshah.investmenttracker.view.MainActivity
 import android.content.Intent
-import android.util.Log
 import java.text.NumberFormat
 
 /**
@@ -44,19 +43,23 @@ internal fun updateAppWidget(
     val views = RemoteViews(context.packageName, R.layout.total_amount_invested_widget)
     views.setTextViewText(R.id.appwidget_text, widgetText)
     val investmentHelper = InvestmentHelper(context)
-    var inrTotalAmount:String = String.format(NumberFormat.getInstance().format(investmentHelper.investmentTotalAmountWithCurrency(context.getString(R.string.inr))))
-    var usdTotalAmount:String = String.format(NumberFormat.getInstance().format(investmentHelper.investmentTotalAmountWithCurrency(context.getString(R.string.usd))))
-    inrTotalAmount = if(inrTotalAmount == "0"){
+    val firstCurrency: String? = (context as MainActivity).mainFragment!!.getCurrency()
+    val secondCurrency:String? = (context as MainActivity).mainFragment!!.getCurrency2()
+    var firstTotalAmount:String = String.format(NumberFormat.getInstance().
+    format(investmentHelper.investmentTotalAmountWithCurrency(firstCurrency!!)))
+    var secondTotalAmount:String = String.format(NumberFormat.getInstance().
+    format(investmentHelper.investmentTotalAmountWithCurrency(secondCurrency!!)))
+    firstTotalAmount = if(firstTotalAmount == "0"){
         ""
     } else{
-        "INR: ${context.getString(R.string.rs)}$inrTotalAmount"
+        "$firstCurrency: $firstTotalAmount"
     }
-    usdTotalAmount = if(usdTotalAmount == "0"){
+    secondTotalAmount = if(secondTotalAmount == "0"){
         ""
     } else{
-        "USD: ${context.getString(R.string.dollarSign)} $usdTotalAmount"
+        "$secondCurrency: $secondTotalAmount"
     }
-    val totalAmount = "$inrTotalAmount \n$usdTotalAmount"
+    val totalAmount = "$firstTotalAmount \n$secondTotalAmount"
     views.setTextViewText(R.id.total_amount_invested,totalAmount)
 
     //Implementing click function for widget to open the application.
