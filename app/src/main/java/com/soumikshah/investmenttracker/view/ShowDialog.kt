@@ -58,6 +58,7 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
     private var interestToBeReceived = 0f
     private var positiveButton: Button? = null
     private var negativeButton: Button? = null
+    private var backButton:Button? = null
     private var investmentIDBeforeEdit: Int? = 0
     private var investmentCategoryList:ArrayList<String>? = null
     private var investmentMediumList: ArrayList<String>? = null
@@ -84,6 +85,7 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         dialogTitle = view.findViewById(R.id.dialog_title)
         positiveButton = view.findViewById(R.id.positiveButton)
         negativeButton = view.findViewById(R.id.negativeButton)
+        backButton = view.findViewById(R.id.backButton)
         investmentCategoryList = (activity as MainActivity?)!!.mainFragment!!.investmentHelper!!.investmentCategory
         investmentMediumList = (activity as MainActivity?)!!.mainFragment!!.investmentHelper!!.investmentMedium
         val investmentCategoryAdapter= ArrayAdapter(requireContext(), android.R.layout.select_dialog_item, investmentCategoryList!!.distinct())
@@ -178,6 +180,10 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
 
         deleteButton!!.setOnClickListener{
             deleteDialog()
+        }
+
+        backButton!!.setOnClickListener {
+            activity?.onBackPressed()
         }
         return view
     }

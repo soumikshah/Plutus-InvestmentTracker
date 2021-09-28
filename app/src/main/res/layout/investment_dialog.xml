@@ -40,6 +40,14 @@
                     android:layout_marginEnd="5dp"
                     android:layout_alignParentEnd="true"
                     android:visibility="gone"/>
+                <Button
+                    android:id="@+id/backButton"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/ic_back_arrow"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="2dp"/>
 
             </RelativeLayout>
             <LinearLayout
