@@ -126,7 +126,7 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
             val shake: Animation = AnimationUtils.loadAnimation(requireActivity(), R.anim.shake)
             deleteButton!!.startAnimation(shake)
         }else{
-            deleteButton!!.visibility = View.GONE
+            deleteButton!!.visibility = GONE
         }
 
         inputInvestmentDate!!.setOnClickListener { // calender class's instance and get current date , month and year from calender
@@ -261,15 +261,12 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         }
         currency = when {
             firstCurrencyButton!!.isSelected -> {
-                Log.d("Plutus","Firstbutton")
                 firstCurrency
             }
             secondCurrencyButton!!.isSelected -> {
-                Log.d("Plutus","secondbutton")
                 secondCurrency
             }
             else -> {
-                Log.d("Plutus","Ehhh!")
                 firstCurrency
             }
         }
