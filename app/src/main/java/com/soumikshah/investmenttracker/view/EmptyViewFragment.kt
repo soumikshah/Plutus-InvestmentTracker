@@ -39,7 +39,7 @@ class EmptyViewFragment internal constructor(): Fragment() {
                 nextButton!!.isEnabled = true
                 picker.dismiss()
             }
-            picker.show(requireFragmentManager(), "CURRENCY_PICKER")
+            picker.show(parentFragmentManager, "CURRENCY_PICKER")
         }
         enableCurrencySecond!!.setOnClickListener {
             currencySecond!!.isEnabled = enableCurrencySecond!!.isChecked
@@ -49,11 +49,11 @@ class EmptyViewFragment internal constructor(): Fragment() {
 
             picker.setListener { name, code, symbol, flagDrawableResID ->
                 // Implement your code here
-                (activity as MainActivity).mainFragment!!.setCurrency(code)
+                (activity as MainActivity).mainFragment!!.setCurrency2(code)
                 currencySecond!!.text = code
                 picker.dismiss()
             }
-            picker.show(requireFragmentManager(), "CURRENCY_PICKER")
+            picker.show(parentFragmentManager, "CURRENCY_PICKER")
         }
         nextButton!!.setOnClickListener {
             if(!enableCurrencySecond!!.isChecked || (enableCurrencySecond!!.isChecked && !currencySecond!!.text.equals(getString(R.string.currency_2)))){

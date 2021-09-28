@@ -20,8 +20,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import android.content.DialogInterface
-import android.util.Log
 import android.view.ContextThemeWrapper
+import android.view.View.GONE
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import android.widget.LinearLayout
@@ -42,10 +42,12 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
     private var inputInvestPricePerUnit: TextInputEditText? = null
     private var inputInvestmentNumberOfMonths: TextInputEditText? = null
     private var buttonGroup: ThemedToggleButtonGroup? = null
-    private var inrButton:ThemedButton? = null
-    private var dollarButton: ThemedButton? = null
+    private var firstCurrencyButton:ThemedButton? = null
+    private var secondCurrencyButton: ThemedButton? = null
     private var deleteButton:Button? = null
     private var currency:String? = null
+    private var firstCurrency:String? = null
+    private var secondCurrency:String? = null
     private var dialogTitle:TextView? = null
     private var shouldUpdate:Boolean = false
     private var datePickerDialog: DatePickerDialog? = null
@@ -76,8 +78,8 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         inputInvestmentNumberOfMonths = view.findViewById(R.id.investedNumberOfMonths)
         deleteButton = view.findViewById(R.id.delete_button)
         buttonGroup = view.findViewById(R.id.toggleGroup)
-        inrButton = view.findViewById(R.id.rupee)
-        dollarButton = view.findViewById(R.id.dollar)
+        firstCurrencyButton = view.findViewById(R.id.firstbutton)
+        secondCurrencyButton = view.findViewById(R.id.secondbutton)
         dialogTitle = view.findViewById(R.id.dialog_title)
         positiveButton = view.findViewById(R.id.positiveButton)
         negativeButton = view.findViewById(R.id.negativeButton)
@@ -93,16 +95,26 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         inputInvestmentMedium!!.setAdapter(investmentMediumAdapter)
 
         (activity as MainActivity).hideFab()
-        //Select INR button by default
+        firstCurrency = (activity as MainActivity).mainFragment!!.getCurrency()
+        secondCurrency = (activity as MainActivity).mainFragment!!.getCurrency2()
+        if(secondCurrency.isNullOrEmpty()){
+            secondCurrencyButton!!.visibility = GONE
+        }
+        firstCurrencyButton!!.text = firstCurrency.toString()
+
+        if(!secondCurrency.isNullOrEmpty()){
+            secondCurrencyButton!!.text = secondCurrency.toString()
+        }
+                //Select INR button by default
         if(investment== null){
-            buttonGroup!!.selectButton(inrButton!!)
+            buttonGroup!!.selectButton(firstCurrencyButton!!)
         }else{
-            if(investment!!.investmentCurrency.equals(getString(R.string.inr))){
-                currency = getString(R.string.inr)
-                buttonGroup!!.selectButton(inrButton!!)
-            }else if (investment!!.investmentCurrency.equals(getString(R.string.usd))){
-                currency = getString(R.string.usd)
-                buttonGroup!!.selectButton(dollarButton!!)
+            if(investment!!.investmentCurrency.equals(firstCurrency)){
+                currency = firstCurrency
+                buttonGroup!!.selectButton(firstCurrencyButton!!)
+            }else if (!secondCurrency.isNullOrEmpty() && investment!!.investmentCurrency.equals(secondCurrency)){
+                currency = secondCurrency
+                buttonGroup!!.selectButton(secondCurrencyButton!!)
             }
         }
         dialogTitle!!.text = if (!shouldUpdate) getString(R.string.new_investment_title)
@@ -217,10 +229,10 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
             inputInvestNumberOfUnitsHeld!!.setText(investment.investmentNumberOfUnits.toString())
             inputInvestPricePerUnit!!.setText(investment.investmentPricePerUnit.toString())
 
-            if(inrButton!!.isSelected){
-                currency = getString(R.string.inr)
-            }else if(dollarButton!!.isSelected){
-                currency = getString(R.string.usd)
+            if(firstCurrencyButton!!.isSelected){
+                currency =firstCurrency
+            }else if(secondCurrencyButton!!.isSelected){
+                currency = secondCurrency
             }
     }
 
@@ -246,12 +258,12 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         if(inputInvestPricePerUnit!!.text.toString().isEmpty()){
             inputInvestPricePerUnit!!.setText("0")
         }
-        currency = if(inrButton!!.isSelected){
-            getString(R.string.inr)
-        }else if(dollarButton!!.isSelected){
-            getString(R.string.usd)
+        currency = if(firstCurrencyButton!!.isSelected){
+            firstCurrency
+        }else if(secondCurrencyButton!!.isSelected){
+            secondCurrency
         }else{
-            getString(R.string.inr)
+            firstCurrency
         }
 
         (activity as MainActivity).mainFragment!!.investmentHelper!!.createInvestment(inputInvestmentName!!.text.toString(),
@@ -293,14 +305,14 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         }
 
         currency = when {
-            inrButton!!.isSelected -> {
-                getString(R.string.inr)
+            firstCurrencyButton!!.isSelected -> {
+                firstCurrency
             }
-            dollarButton!!.isSelected -> {
-                getString(R.string.usd)
+            secondCurrencyButton!!.isSelected -> {
+                secondCurrency
             }
             else -> {
-                getString(R.string.inr)
+                firstCurrency
             }
         }
 

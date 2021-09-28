@@ -1,6 +1,7 @@
 package com.soumikshah.investmenttracker.view
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -57,6 +58,7 @@ class MainFragment : Fragment() {
     private var investmentListDemo: ArrayList<Investment>  = ArrayList()
     private var dollarInvestmentExists: Boolean = false
     private var inrInvestmentExists: Boolean = false
+    private var pref:SharedPreferences? = null
 
     override fun onResume() {
         super.onResume()
@@ -84,15 +86,18 @@ class MainFragment : Fragment() {
         investmentHelper = InvestmentHelper(requireContext())
         currencyTextView = view.findViewById(R.id.currency)
         graphFragment = GraphFragment()
-
+        pref = requireContext().getSharedPreferences("currency_name", android.content.Context.MODE_PRIVATE)
         if(investmentHelper!!.getInvestmentsList().isEmpty()){
-            noInvestmentView!!.visibility = GONE
             buttonGroup!!.visibility = GONE
             linearLayoutView!!.visibility = GONE
             pieChart!!.visibility = GONE
             recyclerView!!.visibility = GONE
-            (activity as MainActivity).hideFab()
-            (activity as MainActivity).loadFragment(EmptyViewFragment())
+            if(!getCurrency().isNullOrEmpty()){
+                noInvestmentView!!.visibility = VISIBLE
+            }else{
+                noInvestmentView!!.visibility = GONE
+                (activity as MainActivity).loadFragment(EmptyViewFragment())
+            }
         }else{
             noInvestmentView!!.visibility = GONE
             linearLayoutView!!.visibility = VISIBLE
@@ -160,9 +165,13 @@ class MainFragment : Fragment() {
         }
         return view
     }
+    fun setCurrency2(currencyName: String){
+        val editor = pref!!.edit()
+        editor.putString("currency2",currencyName)
+        editor.apply()
+    }
     fun setCurrency(currencyName:String){
-        val pref = requireContext().getSharedPreferences("currency_name", Context.MODE_PRIVATE)
-        val editor = pref.edit()
+        val editor = pref!!.edit()
         editor.putString("currency",currencyName)
         editor.apply()
     }
@@ -174,10 +183,14 @@ class MainFragment : Fragment() {
         editor.apply()
     }*/
 
-    private fun getCurrency(): String? {
-        val pref = requireContext().getSharedPreferences("currency_name", Context.MODE_PRIVATE)
-        return pref.getString("currency", "")
+    fun getCurrency(): String? {
+        return pref!!.getString("currency", "")
     }
+
+    fun getCurrency2(): String? {
+        return pref!!.getString("currency2","")
+    }
+
     private fun loadData(localCurrency: String){
         var currencyInString: String? = null
         if(getCurrency().equals(getString(R.string.inr))){
