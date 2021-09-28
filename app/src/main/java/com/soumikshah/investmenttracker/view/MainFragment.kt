@@ -100,6 +100,8 @@ class MainFragment : Fragment() {
             recyclerView!!.visibility = VISIBLE
             firstCurrency = getCurrency()
             secondCurrency = getCurrency2()
+            buttonGroup.selectButton(firstButton)
+            loadData(firstCurrency!!)
 
             firstButton!!.text = firstCurrency.toString()
             if(secondCurrency.isNullOrEmpty()){
@@ -138,15 +140,6 @@ class MainFragment : Fragment() {
             recyclerView!!.adapter = mAdapter
             recyclerView!!.scheduleLayoutAnimation()
 
-
-            if(getCurrency().equals(firstCurrency)){
-                buttonGroup.selectButton(firstButton)
-                loadData(getCurrency()!!)
-            }else if(getCurrency().equals(secondCurrency)){
-                buttonGroup.selectButton(secondButton)
-                loadData(getCurrency()!!)
-            }
-
             investmentMap = investmentHelper!!.investmentTypeAndAmount
             if (investmentMap != null) {
                 for (type in investmentMap!!.keys) {
@@ -157,10 +150,12 @@ class MainFragment : Fragment() {
             }
             mAdapter!!.notifyDataSetChanged()
             firstButton.setOnClickListener {
+                buttonGroup.selectButton(firstButton)
                 loadData(getCurrency()!!)
             }
             secondButton.setOnClickListener {
-                loadData(getCurrency()!!)
+                buttonGroup.selectButton(secondButton)
+                loadData(getCurrency2()!!)
             }
         }
         return view
@@ -193,9 +188,9 @@ class MainFragment : Fragment() {
 
     private fun loadData(localCurrency: String){
         var currencyInString: String? = null
-        if(getCurrency().equals(firstCurrency)){
+        if(localCurrency == firstCurrency){
             currencyInString = firstCurrency!!.toString()
-        }else if (getCurrency().equals(secondCurrency)){
+        }else if (localCurrency == secondCurrency){
             currencyInString = secondCurrency!!.toString()
         }
         totalAmount!!.text = String.format(
@@ -216,7 +211,7 @@ class MainFragment : Fragment() {
             }
         }
         investmentListDemo.clear()
-        investmentListDemo.addAll(investmentHelper!!.getInvestmentsListAccTOCurrency(getCurrency()!!))
+        investmentListDemo.addAll(investmentHelper!!.getInvestmentsListAccTOCurrency(currencyInString!!))
         initPieChart()
         showPieChart()
         if(mAdapter!= null){

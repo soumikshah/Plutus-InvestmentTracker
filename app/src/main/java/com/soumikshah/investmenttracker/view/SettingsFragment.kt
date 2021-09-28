@@ -21,6 +21,7 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import com.ajts.androidmads.library.SQLiteToExcel
 import com.ajts.androidmads.library.SQLiteToExcel.ExportListener
+import com.mynameismidori.currencypicker.CurrencyPicker
 import com.soumikshah.investmenttracker.R
 import java.io.File
 
@@ -29,6 +30,7 @@ class SettingsFragment internal constructor() : Fragment(){
     private var sampleTextView:TextView? =null
     private var exportButton:Button? = null
     private var importButton:Button? = null
+    private var secondCurrencyButton:Button? = null
     private val fileProvider = "com.soumikshah.investmenttracker.provider"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -36,9 +38,13 @@ class SettingsFragment internal constructor() : Fragment(){
         sampleTextView = view.findViewById(R.id.sampleTextView)
         exportButton = view.findViewById(R.id.exportButton)
         importButton = view.findViewById(R.id.importButton)
-
+        secondCurrencyButton = view.findViewById(R.id.enableSecondCurrencyButton)
         sampleTextView!!.text = getString(R.string.sampletext)
 
+        val secondCurrencyValue:String? = (context as MainActivity).mainFragment!!.getCurrency2()
+        if(!secondCurrencyValue.isNullOrEmpty()){
+            secondCurrencyButton!!.visibility = GONE
+        }
         val dbName:String = (activity as MainActivity).mainFragment!!.investmentHelper!!.getTableNameFromDatabaseHelper()
         val directoryPath = createDirectoryPath("InvestmentTracker")!!.absolutePath
         //Hide export button if DB is empty.
@@ -58,6 +64,18 @@ class SettingsFragment internal constructor() : Fragment(){
             }
             //Converting to excel and then calling send intent when converting is completed.
             convertToExcel(dbName,directoryPath)
+        }
+
+        secondCurrencyButton!!.setOnClickListener {
+            val picker = CurrencyPicker.newInstance("Select Currency") // dialog title
+
+            picker.setListener { _, code, _, _ ->
+                // Implement your code here
+                (activity as MainActivity).mainFragment!!.setCurrency2(code)
+                (activity as? MainActivity)!!.updateViewPager()
+                picker.dismiss()
+            }
+            picker.show(parentFragmentManager, "CURRENCY_PICKER")
         }
 
         /*importButton!!.setOnClickListener {
@@ -85,6 +103,8 @@ class SettingsFragment internal constructor() : Fragment(){
             })
             (activity as MainActivity).mainFragment!!.investmentHelper!!.getDatabaseHelper().close()
         }*/
+
+
         return view
     }
 

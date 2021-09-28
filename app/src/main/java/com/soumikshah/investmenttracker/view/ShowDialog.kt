@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import android.content.DialogInterface
+import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.View.GONE
 import android.widget.Toast
@@ -258,12 +259,19 @@ class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investm
         if(inputInvestPricePerUnit!!.text.toString().isEmpty()){
             inputInvestPricePerUnit!!.setText("0")
         }
-        currency = if(firstCurrencyButton!!.isSelected){
-            firstCurrency
-        }else if(secondCurrencyButton!!.isSelected){
-            secondCurrency
-        }else{
-            firstCurrency
+        currency = when {
+            firstCurrencyButton!!.isSelected -> {
+                Log.d("Plutus","Firstbutton")
+                firstCurrency
+            }
+            secondCurrencyButton!!.isSelected -> {
+                Log.d("Plutus","secondbutton")
+                secondCurrency
+            }
+            else -> {
+                Log.d("Plutus","Ehhh!")
+                firstCurrency
+            }
         }
 
         (activity as MainActivity).mainFragment!!.investmentHelper!!.createInvestment(inputInvestmentName!!.text.toString(),

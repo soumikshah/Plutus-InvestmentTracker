@@ -70,4 +70,5 @@
     <string name="currency_1">Currency 1</string>
     <string name="currency_2">Currency 2</string>
     <string name="next">Next </string>
+    <string name="set_second_currency"><font size="21">Set Second Currency</font>\n<font size="11">You can set your second currency here</font></string>
 </resources>

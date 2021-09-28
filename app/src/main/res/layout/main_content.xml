@@ -33,7 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="9dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/robotobold"
                     android:text="@string/currency"
                     android:textColor="@color/investment_name"
@@ -48,9 +48,9 @@
                     app:toggle_selectableAmount="1">
                     <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
                         android:id="@+id/firstcurrency"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        app:toggle_btnCornerRadius="50dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:toggle_btnCornerRadius="60dp"
                         app:toggle_borderWidth="5dp"
                         app:toggle_borderColor="#C6C6C6"
                         app:toggle_selectedBorderColor="@color/colorPrimary"
@@ -60,9 +60,9 @@
                         app:toggle_iconPadding="30dp"/>
                     <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
                         android:id="@+id/secondcurrency"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        app:toggle_btnCornerRadius="50dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:toggle_btnCornerRadius="60dp"
                         app:toggle_borderWidth="5dp"
                         app:toggle_borderColor="#C6C6C6"
                         app:toggle_selectedBorderColor="@color/colorPrimary"
