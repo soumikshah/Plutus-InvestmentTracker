@@ -239,8 +239,7 @@ class MainFragment : Fragment() {
 
     private fun loadEmptyViewFragment(someFragment:Fragment){
         val transaction = activity?.supportFragmentManager!!.beginTransaction()
-        transaction.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left,
-            R.anim.slide_in_left,R.anim.slide_out_right)
+        transaction.setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
         transaction.add(R.id.fragment, someFragment)
         transaction.commit()
     }
