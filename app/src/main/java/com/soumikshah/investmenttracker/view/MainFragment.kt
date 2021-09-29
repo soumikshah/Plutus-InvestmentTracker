@@ -100,8 +100,7 @@ class MainFragment : Fragment() {
             recyclerView!!.visibility = VISIBLE
             firstCurrency = getCurrency()
             secondCurrency = getCurrency2()
-            buttonGroup.selectButton(firstButton)
-            loadData(firstCurrency!!)
+
 
             firstButton!!.text = firstCurrency.toString()
             if(secondCurrency.isNullOrEmpty()){
@@ -148,6 +147,8 @@ class MainFragment : Fragment() {
                     }
                 }
             }
+            buttonGroup.selectButton(firstButton)
+            loadData(getCurrency()!!)
             mAdapter!!.notifyDataSetChanged()
             firstButton.setOnClickListener {
                 buttonGroup.selectButton(firstButton)
