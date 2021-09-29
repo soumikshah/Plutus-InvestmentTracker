@@ -91,7 +91,7 @@ class MainFragment : Fragment() {
                 noInvestmentView!!.visibility = VISIBLE
             }else{
                 noInvestmentView!!.visibility = GONE
-                (activity as MainActivity).loadFragment(EmptyViewFragment())
+                loadEmptyViewFragment(EmptyViewFragment())
             }
         }else{
             noInvestmentView!!.visibility = GONE
@@ -234,6 +234,14 @@ class MainFragment : Fragment() {
         pieChart!!.legend.textSize = 15f
         pieChart!!.legend.isWordWrapEnabled = true
 
+    }
+
+    private fun loadEmptyViewFragment(someFragment:Fragment){
+        val transaction = activity?.supportFragmentManager!!.beginTransaction()
+        transaction.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left,
+            R.anim.slide_in_left,R.anim.slide_out_right)
+        transaction.add(R.id.fragment, someFragment)
+        transaction.commit()
     }
 
     private fun showPieChart() {

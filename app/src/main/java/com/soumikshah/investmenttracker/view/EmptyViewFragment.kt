@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.Toast
@@ -18,6 +20,11 @@ class EmptyViewFragment internal constructor(): Fragment() {
     private var enableCurrencySecond: CheckBox? = null
     private var nextButton:Button? = null
 
+    override fun onResume() {
+        (activity as MainActivity).hideFab()
+        super.onResume()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,10 +35,14 @@ class EmptyViewFragment internal constructor(): Fragment() {
         currencySecond = view.findViewById(R.id.currency2)
         enableCurrencySecond = view.findViewById(R.id.enableCurrency2)
         nextButton = view.findViewById(R.id.nextButton)
+
+        val shake: Animation = AnimationUtils.loadAnimation(requireActivity(), R.anim.shake)
+        currencyFirst!!.startAnimation(shake)
+
         (activity as MainActivity).hideFab()
+
         currencyFirst!!.setOnClickListener {
             val picker = CurrencyPicker.newInstance("Select Currency") // dialog title
-
             picker.setListener { name, code, symbol, flagDrawableResID ->
                 // Implement your code here
                 (activity as MainActivity).mainFragment!!.setCurrency(code)
@@ -43,6 +54,7 @@ class EmptyViewFragment internal constructor(): Fragment() {
         }
         enableCurrencySecond!!.setOnClickListener {
             currencySecond!!.isEnabled = enableCurrencySecond!!.isChecked
+            currencySecond!!.startAnimation(shake)
         }
         currencySecond!!.setOnClickListener {
             val picker = CurrencyPicker.newInstance("Select Currency") // dialog title

@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left,
             R.anim.slide_in_left,R.anim.slide_out_right)
-        transaction.add(R.id.fragment, fragment) // give your fragment container id in first parameter
+        transaction.add(R.id.fragment, fragment)
         transaction.addToBackStack(null) // if written, this transaction will be added to backstack
         transaction.commit()
     }
