@@ -9,6 +9,7 @@ import com.soumikshah.investmenttracker.database.InvestmentHelper
 import android.app.PendingIntent
 import com.soumikshah.investmenttracker.view.MainActivity
 import android.content.Intent
+import android.content.SharedPreferences
 import java.text.NumberFormat
 
 /**
@@ -43,8 +44,10 @@ internal fun updateAppWidget(
     val views = RemoteViews(context.packageName, R.layout.total_amount_invested_widget)
     views.setTextViewText(R.id.appwidget_text, widgetText)
     val investmentHelper = InvestmentHelper(context)
-    val firstCurrency: String? = (context as MainActivity).mainFragment!!.getCurrency()
-    val secondCurrency:String? = (context as MainActivity).mainFragment!!.getCurrency2()
+    val pref:SharedPreferences = context.getSharedPreferences("currency_name",0)
+
+    val firstCurrency: String? = pref.getString("currency", "")
+    val secondCurrency:String? = pref.getString("currency2","")
     var firstTotalAmount:String = String.format(NumberFormat.getInstance().
     format(investmentHelper.investmentTotalAmountWithCurrency(firstCurrency!!)))
     var secondTotalAmount:String = String.format(NumberFormat.getInstance().
