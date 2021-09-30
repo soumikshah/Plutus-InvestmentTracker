@@ -41,3 +41,13 @@ Download APK file from [here](https://github.com/soumikshah/Plutus-InvestmentTra
 You can download older versions of this applications from the [release notes](https://github.com/soumikshah/InvestmentTracker/releases)
 
 You can get information about our new releases on [telegram](https://t.me/plutus_investment_tracker)
+
+
+**Dependencies**
+
+This project uses these libraries
+- [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
+- [DiscreteScrollView](https://github.com/yarolegovich/DiscreteScrollView)
+- [ThemedToggleButtonGroup](https://github.com/Bryanx/themed-toggle-button-group)
+- [SQLite2XL](https://github.com/androidmads/SQLite2XL)
+- [Currency Picker For Android](https://github.com/midorikocak/currency-picker-android)
