@@ -75,7 +75,8 @@ class SettingsFragment internal constructor() : Fragment(){
             picker.setListener { _, code, _, _ ->
                 (activity as MainActivity).mainFragment!!.setCurrency2(code)
                 Toast.makeText(requireContext(),
-                    "Second currency added, please go to main page and add an investment now!",Toast.LENGTH_LONG).show()
+                    "Second currency '$code' added, please go to main page and add an investment now!",
+                    Toast.LENGTH_LONG).show()
                 (activity as? MainActivity)!!.updateViewPager()
                 picker.dismiss()
             }
