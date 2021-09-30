@@ -87,8 +87,7 @@ class SettingsFragment internal constructor() : Fragment(){
 
         aboutUsButton!!.setOnClickListener {
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left,
-                R.anim.slide_in_left,R.anim.slide_out_right)
+            transaction.setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
             transaction.replace(R.id.fragment, AboutUs())
             transaction.addToBackStack(null) // if written, this transaction will be added to backstack
             transaction.commit()
