@@ -67,6 +67,8 @@
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="30dp"
         android:text="@string/next"
+        android:background="@drawable/transparent_button_with_border"
+        android:textAllCaps="true"
         android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
