@@ -1,6 +1,7 @@
 package com.soumikshah.investmenttracker.view
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -15,6 +16,7 @@ import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.core.content.FileProvider
@@ -42,7 +44,8 @@ class SettingsFragment internal constructor() : Fragment(){
         sampleTextView!!.text = getString(R.string.sampletext)
 
         val secondCurrencyValue:String? = (context as MainActivity).mainFragment!!.getCurrency2()
-        if(!secondCurrencyValue.isNullOrEmpty()){
+        val firstCurrencyValue:String? = (context as MainActivity).mainFragment!!.getCurrency()
+        if(firstCurrencyValue.isNullOrEmpty() || !secondCurrencyValue.isNullOrEmpty()){
             secondCurrencyButton!!.visibility = GONE
         }
         val dbName:String = (activity as MainActivity).mainFragment!!.investmentHelper!!.getTableNameFromDatabaseHelper()
@@ -70,39 +73,14 @@ class SettingsFragment internal constructor() : Fragment(){
             val picker = CurrencyPicker.newInstance("Select Currency") // dialog title
 
             picker.setListener { _, code, _, _ ->
-                // Implement your code here
                 (activity as MainActivity).mainFragment!!.setCurrency2(code)
+                Toast.makeText(requireContext(),
+                    "Second currency added, please go to main page and add an investment now!",Toast.LENGTH_LONG).show()
                 (activity as? MainActivity)!!.updateViewPager()
                 picker.dismiss()
             }
             picker.show(parentFragmentManager, "CURRENCY_PICKER")
         }
-
-        /*importButton!!.setOnClickListener {
-
-            (activity as MainActivity).mainFragment!!.investmentHelper!!.getDatabaseHelper().open()
-            val file = File(directoryPath)
-            Log.d("InvestmentTracker","Directory path is $directoryPath")
-            if (!file.exists()) {
-                Log.d("InvestmentTracker","File doesn't exist!")
-            }
-            val excelToSQLite = ExcelToSQLite(requireContext().applicationContext, dbName,true)
-
-            excelToSQLite.importFromFile(directoryPath+"/investment.xls", object : ImportListener {
-                override fun onStart() {
-                }
-                override fun onCompleted(dbName: String) {
-                    Toast.makeText(requireContext(),
-                        "File is converted, check it out here: $dbName",Toast.LENGTH_LONG).show()
-                    Log.d("InvestmentTracker", "File is converted and saved at $dbName")
-                }
-                override fun onError(e: java.lang.Exception) {
-                    e.printStackTrace()
-                    Log.e("InvestmentTracker","Exception is $e")
-                }
-            })
-            (activity as MainActivity).mainFragment!!.investmentHelper!!.getDatabaseHelper().close()
-        }*/
 
 
         return view
@@ -164,6 +142,7 @@ class SettingsFragment internal constructor() : Fragment(){
         return dir
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     private fun isStoragePermissionGranted(): Boolean {
         val permissionStorage = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -188,3 +167,31 @@ class SettingsFragment internal constructor() : Fragment(){
         (activity as MainActivity).showFab()
     }
 }
+
+
+/*importButton!!.setOnClickListener {
+
+           (activity as MainActivity).mainFragment!!.investmentHelper!!.getDatabaseHelper().open()
+           val file = File(directoryPath)
+           Log.d("InvestmentTracker","Directory path is $directoryPath")
+           if (!file.exists()) {
+               Log.d("InvestmentTracker","File doesn't exist!")
+           }
+           val excelToSQLite = ExcelToSQLite(requireContext().applicationContext, dbName,true)
+
+           excelToSQLite.importFromFile(directoryPath+"/investment.xls", object : ImportListener {
+               override fun onStart() {
+               }
+               override fun onCompleted(dbName: String) {
+                   Toast.makeText(requireContext(),
+                       "File is converted, check it out here: $dbName",Toast.LENGTH_LONG).show()
+                   Log.d("InvestmentTracker", "File is converted and saved at $dbName")
+               }
+               override fun onError(e: java.lang.Exception) {
+                   e.printStackTrace()
+                   Log.e("InvestmentTracker","Exception is $e")
+               }
+           })
+           (activity as MainActivity).mainFragment!!.investmentHelper!!.getDatabaseHelper().close()
+       }*/
+
