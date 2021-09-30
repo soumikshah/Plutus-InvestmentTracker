@@ -31,6 +31,8 @@ class AboutUs internal constructor(): Fragment() {
             .addFacebook("Droidgyaan","Facebook")
             .addGitHub("soumikshah","Github")
             .addTwitter("soumikshah","Twitter")
+            .addWebsite("https://soumikshah.github.io/Plutus-InvestmentTracker/","Official website for Plutus")
+            .addWebsite("https://f-droid.org/packages/com.soumikshah.investmenttracker/","Link to download Plutus")
             .setCustomFont(ResourcesCompat.getFont(requireContext(),R.font.robotoregular))
             .setImage(R.drawable.background_image)
             .create()
