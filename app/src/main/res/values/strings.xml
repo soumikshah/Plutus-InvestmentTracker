@@ -5,16 +5,16 @@
     <string name="msg_no_investment">No investment record found!</string>
     <string name="new_investment_title">Add New Investment</string>
     <string name="edit_investment_title">Edit Investment</string>
-    <string name="hint_enter_investment_name">Name*</string>
-    <string name="hint_enter_investment_amount">Amount*</string>
-    <string name="hint_enter_interest_percent">Interest Percent? (optional)</string>
+    <string name="hint_enter_investment_name">Name<font color="#ff0000"> *</font></string>
+    <string name="hint_enter_investment_amount">Amount<font color="#ff0000"> *</font></string>
+    <string name="hint_enter_interest_percent">Interest Percent?</string>
     <string name="hint_enter_investment_medium">Through some bank or investing app?</string>
-    <string name="label_enter_investment_medium">How did you invest?*</string>
-    <string name="hint_enter_investment_category">Investment Category/Sector*</string>
-    <string name="hint_enter_investment_number_of_units">Number Of Units Held (optional)</string>
-    <string name="hint_enter_investment_price_per_unit">What Was Price Per Unit? (optional)</string>
-    <string name="hint_enter_investment_date">When Did You Invest? (optional)</string>
-    <string name="hint_enter_investment_month">Amount Of Time(in Months) (optional)</string>
+    <string name="label_enter_investment_medium">How did you invest?<font color="#ff0000"> *</font></string>
+    <string name="hint_enter_investment_category">Investment Category/Sector<font color="#ff0000"> *</font></string>
+    <string name="hint_enter_investment_number_of_units">Number Of Units Held</string>
+    <string name="hint_enter_investment_price_per_unit">What Was Price Per Unit?</string>
+    <string name="hint_enter_investment_date">When Did You Invest?</string>
+    <string name="hint_enter_investment_month">Amount Of Time(in Months)</string>
     <string name="delete">Delete</string>
     <string name="graph_fragment">Graph Fragment to be designed here!!!</string>
     <string name="not_mentioned">Not mentioned</string>
