@@ -33,6 +33,7 @@ class SettingsFragment internal constructor() : Fragment(){
     private var exportButton:Button? = null
     private var importButton:Button? = null
     private var secondCurrencyButton:Button? = null
+    private var aboutUsButton:Button? = null
     private val fileProvider = "com.soumikshah.investmenttracker.provider"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -40,9 +41,10 @@ class SettingsFragment internal constructor() : Fragment(){
         sampleTextView = view.findViewById(R.id.sampleTextView)
         exportButton = view.findViewById(R.id.exportButton)
         importButton = view.findViewById(R.id.importButton)
+        aboutUsButton = view.findViewById(R.id.aboutUsButton)
         secondCurrencyButton = view.findViewById(R.id.enableSecondCurrencyButton)
         sampleTextView!!.text = getString(R.string.sampletext)
-
+        sampleTextView!!.visibility = GONE
         val secondCurrencyValue:String? = (context as MainActivity).mainFragment!!.getCurrency2()
         val firstCurrencyValue:String? = (context as MainActivity).mainFragment!!.getCurrency()
         if(firstCurrencyValue.isNullOrEmpty() || !secondCurrencyValue.isNullOrEmpty()){
@@ -81,6 +83,15 @@ class SettingsFragment internal constructor() : Fragment(){
                 picker.dismiss()
             }
             picker.show(parentFragmentManager, "CURRENCY_PICKER")
+        }
+
+        aboutUsButton!!.setOnClickListener {
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left,
+                R.anim.slide_in_left,R.anim.slide_out_right)
+            transaction.replace(R.id.fragment, AboutUs())
+            transaction.addToBackStack(null) // if written, this transaction will be added to backstack
+            transaction.commit()
         }
 
 

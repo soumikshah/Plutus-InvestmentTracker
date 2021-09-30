@@ -1,65 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="com.soumikshah.investmenttracker.view.MainFragment">
 
-    <TextView
-        android:id="@+id/sampleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Sample text"
-        android:padding="10dp"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/exportButton"
+    <include layout="@layout/setting_content" />
+    <RelativeLayout
+        android:id="@+id/fragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:paddingBottom="8dp"
-        android:paddingStart="@dimen/dimen_10"
-        android:paddingEnd="@dimen/dimen_10"
-        android:text="@string/export_as_excel"
-        android:textAlignment="viewStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="?android:attr/buttonBarButtonStyle"
-        android:background="@drawable/textlines"/>
-
-    <Button
-        android:id="@+id/enableSecondCurrencyButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/set_second_currency"
-        android:layout_marginTop="2dp"
-        android:paddingBottom="8dp"
-        android:paddingStart="@dimen/dimen_10"
-        android:paddingEnd="@dimen/dimen_10"
-        android:textAlignment="viewStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exportButton"
-        style="?android:attr/buttonBarButtonStyle"
-        android:background="@drawable/textlines"/>
-
-    <Button
-        android:id="@+id/importButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/import_data_as_excel"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exportButton"
-        android:visibility="gone"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"/>
+</RelativeLayout>
