@@ -1,7 +1,6 @@
 package com.soumikshah.investmenttracker.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,9 +42,7 @@ class EmptyViewFragment internal constructor(): Fragment() {
 
         currencyFirst!!.setOnClickListener {
             val picker = CurrencyPicker.newInstance("Select Currency") // dialog title
-            picker.setListener { name, code, symbol, flagDrawableResID ->
-                // Implement your code here
-                (activity as MainActivity).mainFragment!!.setCurrency(code)
+            picker.setListener { _, code, _, _ ->
                 currencyFirst!!.text = code
                 nextButton!!.isEnabled = true
                 picker.dismiss()
@@ -59,9 +56,7 @@ class EmptyViewFragment internal constructor(): Fragment() {
         currencySecond!!.setOnClickListener {
             val picker = CurrencyPicker.newInstance("Select Currency") // dialog title
 
-            picker.setListener { name, code, symbol, flagDrawableResID ->
-                // Implement your code here
-                (activity as MainActivity).mainFragment!!.setCurrency2(code)
+            picker.setListener { _, code, _, _ ->
                 currencySecond!!.text = code
                 picker.dismiss()
             }
@@ -69,6 +64,10 @@ class EmptyViewFragment internal constructor(): Fragment() {
         }
         nextButton!!.setOnClickListener {
             if(!enableCurrencySecond!!.isChecked || (enableCurrencySecond!!.isChecked && !currencySecond!!.text.equals(getString(R.string.currency_2)))){
+                (activity as MainActivity).mainFragment!!.setCurrency(currencyFirst!!.text.toString())
+                if(currencySecond!!.isEnabled && !currencySecond!!.text.isNullOrEmpty()){
+                    (activity as MainActivity).mainFragment!!.setCurrency2(currencySecond!!.text.toString())
+                }
                 (activity as MainActivity).loadFragment(ShowDialog(false, null, -1))
             } else{
                 Toast.makeText(requireContext(),"Please make sure you have selected currency!",Toast.LENGTH_LONG).show()
