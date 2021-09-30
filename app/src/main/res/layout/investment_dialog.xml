@@ -175,6 +175,8 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="5dp"
                 android:textAllCaps="true"
+                app:placeholderText="Equity/Debt/Savings/Others etc"
+                app:placeholderTextAppearance="@color/investment_medium"
                 app:hintTextColor="@color/investment_category"
                 android:textColorHint="@color/investment_category"
                 android:textSize="@dimen/investment_category">
