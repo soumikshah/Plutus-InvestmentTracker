@@ -31,7 +31,7 @@
 
 
 
-Download APK file from [here](https://github.com/soumikshah/Plutus-InvestmentTracker/releases/tag/1.2.0) or
+Download APK file from [here](https://github.com/soumikshah/Plutus-InvestmentTracker/releases/download/1.2.0/com.soumikshah.plutus.apk) or
 
 
 
