@@ -240,7 +240,7 @@ class MainFragment : Fragment() {
     private fun loadEmptyViewFragment(someFragment:Fragment){
         val transaction = activity?.supportFragmentManager!!.beginTransaction()
         transaction.setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
-        transaction.add(R.id.fragment, someFragment)
+        transaction.replace(R.id.fragment, someFragment)
         transaction.commit()
     }
 
