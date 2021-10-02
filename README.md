@@ -20,11 +20,13 @@
 
 **This application doesn't use internet connection**, so you can be sure that data you insert in this application is not shared with anyone (unless you share it from the settings menu). It's just for you to see. So you can be sure that we can't track your investment data, nor can we sell anything to anyone.
 
-## **Currently this application just supports INR and USD as a currency**
 
-![image1](https://user-images.githubusercontent.com/6127736/132045438-54e9f4f8-a4c4-40f1-a61b-b66edc00f5b8.PNG)
 
-![image2](https://user-images.githubusercontent.com/6127736/132045455-b0836639-8e0b-4cf7-a83b-084f103db365.PNG)
+![image1](https://user-images.githubusercontent.com/6127736/135704223-3f47e774-1ccf-458c-aee4-48839445f7f5.PNG)
+
+![image2](https://user-images.githubusercontent.com/6127736/135704232-87065910-7a47-431b-9b51-63dc6a472687.PNG)
+
+![image3](https://user-images.githubusercontent.com/6127736/135704242-945b757d-b8fb-4d6b-a436-d618607a6d83.PNG)
 
 
 
@@ -51,3 +53,4 @@ This project uses these libraries
 - [ThemedToggleButtonGroup](https://github.com/Bryanx/themed-toggle-button-group)
 - [SQLite2XL](https://github.com/androidmads/SQLite2XL)
 - [Currency Picker For Android](https://github.com/midorikocak/currency-picker-android)
+- [Android About Page](https://github.com/medyo/android-about-page)
