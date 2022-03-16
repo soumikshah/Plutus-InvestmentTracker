@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="graph_colors">
+        <item>@color/graph_color1</item>
+        <item>@color/graph_color2</item>
+        <item>@color/graph_color3</item>
+        <item>@color/graph_color4</item>
+        <item>@color/graph_color5</item>
+        <item>@color/graph_color6</item>
+        <item>@color/graph_color7</item>
+        <item>@color/graph_color8</item>
+        <item>@color/graph_color9</item>
+        <item>@color/graph_color10</item>
+        <item>@color/graph_color11</item>
+        <item>@color/graph_color12</item>
+        <item>@color/graph_color13</item>
+        <item>@color/graph_color14</item>
+    </string-array>
+</resources>

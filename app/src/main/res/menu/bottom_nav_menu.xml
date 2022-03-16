@@ -4,12 +4,12 @@
     android:id="@+id/mainPage"
     android:enabled="true"
     android:icon="@drawable/ic_mainpage_icon"
-    android:title="@string/mainpage"
+    android:title="@string/mainpage_viewpager_name"
     app:showAsAction="always" />
     <item
         android:id="@+id/settings"
         android:enabled="true"
-        android:title="@string/settings"
+        android:title="@string/setttings_viewpager_name"
         android:icon="@drawable/ic_settingspage_icon"
         app:showAsAction="always" />
     <!--<item

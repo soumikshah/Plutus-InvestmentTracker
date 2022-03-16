@@ -16,12 +16,15 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.soumikshah.investmenttracker.R
+import com.soumikshah.investmenttracker.database.model.Investment
 import com.soumikshah.investmenttracker.view.widget.TotalAmountInvestedWidget
+import com.soumikshah.investmenttracker.viewmodel.MainActivityViewModel
 import java.util.*
 import java.util.concurrent.Executor
 
@@ -35,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     var mainFragment: MainFragment? = null
     private var fab: FloatingActionButton? =null
     private var adapter:ViewPagerAdapter? = null
+    private lateinit var mMainActivityViewModel: MainActivityViewModel
 
     override fun onDestroy() {
         super.onDestroy()
@@ -52,34 +56,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         coordinatorLayout = findViewById(R.id.coordinator_layout)
         fab = findViewById<View>(R.id.fab) as FloatingActionButton
-        val executor = ContextCompat.getMainExecutor(this)
-        val biometricManager = BiometricManager.from(this)
-        when (biometricManager.canAuthenticate()) {
-            BiometricManager.BIOMETRIC_SUCCESS ->
-            {
-                coordinatorLayout!!.visibility = GONE
-                authUser(executor)
-            }
-            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE ->
-                Toast.makeText(
-                    this,
-                    getString(R.string.error_msg_no_biometric_hardware),
-                    Toast.LENGTH_LONG
-                ).show()
-            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE ->
-                Toast.makeText(
-                    this,
-                    getString(R.string.error_msg_biometric_hw_unavailable),
-                    Toast.LENGTH_LONG
-                ).show()
-            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED ->
-                Toast.makeText(
-                    this,
-                    getString(R.string.error_msg_biometric_not_setup),
-                    Toast.LENGTH_LONG
-                ).show()
-        }
-
+        fingerprintAuthentication()
         val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
         setActionBar(toolbar)
         if (actionBar != null) {
@@ -88,6 +65,12 @@ class MainActivity : AppCompatActivity() {
         }
         mainFragment = MainFragment()
         viewPager = findViewById(R.id.viewpager)
+        mMainActivityViewModel = ViewModelProviders.of(this)
+            .get(MainActivityViewModel::class.java)
+        mMainActivityViewModel.getInvestment()
+            ?.observe(this, androidx.lifecycle.Observer {
+                investment:Investment? ->
+            })
         bottomNavigationView = findViewById(R.id.bottom_navigation)
         setupViewPager(viewPager)
         bottomNavigationView!!.setOnNavigationItemSelectedListener { item ->
@@ -129,11 +112,47 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun fingerprintAuthentication(){
+        val executor = ContextCompat.getMainExecutor(this)
+        val biometricManager = BiometricManager.from(this)
+        when (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)) {
+            BiometricManager.BIOMETRIC_SUCCESS ->
+            {
+                coordinatorLayout!!.visibility = GONE
+                authUser(executor)
+            }
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE ->
+                Toast.makeText(
+                    this,
+                    getString(R.string.error_msg_no_biometric_hardware),
+                    Toast.LENGTH_LONG
+                ).show()
+            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE ->
+                Toast.makeText(
+                    this,
+                    getString(R.string.error_msg_biometric_hw_unavailable),
+                    Toast.LENGTH_LONG
+                ).show()
+            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED ->
+                Toast.makeText(
+                    this,
+                    getString(R.string.error_msg_biometric_not_setup),
+                    Toast.LENGTH_LONG
+                ).show()
+        }
+    }
+
     fun showFab(){
         fab!!.show()
     }
+
     fun hideFab(){
         fab!!.hide()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fingerprintAuthentication()
     }
 
     override fun onBackPressed() {
@@ -141,6 +160,7 @@ class MainActivity : AppCompatActivity() {
         val currentFragment =
             this.supportFragmentManager.findFragmentById(R.id.mainPage)
     }
+
     fun loadFragment(someFragment: Fragment){
         val fragment: Fragment = someFragment
         val transaction = supportFragmentManager.beginTransaction()
@@ -197,6 +217,8 @@ class MainActivity : AppCompatActivity() {
             })
         biometricPrompt.authenticate(promptInfo)
     }
+
+
     class ViewPagerAdapter(manager: FragmentManager?) : FragmentPagerAdapter(manager!!) {
         private val mFragmentList: MutableList<Fragment> = ArrayList()
         private val mFragmentTitleList: MutableList<String> = ArrayList()

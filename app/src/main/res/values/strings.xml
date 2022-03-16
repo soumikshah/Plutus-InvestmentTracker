@@ -43,13 +43,14 @@
     </string>
     <string name="add">Add</string>
     <string name="edit">Edit</string>
-    <string name="mainpage_viewpager_name">Mainpage</string>
+    <string name="mainpage_viewpager_name">Home</string>
     <string name="setttings_viewpager_name">Settings</string>
     <string name="error_msg_auth_error">Error with the fingerprint. Please try again!</string>
     <string name="error_msg_auth_failed">Authentication failed! Please try again!</string>
     <string name="auth_title">Authentication Required</string>
-    <string name="auth_subtitle">Use your fingerprint to unlock investment tracker</string>
-    <string name="auth_description">We want to keep your financials safe from unauthorized users. \n\nSo only users who know the pin or have registered fingerprints can open this application.</string>
+    <string name="auth_subtitle">Use your fingerprint to unlock Plutus - Investment Tracker</string>
+    <string name="auth_description">We want to keep your financials safe from unauthorized users,
+         So only users who know the pin or have registered fingerprints on this phone can open this application.</string>
     <string name="error_msg_no_biometric_hardware">Your phone doesn\'t support fingerprint scanner</string>
     <string name="error_msg_biometric_hw_unavailable">No fingerprint scanner available</string>
     <string name="error_msg_biometric_not_setup">No fingerprints are registered on your phone</string>

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#3700B3</color>
+    <color name="colorPrimary">#B4FE9B</color>
+    <color name="colorPrimaryDark">#91C483</color>
+    <color name="colorAccent">#91C483</color>
     <color name="msg_no_investment">#999</color>
     <color name="hint_enter_investment">#89c3c3c3</color>
     <color name="timestamp">#858585</color>
-    <color name="investment_name">#845ec2</color>
-    <color name="investment_amount">#845ec2</color>
-    <color name="investment_interest_percent">#845ec2</color>
-    <color name="investment_medium">#845ec2</color>
-    <color name="investment_category">#845ec2</color>
-    <color name="investment_datepicker">#845ec2</color>
-    <color name="investment_amount_of_month">#845ec2</color>
-    <color name="fab_color">#845ec2</color>
+    <color name="investment_name">#998CEB</color>
+    <color name="investment_amount">#998CEB</color>
+    <color name="investment_interest_percent">#998CEB</color>
+    <color name="investment_medium">#998CEB</color>
+    <color name="investment_category">#998CEB</color>
+    <color name="investment_datepicker">#998CEB</color>
+    <color name="investment_amount_of_month">#998CEB</color>
+    <color name="fab_color">#FFF89A</color>
     <color name="recyclerview_divider">#B0A8B9</color>
-    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="textColorPrimary">#000000</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
     <color name="bg_row_background">#fa315b</color>
@@ -25,4 +25,20 @@
     <color name="light_blue_900">#FF01579B</color>
     <color name="fading_white">#8CFFFFFF</color>
     <color name="black">#000000</color>
+
+
+    <color name="graph_color1">#9ADCFF</color>
+    <color name="graph_color2">#FFF89A</color>
+    <color name="graph_color3">#FFB2A6</color>
+    <color name="graph_color4">#FF8AAE</color>
+    <color name="graph_color5">#4D77FF</color>
+    <color name="graph_color6">#FBF46D</color>
+    <color name="graph_color7">#56BBF1</color>
+    <color name="graph_color8">#5EE6EB</color>
+    <color name="graph_color9">#F2FA5A</color>
+    <color name="graph_color10">#B4FE9B</color>
+    <color name="graph_color11">#77E4D4</color>
+    <color name="graph_color12">#998CEB</color>
+    <color name="graph_color13">#FFE162</color>
+    <color name="graph_color14">#91C483</color>
 </resources>

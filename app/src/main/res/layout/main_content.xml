@@ -86,7 +86,7 @@
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/robotobold"
                     android:text="@string/total_amount_of_investment"
-                    android:textColor="@color/investment_name"
+                    android:textColor="@color/graph_color8"
                     android:textSize="24sp" />
 
                 <TextView
@@ -96,7 +96,7 @@
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/robotobold"
                     android:paddingStart="3dp"
-                    android:textColor="@color/investment_amount"
+                    android:textColor="@color/graph_color8"
                     android:textSize="24sp" />
             </LinearLayout>
 
@@ -108,7 +108,7 @@
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="10dp"
                 android:fontFamily="@font/robotobold"
-                android:textColor="@color/investment_name"
+                android:textColor="@color/graph_color8"
                 android:textSize="18sp" />
         </LinearLayout>
 

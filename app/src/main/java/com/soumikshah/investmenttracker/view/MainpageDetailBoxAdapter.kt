@@ -1,11 +1,14 @@
 package com.soumikshah.investmenttracker.view
 
 import android.content.Context
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.soumikshah.investmenttracker.R
@@ -41,7 +44,7 @@ class MainpageDetailBoxAdapter internal constructor(private val context: Context
         var investmentAmount: TextView = itemView.findViewById(R.id.investmentAmount)
         var investmentMoreDetails: TextView = itemView.findViewById(R.id.view_more)
         var investmentParent: RelativeLayout = itemView.findViewById(R.id.parent)
-
+        var cardView:CardView = itemView.findViewById(R.id.card)
     }
 
     init {

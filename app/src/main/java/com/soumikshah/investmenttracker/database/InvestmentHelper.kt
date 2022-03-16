@@ -1,8 +1,6 @@
 package com.soumikshah.investmenttracker.database
 
 import android.content.Context
-import android.util.Log
-import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
 import com.soumikshah.investmenttracker.view.MainActivity
 import java.text.NumberFormat
@@ -20,7 +18,8 @@ class InvestmentHelper(var context: Context) {
         InvestmentsList.clear()
         InvestmentsList.addAll(db!!.allInvestments)
         for(investment in InvestmentsList){
-           if(investment.investmentCurrency.equals(currency)){
+           if(investment.investmentCurrency.equals(currency) &&
+               (investment.investmentCategory.isNotEmpty()|| !investment.investmentCategory.isNullOrBlank())){
                currencyInvestmentsList.add(investment)
             }
         }

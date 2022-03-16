@@ -14,6 +14,7 @@
         android:text="@string/select_currency_text"
         android:padding="25dp"
         android:textAlignment="center"
+        android:background="@color/fading_white"
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

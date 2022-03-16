@@ -6,6 +6,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.soumikshah.investmenttracker.R
@@ -26,6 +27,15 @@ class CategoryScrollingCardView(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val investment = investments[position]
+
+        val graphColors = context.resources.getIntArray(R.array.graph_colors)
+        val map = (context as MainActivity).mainFragment!!.getLegendColorAndName()
+        for((k,v) in map){
+            if(k == investment.investmentCategory){
+                holder.parentView.setBackgroundColor(graphColors.get(v))
+            }
+        }
+
         holder.investmentName!!.text =
             String.format("Name: %s", investment.investmentName)
         holder.investmentAmount!!.text = String.format(
@@ -98,5 +108,6 @@ class CategoryScrollingCardView(
         val investmentPeriod: TextView = itemView.findViewById(R.id.investmentPeriod)
         val investmentNumberOfUnits: TextView = itemView.findViewById(R.id.investmentNumberOfUnits)
         val investmentPricePerUnit: TextView = itemView.findViewById(R.id.investmentPricePerUnit)
+        val parentView:LinearLayout = itemView.findViewById(R.id.parent_view)
     }
 }

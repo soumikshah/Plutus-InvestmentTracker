@@ -3,6 +3,7 @@ package com.soumikshah.investmenttracker.view
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.LegendEntry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -27,7 +30,6 @@ import nl.bryanderidder.themedtogglebuttongroup.ThemedButton
 import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
 import java.text.NumberFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class MainFragment : Fragment() {
@@ -142,13 +144,14 @@ class MainFragment : Fragment() {
             investmentMap = investmentHelper!!.investmentTypeAndAmount
             if (investmentMap != null) {
                 for (type in investmentMap!!.keys) {
-                    if (!investmentCategories.contains(type)) {
+                    if (!investmentCategories.contains(type) && type.isNotEmpty()) {
                         investmentCategories.add(type)
                     }
                 }
             }
             buttonGroup.selectButton(firstButton)
             loadData(getCurrency()!!)
+            getLegendColorAndName()
             mAdapter!!.notifyDataSetChanged()
             firstButton.setOnClickListener {
                 buttonGroup.selectButton(firstButton)
@@ -178,6 +181,22 @@ class MainFragment : Fragment() {
         editor.clear()
         editor.apply()
     }*/
+
+    fun getLegendColorAndName():HashMap<String,Int>{
+        val legendEntries = pieChart!!.legend.entries
+
+        val colorAndLabelName:HashMap<String,Int> = HashMap()
+
+        var indexIncrementor = 0
+        for(i in legendEntries.indices){
+
+            if(legendEntries[i].label.isNotEmpty() || legendEntries[i].label!=null){
+                colorAndLabelName.put(legendEntries[i].label, indexIncrementor)
+                indexIncrementor++
+            }
+        }
+        return colorAndLabelName
+    }
 
     fun getCurrency(): String? {
         return pref!!.getString("currency", "")
@@ -219,6 +238,7 @@ class MainFragment : Fragment() {
             mAdapter!!.notifyDataSetChanged()
         }
     }
+
     private fun initPieChart() {
         pieChart!!.setUsePercentValues(true)
         pieChart!!.description.isEnabled = false
@@ -244,6 +264,15 @@ class MainFragment : Fragment() {
         transaction.commit()
     }
 
+    fun getGraphColor(): ArrayList<Int> {
+        val graphColor = java.util.ArrayList<Int>()
+        val colorArray = resources.getIntArray(R.array.graph_colors)
+
+        for(color in colorArray){
+            graphColor.add(color)
+        }
+        return graphColor
+    }
     private fun showPieChart() {
         pieEntries = ArrayList()
         val label = ""
@@ -251,9 +280,10 @@ class MainFragment : Fragment() {
         for (type in investmentMap!!.keys) {
             pieEntries!!.add(PieEntry(investmentMap!![type]!!.toFloat(), type))
         }
+
         pieDataSet = PieDataSet(pieEntries, label)
         pieDataSet!!.valueTextSize = 12f
-        pieDataSet!!.colors = graphFragment!!.listOfColor
+        pieDataSet!!.colors = getGraphColor()
         pieData = PieData(pieDataSet)
         pieData!!.setDrawValues(true)
         pieDataSet!!.sliceSpace = 0.1f

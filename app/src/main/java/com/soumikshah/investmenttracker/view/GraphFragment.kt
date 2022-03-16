@@ -2,6 +2,7 @@ package com.soumikshah.investmenttracker.view
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -103,7 +104,7 @@ class GraphFragment : Fragment(), OnItemSelectedListener {
         }
         pieDataSet = PieDataSet(pieEntries, label)
         pieDataSet!!.valueTextSize = 12f
-        pieDataSet!!.colors = listOfColor
+        pieDataSet!!.colors = (activity as MainActivity).mainFragment!!.getGraphColor()
         pieData = PieData(pieDataSet)
         pieData!!.setDrawValues(true)
         pieData!!.setValueFormatter(PercentFormatter())
@@ -125,14 +126,20 @@ class GraphFragment : Fragment(), OnItemSelectedListener {
         legend.textColor = Color.WHITE
         legend.form = Legend.LegendForm.CIRCLE
         legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
-    }//initializing colors for the entries
+    }
+    //initializing colors for the entries
 
     //Setting up colors for piechart
     val listOfColor: ArrayList<Int>
         get() {
             //initializing colors for the entries
             val colors = ArrayList<Int>()
-            colors.add(Color.parseColor("#443266"))
+            val colorArray = resources.getIntArray(R.array.graph_colors)
+
+            for(color in colorArray){
+                colors.add(color)
+            }
+/*            colors.add(Color.parseColor("#9ADCFF"))
             colors.add(Color.parseColor("#8C489F"))
             colors.add(Color.parseColor("#421C52"))
             colors.add(Color.parseColor("#C3C3E5"))
@@ -143,7 +150,7 @@ class GraphFragment : Fragment(), OnItemSelectedListener {
             colors.add(Color.parseColor("#6600CC"))
             colors.add(Color.parseColor("#FFCC00"))
             colors.add(Color.parseColor("#000000"))
-            colors.add(Color.parseColor("#CC0000"))
+            colors.add(Color.parseColor("#CC0000"))*/
             return colors
         }
 

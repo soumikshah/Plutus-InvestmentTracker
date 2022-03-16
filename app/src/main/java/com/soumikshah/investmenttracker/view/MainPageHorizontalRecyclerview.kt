@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,7 +32,7 @@ class MainPageHorizontalRecyclerview internal constructor(private val context: C
         holder.setIsRecyclable(false)
         val investmentData = ArrayList<Investment>()
         for (i in investmentList) {
-            if (i.investmentCategory == investmentCat) {
+            if (i.investmentCategory == investmentCat && i.investmentCategory.isNotEmpty()) {
                 investmentData.add(i)
             }
         }
@@ -40,7 +41,7 @@ class MainPageHorizontalRecyclerview internal constructor(private val context: C
         holder.horizontalView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         holder.horizontalView.adapter = investmentHorizontalAdapter
         holder.investmentCategory.setOnClickListener {
-            (context as MainActivity).loadFragment(InvestmentCategoryFragment(investmentData))
+            //(context as MainActivity).loadFragment(InvestmentCategoryFragment(investmentData))
         }
         holder.horizontalView.addOnItemTouchListener(
             RecyclerTouchListener(context, holder.horizontalView, object: AdapterView.OnItemClickListener,

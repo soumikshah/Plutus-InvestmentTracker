@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="280dp"
-    android:layout_height="310dp"
+    android:layout_height="340dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center_vertical"
-    android:layout_centerInParent="true"
-    android:background="@color/colorAccent">
+    android:layout_centerInParent="true">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/parent_view"
+        android:padding="5dp"
+        android:background="@color/fab_color">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/investmentName"
             android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#6C6666"
             tools:text="Investment name: Robinhood"
             android:layout_margin="3dp"
             android:layout_marginBottom="10dp"/>
@@ -24,6 +28,7 @@
             android:id="@+id/investmentAmount"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:textColor="#6C6666"
             tools:text="Investment Amount: Rs 3,00,000"
             android:layout_margin="3dp"
             android:layout_marginBottom="10dp"/>
@@ -32,6 +37,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/investmentMedium"
             android:textSize="20sp"
+            android:textColor="#6C6666"
             tools:text="Investment Medium: Kuvera"
             android:layout_margin="3dp"
             android:layout_marginBottom="10dp"/>
@@ -41,6 +47,7 @@
             android:id="@+id/investmentCategory"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:textColor="#6C6666"
             tools:text="Investment Category: Equity"
             android:layout_margin="3dp"
             android:layout_marginBottom="10dp"/>
@@ -50,6 +57,7 @@
             android:id="@+id/investmentNumberOfUnits"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:textColor="#6C6666"
             tools:text="Number Of Units Bought: 24"
             android:layout_margin="3dp"
             android:layout_marginBottom="10dp"/>
@@ -58,6 +66,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/investmentPricePerUnit"
             android:textSize="20sp"
+            android:textColor="#6C6666"
             android:textStyle="bold"
             android:maxLines="2"
             tools:text="Price Per Unit: 24"
@@ -68,6 +77,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/investmentDate"
             android:textSize="20sp"
+            android:textColor="#6C6666"
             tools:text="Investment Date: 23/05/2010"
             android:layout_margin="3dp"
             android:layout_marginBottom="10dp"
@@ -78,6 +88,7 @@
             android:id="@+id/investmentPercent"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:textColor="#6C6666"
             tools:text="Interest Percent: 5.0%"
             android:layout_margin="3dp"
             android:layout_marginBottom="10dp"/>
@@ -87,6 +98,7 @@
             android:id="@+id/investmentPeriod"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:textColor="#6C6666"
             tools:text="Invested For: 24"
             android:layout_margin="3dp"
             android:layout_marginBottom="10dp"/>

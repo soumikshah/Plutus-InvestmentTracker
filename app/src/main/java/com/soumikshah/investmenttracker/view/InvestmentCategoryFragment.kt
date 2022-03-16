@@ -40,7 +40,6 @@ class InvestmentCategoryFragment internal constructor(investmentList: ArrayList<
         return view
     }
 
-
     init {
         this.investmentList = investmentList
     }
