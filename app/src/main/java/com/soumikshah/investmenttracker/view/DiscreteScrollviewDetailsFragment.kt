@@ -27,11 +27,12 @@ import com.yarolegovich.discretescrollview.transform.Pivot
 import com.yarolegovich.discretescrollview.transform.ScaleTransformer
 import java.util.ArrayList
 
-class DiscreteScrollviewDetails internal constructor(
+//This fragment is for the DiscreetScrollView
+class DiscreteScrollviewDetailsFragment internal constructor(
     private val investments: ArrayList<Investment>,
     itemName: String?,
     itemId: Int?
-) : Fragment(), OnItemChangedListener<CategoryScrollingCardView.ViewHolder?> {
+) : Fragment(), OnItemChangedListener<CategoryScrollingCardViewAdapter.ViewHolder?> {
     private var investment: Investment? = null
     private var itemName: TextView? = null
     private var itemPicker: DiscreteScrollView? = null
@@ -61,7 +62,7 @@ class DiscreteScrollviewDetails internal constructor(
         }
 
         infiniteScrollAdapter =
-            InfiniteScrollAdapter.wrap(CategoryScrollingCardView(requireContext(), investments))
+            InfiniteScrollAdapter.wrap(CategoryScrollingCardViewAdapter(requireContext(), investments))
         itemPicker!!.adapter = infiniteScrollAdapter
         val shake: Animation = AnimationUtils.loadAnimation(requireActivity(), R.anim.shake)
         deleteButton!!.startAnimation(shake)
@@ -116,7 +117,7 @@ class DiscreteScrollviewDetails internal constructor(
         pbutton.layoutParams = params
     }
     override fun onCurrentItemChanged(
-        viewHolder: CategoryScrollingCardView.ViewHolder?,
+        viewAdapterHolder: CategoryScrollingCardViewAdapter.ViewHolder?,
         adapterPosition: Int) {
     }
 

@@ -32,7 +32,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 
 
-class ShowDialog internal constructor(shouldUpdate: Boolean, investment: Investment?, position: Int): Fragment() {
+class ShowDialogFragment internal constructor(shouldUpdate: Boolean, investment: Investment?, position: Int): Fragment() {
     private var inputInvestmentName: TextInputEditText? = null
     private var inputInvestmentAmount: TextInputEditText? = null
     private var inputInvestmentPercent: TextInputEditText? = null

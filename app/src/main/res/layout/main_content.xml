@@ -27,49 +27,46 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="5dp">
-                <TextView
-                    android:id="@+id/currency"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/robotobold"
-                    android:text="@string/currency"
-                    android:textColor="@color/investment_name"
-                    android:textSize="24sp" />
+                android:gravity="center_horizontal">
+
                 <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
                     android:id="@+id/toggleGroup"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:toggle_requiredAmount="1"
                     android:layout_marginTop="5dp"
-                    android:layout_marginStart="3dp"
+                    android:padding="5dp"
+                    app:toggle_requiredAmount="1"
                     app:toggle_selectableAmount="1">
+
                     <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
                         android:id="@+id/firstcurrency"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        app:toggle_btnCornerRadius="60dp"
-                        app:toggle_borderWidth="5dp"
-                        app:toggle_borderColor="#C6C6C6"
-                        app:toggle_selectedBorderColor="@color/colorPrimary"
-                        app:toggle_iconColor="#C6C6C6"
-                        app:toggle_selectedBackgroundColor="@color/colorAccent"
                         app:toggle_backgroundColor="@android:color/white"
-                        app:toggle_iconPadding="30dp"/>
+                        app:toggle_borderColor="#C6C6C6"
+                        app:toggle_borderWidth="5dp"
+                        app:toggle_btnCornerRadius="60dp"
+                        app:toggle_iconColor="#C6C6C6"
+                        app:toggle_iconPadding="30dp"
+                        app:toggle_selectedBackgroundColor="@color/colorAccent"
+                        app:toggle_selectedBorderColor="@color/colorPrimary"
+                        app:toggle_textColor="@color/graph_color8"
+                        app:toggle_textSize="28sp" />
+
                     <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
                         android:id="@+id/secondcurrency"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        app:toggle_btnCornerRadius="60dp"
-                        app:toggle_borderWidth="5dp"
-                        app:toggle_borderColor="#C6C6C6"
-                        app:toggle_selectedBorderColor="@color/colorPrimary"
-                        app:toggle_iconColor="#C6C6C6"
-                        app:toggle_selectedBackgroundColor="@color/colorAccent"
                         app:toggle_backgroundColor="@android:color/white"
-                        app:toggle_iconPadding="30dp" />
+                        app:toggle_borderColor="#C6C6C6"
+                        app:toggle_borderWidth="5dp"
+                        app:toggle_btnCornerRadius="60dp"
+                        app:toggle_iconColor="#C6C6C6"
+                        app:toggle_iconPadding="30dp"
+                        app:toggle_selectedBackgroundColor="@color/colorAccent"
+                        app:toggle_selectedBorderColor="@color/colorPrimary"
+                        app:toggle_textColor="@color/graph_color8"
+                        app:toggle_textSize="28sp" />
                 </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
             </LinearLayout>
             <LinearLayout

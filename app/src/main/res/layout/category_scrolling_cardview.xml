@@ -10,8 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/parent_view"
-        android:padding="5dp"
-        android:background="@color/fab_color">
+        android:padding="5dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,6 +36,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/investmentMedium"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:textColor="#6C6666"
             tools:text="Investment Medium: Kuvera"
             android:layout_margin="3dp"
@@ -78,6 +78,7 @@
             android:id="@+id/investmentDate"
             android:textSize="20sp"
             android:textColor="#6C6666"
+            android:textStyle="bold"
             tools:text="Investment Date: 23/05/2010"
             android:layout_margin="3dp"
             android:layout_marginBottom="10dp"

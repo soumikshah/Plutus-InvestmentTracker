@@ -1,15 +1,12 @@
 package com.soumikshah.investmenttracker.view
 
 import android.content.Context
-import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
@@ -30,7 +27,7 @@ class MainpageDetailBoxAdapter internal constructor(private val context: Context
         holder.investmentAmount.text = String.format(NumberFormat.getInstance().format(investment.investmentAmount))
         //todo holder.parent && moredetails will open new fragment with details about clicked investment.
         holder.investmentParent.setOnClickListener {
-            (context as MainActivity).loadFragment(DiscreteScrollviewDetails(investmentList,investment.investmentCategory,investment.id))
+            (context as MainActivity).loadFragment(DiscreteScrollviewDetailsFragment(investmentList,investment.investmentCategory,investment.id))
         }
     }
 

@@ -42,8 +42,9 @@ class EmptyViewFragment internal constructor(): Fragment() {
 
         currencyFirst!!.setOnClickListener {
             val picker = CurrencyPicker.newInstance("Select Currency") // dialog title
-            picker.setListener { _, code, _, _ ->
+            picker.setListener { _, code, symbol, _ ->
                 currencyFirst!!.text = code
+                ((activity as MainActivity).mainFragment!!.setCurrencySymbol(symbol))
                 nextButton!!.isEnabled = true
                 picker.dismiss()
             }
@@ -56,8 +57,9 @@ class EmptyViewFragment internal constructor(): Fragment() {
         currencySecond!!.setOnClickListener {
             val picker = CurrencyPicker.newInstance("Select Currency") // dialog title
 
-            picker.setListener { _, code, _, _ ->
+            picker.setListener { _, code, symbol, _ ->
                 currencySecond!!.text = code
+                ((activity as MainActivity).mainFragment!!.setCurrencySymbol2(symbol))
                 picker.dismiss()
             }
             picker.show(parentFragmentManager, "CURRENCY_PICKER")
@@ -65,10 +67,11 @@ class EmptyViewFragment internal constructor(): Fragment() {
         nextButton!!.setOnClickListener {
             if(!enableCurrencySecond!!.isChecked || (enableCurrencySecond!!.isChecked && !currencySecond!!.text.equals(getString(R.string.currency_2)))){
                 (activity as MainActivity).mainFragment!!.setCurrency(currencyFirst!!.text.toString())
+
                 if(currencySecond!!.isEnabled && !currencySecond!!.text.isNullOrEmpty()){
                     (activity as MainActivity).mainFragment!!.setCurrency2(currencySecond!!.text.toString())
                 }
-                (activity as MainActivity).loadFragment(ShowDialog(false, null, -1))
+                (activity as MainActivity).loadFragment(ShowDialogFragment(false, null, -1))
             } else{
                 Toast.makeText(requireContext(),"Please make sure you have selected currency!",Toast.LENGTH_LONG).show()
             }

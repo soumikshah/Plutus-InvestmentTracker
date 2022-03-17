@@ -15,10 +15,11 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CategoryScrollingCardView(
+//This adapter is used to populated DiscreteScrollView.
+class CategoryScrollingCardViewAdapter(
     private val context: Context,
     private val investments: ArrayList<Investment>
-) : RecyclerView.Adapter<CategoryScrollingCardView.ViewHolder>() {
+) : RecyclerView.Adapter<CategoryScrollingCardViewAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val v = inflater.inflate(R.layout.category_scrolling_cardview, parent, false)

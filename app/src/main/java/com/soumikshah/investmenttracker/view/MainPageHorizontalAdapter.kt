@@ -1,24 +1,20 @@
 package com.soumikshah.investmenttracker.view
 
-import android.app.Activity
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
 import com.soumikshah.investmenttracker.utils.RecyclerTouchListener
-import java.util.*
 import kotlin.collections.ArrayList
 
-class MainPageHorizontalRecyclerview internal constructor(private val context: Context, private var investmentList: ArrayList<Investment>, private val investmentCategory: List<String>) : RecyclerView.Adapter<MainPageHorizontalRecyclerview.MyViewHolder>() {
+class MainPageHorizontalAdapter internal constructor(private val context: Context, private var investmentList:
+ArrayList<Investment>, private val investmentCategory: List<String>) : RecyclerView.Adapter<MainPageHorizontalAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.mainpage_horizontal_recyclerview, parent, false)
@@ -36,7 +32,7 @@ class MainPageHorizontalRecyclerview internal constructor(private val context: C
                 investmentData.add(i)
             }
         }
-        val investmentHorizontalAdapter = CategorySwipingCardview(context, investmentData)
+        val investmentHorizontalAdapter = CategorySwipingCardviewAdapter(context, investmentData)
         holder.horizontalView.setHasFixedSize(true)
         holder.horizontalView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         holder.horizontalView.adapter = investmentHorizontalAdapter
@@ -56,11 +52,11 @@ class MainPageHorizontalRecyclerview internal constructor(private val context: C
                             categoryList.add(value)
                         }
                     }
-                    (context as MainActivity).loadFragment( DiscreteScrollviewDetails(categoryList,investmentData[position].investmentCategory,investmentData[position].id))
+                    (context as MainActivity).loadFragment( DiscreteScrollviewDetailsFragment(categoryList,investmentData[position].investmentCategory,investmentData[position].id))
                 }
 
                 override fun onLongClick(view: View?, position: Int) {
-                    (context as MainActivity).loadFragment(ShowDialog(true,investmentData[position],position))
+                    (context as MainActivity).loadFragment(ShowDialogFragment(true,investmentData[position],position))
                 }
             })
         )

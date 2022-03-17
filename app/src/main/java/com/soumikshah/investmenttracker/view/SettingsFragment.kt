@@ -74,8 +74,10 @@ class SettingsFragment internal constructor() : Fragment(){
         secondCurrencyButton!!.setOnClickListener {
             val picker = CurrencyPicker.newInstance("Select Currency") // dialog title
 
-            picker.setListener { _, code, _, _ ->
+            picker.setListener { _, code, symbol, _ ->
                 (activity as MainActivity).mainFragment!!.setCurrency2(code)
+                (activity as MainActivity).mainFragment!!.setCurrencySymbol2(symbol)
+                Log.d("Plutus","$symbol is the symbol")
                 Toast.makeText(requireContext(),
                     "Second currency '$code' added, please go to main page and add an investment now!",
                     Toast.LENGTH_LONG).show()

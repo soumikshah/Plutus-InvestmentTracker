@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         fab!!.setOnClickListener {
-            loadFragment(ShowDialog(false, null, -1))
+            loadFragment(ShowDialogFragment(false, null, -1))
         }
     }
 
