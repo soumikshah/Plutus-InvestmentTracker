@@ -14,7 +14,7 @@ import com.soumikshah.investmenttracker.utils.RecyclerTouchListener
 import kotlin.collections.ArrayList
 
 class MainPageHorizontalAdapter internal constructor(private val context: Context, private var investmentList:
-ArrayList<Investment>, private val investmentCategory: List<String>) : RecyclerView.Adapter<MainPageHorizontalAdapter.MyViewHolder>() {
+    ArrayList<Investment>, private val investmentCategory: List<String>) : RecyclerView.Adapter<MainPageHorizontalAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.mainpage_horizontal_recyclerview, parent, false)
@@ -24,14 +24,20 @@ ArrayList<Investment>, private val investmentCategory: List<String>) : RecyclerV
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         if (investmentCategory.size <= position) return
         val investmentCat = investmentCategory[position]
-        holder.investmentCategory.text = String.format("%s " + context.resources.getString(R.string.arrow), investmentCat)
+        holder.investmentCategory.text = String.format("%s " , investmentCat)
         holder.setIsRecyclable(false)
         val investmentData = ArrayList<Investment>()
+        var totalInvested: Float =0f
+        var currency:String? = null
         for (i in investmentList) {
             if (i.investmentCategory == investmentCat && i.investmentCategory.isNotEmpty()) {
+                totalInvested +=i.investmentAmount
                 investmentData.add(i)
+                currency = i.investmentCurrency
             }
         }
+
+        holder.totalInvestmentAmount.text = "${(context as MainActivity).mainFragment!!.fetchCurrencySymbol(currency!!)}"+totalInvested.toString()
         val investmentHorizontalAdapter = CategorySwipingCardviewAdapter(context, investmentData)
         holder.horizontalView.setHasFixedSize(true)
         holder.horizontalView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -73,6 +79,7 @@ ArrayList<Investment>, private val investmentCategory: List<String>) : RecyclerV
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var investmentCategory: TextView = itemView.findViewById(R.id.category_of_the_investment)
         var horizontalView: RecyclerView = itemView.findViewById(R.id.horizontal_view)
+        var totalInvestmentAmount: TextView = itemView.findViewById(R.id.total_of_the_investment)
 
     }
 }

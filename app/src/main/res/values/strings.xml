@@ -20,7 +20,7 @@
     <string name="not_mentioned">Not mentioned</string>
     <string name="undo">UNDO</string>
     <string name="toast_message_no_detail">No more information to show. You can long press on this investment and add some more details!</string>
-    <string name="total_amount_of_investment">Total: </string>
+    <string name="total_amount_of_investment">Total Invested: </string>
     <string name="currency">Currency: </string>
     <string name="mainpage">MainPage</string>
     <string name="graphs">Graphs</string>

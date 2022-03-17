@@ -13,6 +13,7 @@ import com.soumikshah.investmenttracker.database.model.Investment
 import java.text.NumberFormat
 import java.util.*
 
+//Not called anywhere right now
 class MainpageDetailBoxAdapter internal constructor(private val context: Context, investmentList: ArrayList<Investment>) : RecyclerView.Adapter<MainpageDetailBoxAdapter.MyViewHolder>() {
     private var investmentList: ArrayList<Investment> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {

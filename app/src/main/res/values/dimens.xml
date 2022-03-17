@@ -10,7 +10,7 @@
     <dimen name="investment_amount">20sp</dimen>
     <dimen name="investment_interest">20sp</dimen>
     <dimen name="investment_medium">20sp</dimen>
-    <dimen name="investment_category">20sp</dimen>
+    <dimen name="investment_category">22sp</dimen>
     <dimen name="dot_height">30dp</dimen>
     <dimen name="dot_text_size">40sp</dimen>
     <dimen name="timestamp">14sp</dimen>

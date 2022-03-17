@@ -192,7 +192,7 @@ class MainFragment : Fragment() {
          editor.apply()
      }*/
 
-    private fun fetchCurrencySymbol(currencyCode:String): String?{
+    fun fetchCurrencySymbol(currencyCode:String): String?{
         val currencies: Array<ExtendedCurrency>? = ExtendedCurrency.CURRENCIES
         var currencySymbol: String? = null
         if (currencies != null) {
@@ -220,7 +220,7 @@ class MainFragment : Fragment() {
                 investmentHelper!!.investmentTotalAmountWithCurrency(localCurrency)
             )
         )
-        otherInvestment!!.text = investmentHelper!!.investmentCategoryAndAmount
+        //otherInvestment!!.text = investmentHelper!!.investmentCategoryAndAmount
         if (recyclerView != null && recyclerView!!.adapter != null && recyclerView!!.adapter!!.itemCount > 0) {
             recyclerView!!.adapter!!.notifyDataSetChanged()
         }

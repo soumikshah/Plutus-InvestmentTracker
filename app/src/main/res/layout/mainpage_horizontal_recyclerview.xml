@@ -1,16 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="3dp">
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/category_of_the_investment"
-        android:layout_marginTop="5dp"
-        android:textSize="@dimen/investment_category"
-        android:textColor="#000"/>
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/category_of_the_investment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/robotobold"
+            android:padding="3dp"
+            android:layout_weight="1"
+            android:textColor="#000"
+            android:textSize="@dimen/investment_category"
+            tools:text="Equity" />
+
+        <TextView
+            android:id="@+id/total_of_the_investment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="3dp"
+            android:fontFamily="@font/robotoregular"
+            android:textColor="#000"
+            android:textSize="20sp"
+            tools:text="$25,000" />
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/horizontal_view"
         android:layout_width="match_parent"

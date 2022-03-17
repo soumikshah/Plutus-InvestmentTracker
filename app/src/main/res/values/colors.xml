@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="colorPrimary">#B4FE9B</color>
-    <color name="colorPrimaryDark">#91C483</color>
-    <color name="colorAccent">#91C483</color>
+    <color name="colorPrimary">#B98077</color>
+    <color name="colorPrimaryDark">#a4666a</color>
+    <color name="colorAccent">#431713</color>
     <color name="msg_no_investment">#999</color>
     <color name="hint_enter_investment">#89c3c3c3</color>
     <color name="timestamp">#858585</color>
