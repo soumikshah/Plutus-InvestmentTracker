@@ -60,7 +60,6 @@ class MainPageHorizontalAdapter internal constructor(private val context: Contex
                     }
                     (context as MainActivity).loadFragment( DiscreteScrollviewDetailsFragment(categoryList,investmentData[position].investmentCategory,investmentData[position].id))
                 }
-
                 override fun onLongClick(view: View?, position: Int) {
                     (context as MainActivity).loadFragment(ShowDialogFragment(true,investmentData[position],position))
                 }

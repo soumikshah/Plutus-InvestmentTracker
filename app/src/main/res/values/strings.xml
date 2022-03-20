@@ -82,4 +82,6 @@
     </string>
     <string name="about_us"><font size="21">About Us</font> \n<font size="11">Know more about the app and its developer</font></string>
     <string name="linkedIn"><a href="https://www.linkedin.com/in/soumikshah">LinkedIn</a></string>
+    <string name="welcome_to_plutus">Welcome To Plutus</string>
+    <string name="welcome_message_description">We will try to make it easier for you to remember your investment</string>
 </resources>

@@ -86,15 +86,17 @@
                     android:textColor="@color/graph_color8"
                     android:textSize="24sp" />
 
-                <TextView
+                <com.robinhood.ticker.TickerView
                     android:id="@+id/total_amount_invested"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:fontFamily="@font/robotobold"
+                    app:ticker_animationDuration="1500"
+                    app:ticker_defaultPreferredScrollingDirection="any"
                     android:paddingStart="3dp"
                     android:textColor="@color/graph_color8"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"/>
+
             </LinearLayout>
 
             <TextView

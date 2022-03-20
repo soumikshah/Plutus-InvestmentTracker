@@ -4,11 +4,13 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.view.animation.OvershootInterpolator
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -23,6 +25,8 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.mynameismidori.currencypicker.ExtendedCurrency
+import com.robinhood.ticker.TickerUtils
+import com.robinhood.ticker.TickerView
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.InvestmentHelper
 import com.soumikshah.investmenttracker.database.model.Investment
@@ -47,9 +51,9 @@ class MainFragment : Fragment() {
     private var recyclerView: RecyclerView? = null
     var fragment: RelativeLayout? = null
     private var mAdapter: MainPageHorizontalAdapter? = null
-    private var totalAmount:TextView? = null
-    private var otherInvestment:TextView? = null
-    private var investmentListDemo: ArrayList<Investment>  = ArrayList()
+    private var totalAmount: TickerView? = null
+    private var otherInvestment: TextView? = null
+    private var investmentListDemo: ArrayList<Investment> = ArrayList()
     private var secondInvestmentExists: Boolean = false
     private var firstInvestmentExists: Boolean = false
     private var firstCurrency: String? = null
@@ -88,8 +92,9 @@ class MainFragment : Fragment() {
         linearLayoutView = view.findViewById(R.id.linearLayout)
         investmentHelper = InvestmentHelper(requireContext())
         graphFragment = GraphFragment()
-
-
+        totalAmount!!.setCharacterLists(TickerUtils.provideNumberList())
+        totalAmount!!.animationInterpolator = OvershootInterpolator()
+        totalAmount!!.gravity = Gravity.START
         pref = requireContext().getSharedPreferences(
             "currency_name",
             android.content.Context.MODE_PRIVATE
@@ -103,6 +108,7 @@ class MainFragment : Fragment() {
                 noInvestmentView!!.visibility = VISIBLE
             } else {
                 noInvestmentView!!.visibility = GONE
+                Log.d("Plutus","Here?")
                 loadEmptyViewFragment(EmptyViewFragment())
             }
         } else {
@@ -112,14 +118,14 @@ class MainFragment : Fragment() {
             recyclerView!!.visibility = VISIBLE
             firstCurrency = getCurrency()
             secondCurrency = getCurrency2()
-            if(getCurrencySymbol()!=null && !getCurrencySymbol().isNullOrEmpty()){
+            if (getCurrencySymbol() != null && !getCurrencySymbol().equals("0")) {
                 firstCurrencySymbol = getCurrencySymbol()
-            }else{
+            } else {
                 firstCurrencySymbol = fetchCurrencySymbol(firstCurrency!!)
             }
-            if(getCurrencySymbol2() != null && !getCurrencySymbol2().isNullOrEmpty()){
+            if (getCurrencySymbol2() != null && !getCurrencySymbol2().equals("0")) {
                 secondCurrencySymbol = getCurrencySymbol2()
-            }else{
+            } else {
                 secondCurrencySymbol = fetchCurrencySymbol(secondCurrency!!)
             }
 
@@ -192,18 +198,28 @@ class MainFragment : Fragment() {
          editor.apply()
      }*/
 
-    fun fetchCurrencySymbol(currencyCode:String): String?{
+    fun fetchCurrencySymbol(currencyCode: String): String? {
         val currencies: Array<ExtendedCurrency>? = ExtendedCurrency.CURRENCIES
         var currencySymbol: String? = null
         if (currencies != null) {
-            for(currency in currencies){
-                if(currency.code==currencyCode){
-                    currencySymbol = currency.symbol
+            for (currency in currencies) {
+                if (currency.code == currencyCode) {
+                    currencySymbol = if (currency.code.equals("INR")) {
+                        Log.d("Plutus", "CurrencySymbol ${currency.code}")
+                        "₹"
+                    } else {
+                        Log.d("Plutus", "CurrencySymbol ${currency.symbol}")
+                        currency.symbol
+                    }
                 }
             }
         }
+        if (currencySymbol != null && currencySymbol.equals("0")) {
+            return currencyCode
+        }
         return currencySymbol
     }
+
     private fun loadData(localCurrency: String) {
         var currencyInString: String? = null
         var currencySymbol: String? = null
@@ -345,15 +361,15 @@ class MainFragment : Fragment() {
         return graphColor
     }
 
-    fun setCurrencySymbol(currencySymbol:String){
+    fun setCurrencySymbol(currencySymbol: String) {
         val editor = pref!!.edit()
-        editor.putString("currencySymbol",currencySymbol)
+        editor.putString("currencySymbol", currencySymbol)
         editor.apply()
     }
 
-    fun setCurrencySymbol2(currencySymbol: String){
+    fun setCurrencySymbol2(currencySymbol: String) {
         val editor = pref!!.edit()
-        editor.putString("currency2Symbol",currencySymbol)
+        editor.putString("currency2Symbol", currencySymbol)
         editor.apply()
     }
 
@@ -377,11 +393,11 @@ class MainFragment : Fragment() {
         return pref!!.getString("currency2", "")
     }
 
-    fun getCurrencySymbol():String? {
-        return pref!!.getString("currencySymbol","")
+    fun getCurrencySymbol(): String? {
+        return pref!!.getString("currencySymbol", "")
     }
 
-    fun getCurrencySymbol2(): String?{
-        return pref!!.getString("currencySymbol","")
+    fun getCurrencySymbol2(): String? {
+        return pref!!.getString("currency2Symbol", "")
     }
 }
