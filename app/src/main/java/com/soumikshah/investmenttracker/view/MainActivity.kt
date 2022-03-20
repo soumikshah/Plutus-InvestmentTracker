@@ -150,6 +150,13 @@ class MainActivity : AppCompatActivity() {
         fab!!.hide()
     }
 
+    fun showBottomNav(){
+        bottomNavigationView!!.visibility = View.VISIBLE
+    }
+
+    fun hideBottomNav(){
+        bottomNavigationView!!.visibility = View.GONE
+    }
     override fun onResume() {
         super.onResume()
         fingerprintAuthentication()
@@ -168,6 +175,15 @@ class MainActivity : AppCompatActivity() {
             R.anim.slide_in_left,R.anim.slide_out_right)
         transaction.add(R.id.fragment, fragment)
         transaction.addToBackStack(null) // if written, this transaction will be added to backstack
+        transaction.commit()
+    }
+
+    fun replaceFragment(someFragment: Fragment){
+        val fragment: Fragment = someFragment
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.setCustomAnimations(R.anim.slide_in_right,R.anim.slide_out_left,
+            R.anim.slide_in_left,R.anim.slide_out_right)
+        transaction.replace(R.id.fragment, fragment)
         transaction.commit()
     }
 

@@ -39,6 +39,7 @@ class EmptyViewFragment internal constructor(): Fragment() {
         currencyFirst!!.startAnimation(shake)
 
         (activity as MainActivity).hideFab()
+        (activity as MainActivity).hideBottomNav()
 
         currencyFirst!!.setOnClickListener {
             val picker = CurrencyPicker.newInstance("Select Currency") // dialog title

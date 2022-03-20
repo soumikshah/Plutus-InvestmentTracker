@@ -109,7 +109,7 @@ class MainFragment : Fragment() {
             } else {
                 noInvestmentView!!.visibility = GONE
                 Log.d("Plutus","Here?")
-                loadEmptyViewFragment(EmptyViewFragment())
+                (activity as MainActivity).replaceFragment(AppIntroFragment())
             }
         } else {
             noInvestmentView!!.visibility = GONE
@@ -344,7 +344,7 @@ class MainFragment : Fragment() {
         return colorAndLabelName
     }
 
-    private fun loadEmptyViewFragment(someFragment: Fragment) {
+    fun loadEmptyViewFragment(someFragment: Fragment) {
         val transaction = activity?.supportFragmentManager!!.beginTransaction()
         transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
         transaction.replace(R.id.fragment, someFragment)

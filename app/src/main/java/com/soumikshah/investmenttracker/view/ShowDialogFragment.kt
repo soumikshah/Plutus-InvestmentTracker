@@ -344,6 +344,7 @@ class ShowDialogFragment internal constructor(shouldUpdate: Boolean, investment:
 
     override fun onDestroy() {
         (activity as MainActivity).showFab()
+        (activity as MainActivity).showBottomNav()
         super.onDestroy()
     }
 
