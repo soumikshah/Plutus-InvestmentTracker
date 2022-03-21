@@ -10,31 +10,49 @@
         android:id="@+id/selectCurrencyText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="180dp"
-        android:text="@string/select_currency_text"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="@font/robotoregular"
         android:padding="25dp"
+        android:text="@string/select_currency_text"
         android:textAlignment="center"
-        android:background="@color/fading_white"
-        android:textColor="@color/colorPrimary"
+        android:textColor="#00796B"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <Button
-        android:id="@+id/currency1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
+        android:orientation="horizontal"
         android:layout_marginBottom="160dp"
-        android:text="@string/currency_1"
-        style="?android:attr/buttonBarButtonStyle"
+        android:layout_marginStart="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selectCurrencyText" />
+        app:layout_constraintTop_toBottomOf="@+id/selectCurrencyText">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Currency: "
+            android:padding="3dp"
+            android:textSize="15sp"
+            android:textColor="#00796B"/>
 
-    <Button
+        <Button
+            android:id="@+id/currency1"
+            android:background="@drawable/transparent_button_with_border"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/robotoregular"
+            android:text="@string/currency_1"
+            android:textColor="#795548"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+   <!-- <Button
         android:id="@+id/currency2"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="wrap_content"
@@ -59,7 +77,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/currency2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/selectCurrencyText" />
+        app:layout_constraintTop_toBottomOf="@+id/selectCurrencyText" />-->
 
     <Button
         android:id="@+id/nextButton"
@@ -68,6 +86,9 @@
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="30dp"
         android:text="@string/next"
+        android:padding="3dp"
+        android:textColor="@color/graph_color8"
+        android:fontFamily="@font/robotobold"
         android:background="@drawable/transparent_button_with_border"
         android:textAllCaps="true"
         android:enabled="false"

@@ -15,6 +15,7 @@ class AppIntroFragment:Fragment() {
 
     override fun onResume() {
         (activity as MainActivity).hideFab()
+        (activity as MainActivity).hideBottomNav()
         super.onResume()
     }
 
