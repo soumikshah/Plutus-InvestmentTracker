@@ -37,11 +37,7 @@ class EmptyViewFragment internal constructor(): Fragment() {
         currencyFirst!!.setOnClickListener {
             val picker = CurrencyPicker.newInstance("Select Currency") // dialog title
             picker.setListener { _, code, symbol, _ ->
-                if(symbol != "0"){
-                    currencyFirst!!.text = symbol
-                }else{
-                    currencyFirst!!.text = "${(activity as MainActivity).mainFragment!!.fetchCurrencySymbol(code)}"
-                }
+                currencyFirst!!.text = code
                 ((activity as MainActivity).mainFragment!!.setCurrencySymbol(currencyFirst!!.text.toString()))
                 nextButton!!.isEnabled = true
                 picker.dismiss()

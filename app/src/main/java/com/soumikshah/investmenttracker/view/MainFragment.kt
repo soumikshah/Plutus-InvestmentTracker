@@ -108,7 +108,6 @@ class MainFragment : Fragment() {
                 noInvestmentView!!.visibility = VISIBLE
             } else {
                 noInvestmentView!!.visibility = GONE
-                Log.d("Plutus","Here?")
                 (activity as MainActivity).replaceFragment(AppIntroFragment())
             }
         } else {
@@ -176,7 +175,7 @@ class MainFragment : Fragment() {
                 }
             }
             buttonGroup.selectButton(firstButton)
-            loadData(getCurrency()!!)
+            loadData(getCurrencySymbol()!!)
             getLegendColorAndName()
             mAdapter!!.notifyDataSetChanged()
             firstButton.setOnClickListener {
