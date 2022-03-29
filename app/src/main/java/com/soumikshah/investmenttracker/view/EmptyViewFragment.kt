@@ -38,8 +38,15 @@ class EmptyViewFragment internal constructor(): Fragment() {
             val picker = CurrencyPicker.newInstance("Select Currency") // dialog title
             picker.setListener { _, code, symbol, _ ->
                 currencyFirst!!.text = code
-                ((activity as MainActivity).mainFragment!!.setCurrencySymbol(currencyFirst!!.text.toString()))
+                val symbolCurrency = (activity as MainActivity).mainFragment!!.fetchCurrencySymbol(currencyFirst!!.text.toString())
+                if(symbolCurrency!=null){
+                    ((activity as MainActivity).mainFragment!!.setCurrencySymbol(symbolCurrency))
+                }else{
+                    ((activity as MainActivity).mainFragment!!.setCurrencySymbol(symbol.toString()))
+                }
+
                 nextButton!!.isEnabled = true
+                nextButton!!.isClickable = true
                 picker.dismiss()
             }
             picker.show(parentFragmentManager, "CURRENCY_PICKER")
@@ -48,7 +55,7 @@ class EmptyViewFragment internal constructor(): Fragment() {
         nextButton!!.setOnClickListener {
             if( !currencyFirst!!.text.equals(getString(R.string.currency_1))){
                 (activity as MainActivity).mainFragment!!.setCurrency(currencyFirst!!.text.toString())
-                (activity as MainActivity).loadFragment(ShowDialogFragment(false, null, -1))
+                (activity as MainActivity).replaceFragment(ShowDialogFragment(false, null, -1))
             } else{
                 Toast.makeText(requireContext(),"Please make sure you have selected currency!",Toast.LENGTH_LONG).show()
             }

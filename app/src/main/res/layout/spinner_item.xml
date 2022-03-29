@@ -5,4 +5,5 @@
     android:layout_height="wrap_content"
     android:textSize="20sp"
     android:textColor="@color/investment_name"
-    android:padding="5dip" />
+    android:paddingStart="5dip"
+    android:paddingEnd="5dp"/>

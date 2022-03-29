@@ -16,15 +16,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.soumikshah.investmenttracker.R
-import com.soumikshah.investmenttracker.database.model.Investment
 import com.soumikshah.investmenttracker.view.widget.TotalAmountInvestedWidget
-import com.soumikshah.investmenttracker.viewmodel.MainActivityViewModel
 import java.util.*
 import java.util.concurrent.Executor
 
@@ -38,7 +35,6 @@ class MainActivity : AppCompatActivity() {
     var mainFragment: MainFragment? = null
     private var fab: FloatingActionButton? =null
     private var adapter:ViewPagerAdapter? = null
-    private lateinit var mMainActivityViewModel: MainActivityViewModel
 
     override fun onDestroy() {
         super.onDestroy()
@@ -65,12 +61,6 @@ class MainActivity : AppCompatActivity() {
         }
         mainFragment = MainFragment()
         viewPager = findViewById(R.id.viewpager)
-        mMainActivityViewModel = ViewModelProviders.of(this)
-            .get(MainActivityViewModel::class.java)
-        mMainActivityViewModel.getInvestment()
-            ?.observe(this, androidx.lifecycle.Observer {
-                investment:Investment? ->
-            })
         bottomNavigationView = findViewById(R.id.bottom_navigation)
         setupViewPager(viewPager)
         bottomNavigationView!!.setOnNavigationItemSelectedListener { item ->

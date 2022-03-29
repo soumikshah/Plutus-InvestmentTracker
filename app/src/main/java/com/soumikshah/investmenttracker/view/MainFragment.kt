@@ -95,6 +95,7 @@ class MainFragment : Fragment() {
         totalAmount!!.setCharacterLists(TickerUtils.provideNumberList())
         totalAmount!!.animationInterpolator = OvershootInterpolator()
         totalAmount!!.gravity = Gravity.START
+        totalAmount!!.text = "0"
         pref = requireContext().getSharedPreferences(
             "currency_name",
             android.content.Context.MODE_PRIVATE
@@ -175,7 +176,7 @@ class MainFragment : Fragment() {
                 }
             }
             buttonGroup.selectButton(firstButton)
-            loadData(getCurrencySymbol()!!)
+            loadData(getCurrency()!!)
             getLegendColorAndName()
             mAdapter!!.notifyDataSetChanged()
             firstButton.setOnClickListener {
@@ -249,11 +250,13 @@ class MainFragment : Fragment() {
             }
         }
         investmentListDemo.clear()
-        investmentListDemo.addAll(
-            investmentHelper!!.getInvestmentsListAccTOCurrency(
-                currencyInString!!
+        if(currencyInString!=null){
+            investmentListDemo.addAll(
+                investmentHelper!!.getInvestmentsListAccTOCurrency(
+                    currencyInString!!
+                )
             )
-        )
+        }
         initPieChart()
         showPieChart()
         if (mAdapter != null) {
@@ -270,7 +273,7 @@ class MainFragment : Fragment() {
         pieChart!!.holeRadius = 45f
         pieChart!!.setHoleColor(android.R.color.transparent)
         pieChart!!.setDrawEntryLabels(false)
-        pieChart!!.setExtraOffsets(25f, 0f, 25f, 0f)
+        pieChart!!.setExtraOffsets(25f, 0f, 30f, 0f)
         pieChart!!.setUsePercentValues(true);
         pieChart!!.dragDecelerationFrictionCoef = 0.95f;
         // enable rotation of the chart by touch

@@ -5,6 +5,7 @@
     <dimen name="msg_no_investment">26sp</dimen>
     <dimen name="margin_top_no_investment">120dp</dimen>
     <dimen name="lbl_new_investment_title">22sp</dimen>
+    <dimen name="investment_show_dialog_text_size">22sp</dimen>
     <dimen name="dimen_10">10dp</dimen>
     <dimen name="input_new_investment">20sp</dimen>
     <dimen name="investment_amount">20sp</dimen>

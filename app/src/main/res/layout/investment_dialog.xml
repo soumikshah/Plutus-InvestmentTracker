@@ -65,7 +65,7 @@
                     android:layout_marginTop="15dp"
                     android:text="@string/currency"
                     android:textColor="@color/investment_name"
-                    android:textSize="22sp" />
+                    android:textSize="@dimen/investment_show_dialog_text_size" />
 
                 <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
                     android:id="@+id/toggleGroup"

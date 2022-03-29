@@ -54,4 +54,9 @@
         <item name="android:background">?android:attr/colorBackground</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
+
+    <style name="srp_button" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/confirm_button_enable_disable</item>
+    </style>
+
 </resources>

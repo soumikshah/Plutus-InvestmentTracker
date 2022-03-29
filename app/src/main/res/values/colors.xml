@@ -6,13 +6,13 @@
     <color name="msg_no_investment">#999</color>
     <color name="hint_enter_investment">#89c3c3c3</color>
     <color name="timestamp">#858585</color>
-    <color name="investment_name">#998CEB</color>
-    <color name="investment_amount">#998CEB</color>
-    <color name="investment_interest_percent">#998CEB</color>
-    <color name="investment_medium">#998CEB</color>
-    <color name="investment_category">#998CEB</color>
-    <color name="investment_datepicker">#998CEB</color>
-    <color name="investment_amount_of_month">#998CEB</color>
+    <color name="investment_name">#56BBF1</color>
+    <color name="investment_amount">#56BBF1</color>
+    <color name="investment_interest_percent">#56BBF1</color>
+    <color name="investment_medium">#56BBF1</color>
+    <color name="investment_category">#56BBF1</color>
+    <color name="investment_datepicker">#56BBF1</color>
+    <color name="investment_amount_of_month">#56BBF1</color>
     <color name="fab_color">#FFF89A</color>
     <color name="recyclerview_divider">#B0A8B9</color>
     <color name="textColorPrimary">#000000</color>
@@ -25,6 +25,7 @@
     <color name="light_blue_900">#FF01579B</color>
     <color name="fading_white">#8CFFFFFF</color>
     <color name="black">#000000</color>
+    <color name="disable_button">#403F3F</color>
 
 
     <color name="graph_color1">#9ADCFF</color>
