@@ -1,4 +1,4 @@
-package com.soumikshah.investmenttracker.view
+package com.soumikshah.investmenttracker.view.mainfragment
 
 import android.content.SharedPreferences
 import android.graphics.Color
@@ -30,6 +30,10 @@ import com.robinhood.ticker.TickerView
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.InvestmentHelper
 import com.soumikshah.investmenttracker.database.model.Investment
+import com.soumikshah.investmenttracker.view.MainActivity
+import com.soumikshah.investmenttracker.view.homepage.MainPageHorizontalAdapter
+import com.soumikshah.investmenttracker.view.graph.GraphFragment
+import com.soumikshah.investmenttracker.view.startupscreens.AppIntroFragment
 import nl.bryanderidder.themedtogglebuttongroup.ThemedButton
 import nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
 import java.text.NumberFormat

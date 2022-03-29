@@ -1,17 +1,16 @@
-package com.soumikshah.investmenttracker.view
+package com.soumikshah.investmenttracker.view.startupscreens
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.Button
-import android.widget.CheckBox
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.mynameismidori.currencypicker.CurrencyPicker
 import com.soumikshah.investmenttracker.R
+import com.soumikshah.investmenttracker.view.MainActivity
+import com.soumikshah.investmenttracker.view.dialogbox.ShowDialogFragment
 
 class EmptyViewFragment internal constructor(): Fragment() {
     private var currencyFirst: Button? = null

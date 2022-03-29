@@ -1,8 +1,7 @@
-package com.soumikshah.investmenttracker.view
+package com.soumikshah.investmenttracker.view.graph
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +19,7 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
+import com.soumikshah.investmenttracker.view.MainActivity
 import java.util.*
 
 class GraphFragment : Fragment(), OnItemSelectedListener {
@@ -33,7 +33,7 @@ class GraphFragment : Fragment(), OnItemSelectedListener {
     private var pieDataSet: PieDataSet? = null
     private var spinner: Spinner? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.graphfragment, container, false)
+        val view = inflater.inflate(R.layout.fragment_graph, container, false)
         pieChart = view.findViewById(R.id.pieChart_view)
         spinner = view.findViewById(R.id.spinner)
         if (activity != null) {

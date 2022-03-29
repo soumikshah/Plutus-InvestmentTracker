@@ -1,4 +1,4 @@
-package com.soumikshah.investmenttracker.view
+package com.soumikshah.investmenttracker.view.homepage
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,13 +11,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
 import com.soumikshah.investmenttracker.utils.RecyclerTouchListener
+import com.soumikshah.investmenttracker.view.MainActivity
+import com.soumikshah.investmenttracker.view.dialogbox.ShowDialogFragment
+import com.soumikshah.investmenttracker.view.discretescrollview.DiscreteScrollviewDetailsFragment
 import kotlin.collections.ArrayList
 
 class MainPageHorizontalAdapter internal constructor(private val context: Context, private var investmentList:
     ArrayList<Investment>, private val investmentCategory: List<String>) : RecyclerView.Adapter<MainPageHorizontalAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.mainpage_horizontal_recyclerview, parent, false)
+                .inflate(R.layout.layout_mainpage_horizontal_recyclerview, parent, false)
         return MyViewHolder(itemView)
     }
 

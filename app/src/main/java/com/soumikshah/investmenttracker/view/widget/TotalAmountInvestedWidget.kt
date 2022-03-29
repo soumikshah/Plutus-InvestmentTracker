@@ -41,7 +41,7 @@ internal fun updateAppWidget(
     appWidgetId: Int) {
     val widgetText = context.getString(R.string.total_amount_invested)
     // Construct the RemoteViews object
-    val views = RemoteViews(context.packageName, R.layout.total_amount_invested_widget)
+    val views = RemoteViews(context.packageName, R.layout.widget_total_amount_invested)
     views.setTextViewText(R.id.appwidget_text, widgetText)
     val investmentHelper = InvestmentHelper(context)
     val pref:SharedPreferences = context.getSharedPreferences("currency_name",0)

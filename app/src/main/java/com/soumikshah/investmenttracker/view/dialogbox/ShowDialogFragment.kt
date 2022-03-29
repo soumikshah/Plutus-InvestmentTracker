@@ -1,4 +1,4 @@
-package com.soumikshah.investmenttracker.view
+package com.soumikshah.investmenttracker.view.dialogbox
 
 import android.app.DatePickerDialog
 import android.content.Context
@@ -20,7 +20,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import android.content.DialogInterface
-import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.View.GONE
 import android.widget.Toast
@@ -30,6 +29,7 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import com.soumikshah.investmenttracker.view.MainActivity
 
 
 class ShowDialogFragment internal constructor(shouldUpdate: Boolean, investment: Investment?, position: Int): Fragment() {
@@ -68,7 +68,7 @@ class ShowDialogFragment internal constructor(shouldUpdate: Boolean, investment:
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.investment_dialog, container, false)
+        val view = inflater.inflate(R.layout.fragment_investment_dialog, container, false)
         inputInvestmentName = view.findViewById(R.id.investment)
         inputInvestmentAmount = view.findViewById(R.id.investmentAmount)
         inputInvestmentPercent = view.findViewById(R.id.investmentInterest)

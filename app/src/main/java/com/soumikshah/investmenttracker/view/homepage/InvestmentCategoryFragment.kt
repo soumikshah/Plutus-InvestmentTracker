@@ -1,4 +1,4 @@
-package com.soumikshah.investmenttracker.view
+package com.soumikshah.investmenttracker.view.homepage
 
 import android.os.Bundle
 import android.view.LayoutInflater

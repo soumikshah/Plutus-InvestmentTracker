@@ -1,4 +1,4 @@
-package com.soumikshah.investmenttracker.view
+package com.soumikshah.investmenttracker.view.discretescrollview
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
+import com.soumikshah.investmenttracker.view.MainActivity
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,7 +23,7 @@ class CategoryScrollingCardViewAdapter(
 ) : RecyclerView.Adapter<CategoryScrollingCardViewAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val v = inflater.inflate(R.layout.category_scrolling_cardview, parent, false)
+        val v = inflater.inflate(R.layout.layout_category_scrolling_cardview, parent, false)
         return ViewHolder(v)
     }
 

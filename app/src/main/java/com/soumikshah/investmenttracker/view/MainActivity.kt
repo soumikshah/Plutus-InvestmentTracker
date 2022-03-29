@@ -21,6 +21,9 @@ import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.soumikshah.investmenttracker.R
+import com.soumikshah.investmenttracker.view.dialogbox.ShowDialogFragment
+import com.soumikshah.investmenttracker.view.mainfragment.MainFragment
+import com.soumikshah.investmenttracker.view.settings.SettingsFragment
 import com.soumikshah.investmenttracker.view.widget.TotalAmountInvestedWidget
 import java.util.*
 import java.util.concurrent.Executor

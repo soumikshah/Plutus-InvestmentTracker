@@ -2,9 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.soumikshah.investmenttracker.view.MainFragment">
+    tools:context="com.soumikshah.investmenttracker.view.mainfragment.MainFragment">
 
-    <include layout="@layout/setting_content" />
+    <include layout="@layout/fragment_setting" />
     <RelativeLayout
         android:id="@+id/fragment2"
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.soumikshah.investmenttracker.view
+package com.soumikshah.investmenttracker.view.homepage
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
+import com.soumikshah.investmenttracker.view.MainActivity
 import java.text.NumberFormat
 
 //This adapter is used to populate categories on the homepage.
@@ -22,7 +23,7 @@ class CategorySwipingCardviewAdapter internal constructor(private val context: C
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.category_swiping_cardview, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_category_swiping_cardview, parent, false)
         return MyViewHolder(view)
     }
 

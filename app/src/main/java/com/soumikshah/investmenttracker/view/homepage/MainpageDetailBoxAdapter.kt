@@ -1,4 +1,4 @@
-package com.soumikshah.investmenttracker.view
+package com.soumikshah.investmenttracker.view.homepage
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,6 +10,8 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.soumikshah.investmenttracker.R
 import com.soumikshah.investmenttracker.database.model.Investment
+import com.soumikshah.investmenttracker.view.MainActivity
+import com.soumikshah.investmenttracker.view.discretescrollview.DiscreteScrollviewDetailsFragment
 import java.text.NumberFormat
 import java.util.*
 
@@ -17,7 +19,7 @@ import java.util.*
 class MainpageDetailBoxAdapter internal constructor(private val context: Context, investmentList: ArrayList<Investment>) : RecyclerView.Adapter<MainpageDetailBoxAdapter.MyViewHolder>() {
     private var investmentList: ArrayList<Investment> = ArrayList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.category_data_box, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_category_data_box, parent, false)
         return MyViewHolder(view)
     }
 

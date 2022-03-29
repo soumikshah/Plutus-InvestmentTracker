@@ -1,4 +1,4 @@
-package com.soumikshah.investmenttracker.view
+package com.soumikshah.investmenttracker.view.aboutus
 
 import android.content.pm.PackageInfo
 import android.graphics.Typeface

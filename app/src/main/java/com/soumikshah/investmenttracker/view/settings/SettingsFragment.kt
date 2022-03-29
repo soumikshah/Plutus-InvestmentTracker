@@ -1,4 +1,4 @@
-package com.soumikshah.investmenttracker.view
+package com.soumikshah.investmenttracker.view.settings
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -6,7 +6,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -25,6 +24,8 @@ import com.ajts.androidmads.library.SQLiteToExcel
 import com.ajts.androidmads.library.SQLiteToExcel.ExportListener
 import com.mynameismidori.currencypicker.CurrencyPicker
 import com.soumikshah.investmenttracker.R
+import com.soumikshah.investmenttracker.view.MainActivity
+import com.soumikshah.investmenttracker.view.aboutus.AboutUs
 import java.io.File
 
 
