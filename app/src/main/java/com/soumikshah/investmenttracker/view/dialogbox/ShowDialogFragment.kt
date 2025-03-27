@@ -139,6 +139,7 @@ class ShowDialogFragment internal constructor(shouldUpdate: Boolean, investment:
             // date picker dialog
             datePickerDialog = DatePickerDialog(requireContext(), R.style.DatePickerTheme,
                 { _, year, monthOfYear, dayOfMonth -> // set day of month , month and year value in the edit text
+                    c.set(year,monthOfYear,dayOfMonth)
                     inputInvestmentDate!!.text = String.format(Locale.ENGLISH, "%d/%d/%d", dayOfMonth,
                         monthOfYear + 1, year)
                     investmentDateInLong = c.timeInMillis
