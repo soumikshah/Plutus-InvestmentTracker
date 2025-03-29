@@ -235,7 +235,7 @@ class MainFragment : Fragment() {
             currencySymbol = fetchCurrencySymbol(currencyInString)
         }
         totalAmount!!.text = String.format(
-            "$currencySymbol"
+            " $currencySymbol"
                     + NumberFormat.getInstance().format(
                 investmentHelper!!.investmentTotalAmountWithCurrency(localCurrency)
             )

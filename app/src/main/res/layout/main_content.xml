@@ -94,8 +94,9 @@
                     app:ticker_animationDuration="1500"
                     app:ticker_defaultPreferredScrollingDirection="any"
                     android:paddingStart="3dp"
+                    android:layout_gravity="center"
                     android:textColor="@color/graph_color8"
-                    android:textSize="24sp"/>
+                    android:textSize="21sp"/>
 
             </LinearLayout>
 

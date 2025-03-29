@@ -2,9 +2,9 @@ package com.soumikshah.investmenttracker.database
 
 import android.content.Context
 import com.soumikshah.investmenttracker.database.model.Investment
-import com.soumikshah.investmenttracker.view.MainActivity
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.text.NumberFormat
-import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
@@ -132,7 +132,7 @@ class InvestmentHelper(var context: Context) {
         }
 
     fun investmentTotalAmountWithCurrency(currency: String):Float{
-        var totalAmount:Float = 0.0F
+        var totalAmount = 0.0f
         var investment:Investment
         investmentTypeAndAmount.clear()
         for (i in getInvestmentsList().indices) {
@@ -146,8 +146,10 @@ class InvestmentHelper(var context: Context) {
                 totalAmount += investment.investmentAmount
             }
         }
+        val bigDecimal = BigDecimal(totalAmount.toDouble())
+        val roundedBigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_UP)
 
-        return totalAmount
+        return roundedBigDecimal.toFloat()
     }
     val investmentCategoryAndAmount: String
         get() {
