@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId "com.soumikshah.investmenttracker"
         minSdkVersion 23
-        targetSdkVersion 31
+        targetSdkVersion 34
         versionCode 3
         versionName "2.0.0"
 
